@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyToReach — WhatsApp CRM & Marketing for Textile Retailers</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    // Immediate Client-Side Authentication Guard
+    (function() {
+      const token = localStorage.getItem("textile_token");
+      const user = localStorage.getItem("textile_user");
+      if (!token || !user) {
+        window.location.replace("/login");
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <h1>EasyToReach</h1>
+        <span class="brand-badge" style="background:#00a884; color:#fff; box-shadow:0 0 12px rgba(0,168,132,0.4);">WhatsApp CRM</span>
+      </div>
+
+      <nav class="nav-menu">
+        <!-- PLATFORM / GLOBAL SECTION (Admin Only) -->
+        <div class="nav-section-label" id="platformSectionLabel" style="display:none;">
+          <span>PLATFORM</span>
+        </div>
+
+        <!-- 1. EasyToReach Dashboard (All Shops Summary - AT THE TOP, Admin Only) -->
+        <button id="adminOverviewNavBtn" class="nav-item active" data-tab="tab-admin-overview" onclick="App.handleEasyToReachDashboardClick()" style="display:none;">
+          <i class="fa-solid fa-gauge-high"></i> <span>EasyToReach Dashboard</span>
+        </button>
+
+        <!-- 2. Store Accounts (Admin Only) -->
+        <button id="adminUsersNavBtn" class="nav-item" data-tab="tab-accounts" onclick="App.switchTab('tab-accounts')" style="display:none;">
+          <i class="fa-solid fa-users-gear"></i> <span>Store Accounts</span>
+        </button>
+
+        <!-- SHOP WORKSPACE SECTION (Store Management) -->
+        <div class="nav-section-divider" id="platformDivider" style="display:none;"></div>
+        <div class="nav-section-label">
+          <span>STORE MANAGEMENT</span>
+        </div>
+
+        <div class="shop-nav-group" id="shopNavGroup">
+          <!-- Main Shop Tab / Parent Toggle -->
+          <button class="nav-item nav-parent" id="shopParentNavBtn" onclick="App.toggleShopMenu()">
+            <div class="nav-parent-title">
+              <i class="fa-solid fa-store"></i>
+              <span>Shop</span>
+            </div>
+            <div class="nav-parent-meta">
+              <span class="shop-active-pill" id="sidebarActiveShopPill">Store</span>
+              <i class="fa-solid fa-chevron-down nav-chevron" id="shopNavChevron"></i>
+            </div>
+          </button>
+
+          <!-- Collapsible / Grouped Shop Sub-Navigation -->
+          <div class="shop-subnav" id="shopSubnav">
+            <!-- Active Shop Selector (Under Shop Tab) -->
+            <div class="shop-selector-box" id="shopSelectorBox">
+              <label><i class="fa-solid fa-location-dot"></i> Active Store</label>
+              <div id="shopSelectContainer">
+                <select id="shopSelect" class="shop-select" onchange="App.handleShopChange(this.value)"></select>
+                <button class="shop-add-btn" id="shopAddBtn" onclick="App.openNewShopModal()">
+                  <i class="fa-solid fa-plus"></i> Add New Shop
+                </button>
+              </div>
+              <div id="lockedShopContainer" class="locked-shop-card" style="display:none;">
+                <div class="locked-shop-header">
+                  <span class="locked-shop-icon"><i class="fa-solid fa-lock"></i></span>
+                  <div class="locked-shop-details">
+                    <div class="locked-shop-name" id="lockedShopName">Sri Lakshmi Silks</div>
+                    <div class="locked-shop-tag">Assigned Store</div>
+                  </div>
+                </div>
+                <p class="locked-shop-caption"><i class="fa-solid fa-shield-halved"></i> Single-tenant access locked to your shop</p>
+              </div>
+            </div>
+
+            <!-- Shop-Specific Child Links -->
+            <div class="shop-sub-items">
+              <button class="nav-item nav-sub-item" data-tab="tab-dashboard" onclick="App.switchTab('tab-dashboard')">
+                <i class="fa-solid fa-chart-pie"></i> Shop Dashboard
+              </button>
+              <button class="nav-item nav-sub-item" data-tab="tab-customers" onclick="App.switchTab('tab-customers')">
+                <i class="fa-solid fa-users"></i> Customers
+              </button>
+              <button class="nav-item nav-sub-item" data-tab="tab-billing" onclick="App.switchTab('tab-billing')">
+                <i class="fa-solid fa-cash-register"></i> Billing & Points
+              </button>
+              <button class="nav-item nav-sub-item" data-tab="tab-birthdays" onclick="App.switchTab('tab-birthdays')">
+                <i class="fa-solid fa-cake-candles"></i> Birthday Offers
+                <span id="navBirthdayBadge" class="badge" style="display:none;">0</span>
+              </button>
+              <button class="nav-item nav-sub-item" data-tab="tab-campaigns" onclick="App.switchTab('tab-campaigns')">
+                <i class="fa-solid fa-bullhorn"></i> Campaigns
+              </button>
+              <button class="nav-item nav-sub-item" data-tab="tab-logs" onclick="App.switchTab('tab-logs')">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp Logs
+              </button>
+              <button class="nav-item nav-sub-item" data-tab="tab-conversations" onclick="App.switchTab('tab-conversations')">
+                <i class="fa-solid fa-comments"></i> Conversations
+                <span id="navInboxBadge" class="badge" style="display:none;background:#25d366;color:#fff;border-radius:50%;min-width:18px;height:18px;font-size:0.68rem;padding:0 4px;margin-left:4px;align-items:center;justify-content:center;">0</span>
+              </button>
+              <button class="nav-item nav-sub-item" data-tab="tab-flow-builder" id="flowBuilderNavBtn" onclick="App.switchTab('tab-flow-builder')">
+                <i class="fa-solid fa-diagram-project" style="color:#00a884;"></i> Bot Flow Builder
+              </button>
+              <button class="nav-item nav-sub-item" data-tab="tab-settings" id="settingsNavBtn" onclick="App.switchTab('tab-settings')">
+                <i class="fa-solid fa-sliders"></i> Shop Settings
+              </button>
+              <button id="contactAdminNavBtn" class="nav-item nav-sub-item" onclick="App.openContactAdminModal()" style="display:none;">
+                <i class="fa-solid fa-headphones"></i> Contact Admin
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span><span class="dot-live"></span> Meta Cloud API</span>
+        <span id="currentShopNameDisplay" style="font-weight:600; color:var(--accent-400); font-size:0.8rem;">...</span>
+      </div>
+    </aside>
+
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="App.closeMobileSidebar()"></div>
+
+    <!-- ===== MAIN ===== -->
+    <main class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-left-group">
+          <!-- Mobile Menu Hamburger -->
+          <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="App.toggleMobileSidebar()" aria-label="Toggle Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="topbar-title">
+            <div class="topbar-store-tag" id="topbarStoreTag" style="display:none;">
+              <i class="fa-solid fa-store"></i> <span id="topbarStoreName">Sri Lakshmi Silks & Sarees</span>
+            </div>
+            <h2 id="pageTitle">EasyToReach Dashboard</h2>
+            <p id="pageSubtitle">Consolidated metrics across all registered shops</p>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <a href="/" class="btn btn-secondary btn-sm" title="View Public Marketing Website">
+            <i class="fa-solid fa-globe"></i> <span class="btn-text-responsive">Website</span>
+          </a>
+          <button class="theme-toggle-btn" id="themeToggleBtn" onclick="App.toggleTheme()" title="Toggle Dark/Light Mode">
+            <span class="theme-icon-box">
+              <i class="fa-solid fa-moon" id="themeIcon"></i>
+            </span>
+            <span class="theme-label" id="themeLabel">Dark Mode</span>
+          </button>
+          <button id="adminStoreAccountsTopBtn" class="btn btn-secondary btn-sm" onclick="App.switchTab('tab-accounts')" style="display:none;" title="Manage Store Owner Accounts">
+            <i class="fa-solid fa-users-gear"></i> <span class="btn-text-responsive">Store Accounts</span>
+          </button>
+          <button class="btn btn-primary btn-sm" onclick="App.openNewPurchaseModal()">
+            <i class="fa-solid fa-receipt"></i> <span class="btn-text-responsive">Quick Bill</span>
+          </button>
+          <button class="btn btn-whatsapp btn-sm" onclick="App.openDirectWhatsAppModal()">
+            <i class="fa-brands fa-whatsapp"></i> <span class="btn-text-responsive">Send Message</span>
+          </button>
+
+          <!-- User Profile & Logout -->
+          <div class="user-profile-widget" id="userProfileWidget">
+            <div class="user-avatar-pill">
+              <span class="user-avatar-icon" id="userAvatarIcon"><i class="fa-solid fa-user-shield"></i></span>
+              <div class="user-info-text">
+                <span class="user-display-name" id="userDisplayName">...</span>
+                <span class="user-role-badge" id="userRoleBadge">Loading</span>
+              </div>
+            </div>
+            <button class="user-logout-btn" onclick="App.handleLogout()" title="Sign Out of Portal">
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-body">
+
+        <!-- ===== TAB: DASHBOARD ===== -->
+        <section id="tab-dashboard" class="tab-pane active">
+          <!-- 3 Dynamic Responsive Stat Cards (Revenue & Loyalty Points removed as requested) -->
+          <div class="stats-grid stats-grid-3">
+            <div class="stat-card accent-indigo">
+              <div class="stat-header">
+                <span class="stat-label">Total Customers</span>
+                <div class="stat-icon indigo"><i class="fa-solid fa-users"></i></div>
+              </div>
+              <div class="stat-value" id="statCustomers">0</div>
+              <div class="stat-sub">Registered across collections</div>
+            </div>
+            <div class="stat-card accent-emerald">
+              <div class="stat-header">
+                <span class="stat-label">Messages Sent</span>
+                <div class="stat-icon emerald"><i class="fa-brands fa-whatsapp"></i></div>
+              </div>
+              <div class="stat-value" id="statMessages">0</div>
+              <div class="stat-sub">Receipts, wishes & campaigns</div>
+            </div>
+            <div class="stat-card accent-sky">
+              <div class="stat-header">
+                <span class="stat-label">Today's Birthdays</span>
+                <div class="stat-icon sky"><i class="fa-solid fa-gift"></i></div>
+              </div>
+              <div class="stat-value" id="statBirthdays" style="color:var(--primary-600);">0</div>
+              <div class="stat-sub"><a href="#" onclick="App.switchTab('tab-birthdays')" style="color:var(--accent-600); font-weight:600; text-decoration:none;">View & send wishes →</a></div>
+            </div>
+          </div>
+
+          <div class="dashboard-content-grid">
+            <div class="card">
+              <div class="card-header"><h3><i class="fa-solid fa-bolt" style="color:var(--gold);"></i> Quick Actions</h3></div>
+              <div class="card-body">
+                <div class="action-grid">
+                  <div class="action-card" onclick="App.switchTab('tab-billing')">
+                    <div class="action-icon" style="background:var(--accent-50); color:var(--accent-600);"><i class="fa-solid fa-receipt"></i></div>
+                    <h4>Cashier Billing</h4>
+                    <p>Record purchases & send instant WhatsApp receipts with loyalty points.</p>
+                    <span class="btn btn-primary btn-xs">Open POS</span>
+                  </div>
+                  <div class="action-card" onclick="App.switchTab('tab-birthdays')">
+                    <div class="action-icon" style="background:var(--gold-light); color:#b45309;"><i class="fa-solid fa-cake-candles"></i></div>
+                    <h4>Birthday Offers</h4>
+                    <p>Check today's birthday list & dispatch exclusive discount vouchers.</p>
+                    <span class="btn btn-gold btn-xs">Review</span>
+                  </div>
+                  <div class="action-card" onclick="App.switchTab('tab-campaigns')">
+                    <div class="action-icon" style="background:var(--success-bg); color:var(--success);"><i class="fa-solid fa-bullhorn"></i></div>
+                    <h4>Festival Broadcast</h4>
+                    <p>Launch Diwali, Pongal, or Wedding Season campaigns with flyers.</p>
+                    <span class="btn btn-secondary btn-xs">Create</span>
+                  </div>
+                  <div class="action-card" onclick="App.openCsvModal()">
+                    <div class="action-icon" style="background:var(--info-bg); color:var(--info);"><i class="fa-solid fa-file-csv"></i></div>
+                    <h4>Import Customers</h4>
+                    <p>Upload existing customer Excel/CSV with phone numbers & birthdays.</p>
+                    <span class="btn btn-secondary btn-xs">Import</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><h3><i class="fa-brands fa-whatsapp" style="color:var(--wa-green);"></i> Recent Activity</h3></div>
+              <div class="card-body" style="padding:14px;">
+                <div class="activity-feed" id="recentActivityList">
+                  <div class="empty-state"><i class="fa-solid fa-inbox"></i><p>No recent activity</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== TAB: CUSTOMERS ===== -->
+        <section id="tab-customers" class="tab-pane">
+          <div class="card">
+            <div class="card-header">
+              <div style="display:flex; gap:10px; align-items:center;">
+                <input type="text" id="custSearchInput" class="form-control" placeholder="Search name, phone, sarees..." style="width:260px;" oninput="App.loadCustomers()">
+                <select id="custTagFilter" class="form-control" style="width:150px;" onchange="App.loadCustomers()">
+                  <option value="">All Tags</option>
+                  <option value="VIP">VIP</option>
+                  <option value="Bridal">Bridal</option>
+                  <option value="Silk Lover">Silk Lover</option>
+                  <option value="Wedding Shopper">Wedding</option>
+                  <option value="Regular">Regular</option>
+                </select>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button class="btn btn-secondary btn-sm" onclick="App.openCloudSyncModal()" title="Auto-fetch customers from Google Drive, Google Sheets, or Cloud CSV"><i class="fa-solid fa-cloud-arrow-down" style="color:var(--accent-500);"></i> Cloud Sync</button>
+                <button class="btn btn-secondary btn-sm" onclick="App.exportCustomersCSV()" title="Export customer list to Excel/CSV"><i class="fa-solid fa-file-export"></i> Export</button>
+                <button class="btn btn-secondary btn-sm" onclick="App.openCsvModal()"><i class="fa-solid fa-file-csv"></i> Import</button>
+                <button class="btn btn-primary btn-sm" onclick="App.openAddCustomerModal()"><i class="fa-solid fa-user-plus"></i> Add Customer</button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Customer</th>
+                    <th>WhatsApp</th>
+                    <th>Birthday</th>
+                    <th>Preference</th>
+                    <th>Points</th>
+                    <th>Spent</th>
+                    <th>Tags</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="customersTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== TAB: BILLING ===== -->
+        <section id="tab-billing" class="tab-pane">
+          <div class="billing-grid">
+            <div class="card">
+              <div class="card-header"><h3><i class="fa-solid fa-cash-register" style="color:var(--accent-600);"></i> Billing & Loyalty Points</h3></div>
+              <div class="card-body">
+                <form id="billingForm" onsubmit="App.handleBillingSubmit(event)">
+                  <div class="form-group">
+                    <label>Select Customer <span class="required">*</span></label>
+                    <select id="billCustomerSelect" class="form-control" required onchange="App.handleBillingCustomerChange(this.value)">
+                      <option value="">— Choose Customer —</option>
+                    </select>
+                  </div>
+
+                  <div id="selectedCustomerInfo" class="customer-info-box" style="display:none;">
+                    <div>
+                      <span id="billCustNamePhone" style="font-weight:700; font-size:0.92rem;"></span>
+                      <div id="billCustPref" style="font-size:0.78rem; color:var(--slate-500); margin-top:2px;"></div>
+                    </div>
+                    <span id="billCustPointsBadge" class="tag tag-vip">0 Points</span>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>Gross Amount (₹) <span class="required">*</span></label>
+                      <input type="number" id="billGrossAmount" class="form-control" placeholder="15000" min="1" step="any" required oninput="App.calculateBillSummary()">
+                    </div>
+                    <div class="form-group">
+                      <label>Store Discount (₹)</label>
+                      <input type="number" id="billDiscountAmount" class="form-control" placeholder="0" min="0" value="0" oninput="App.calculateBillSummary()">
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>Redeem Points</label>
+                      <input type="number" id="billRedeemPoints" class="form-control" placeholder="0" min="0" value="0" oninput="App.calculateBillSummary()">
+                      <div class="form-help" id="billPointsHelp">1 Point = ₹1 discount</div>
+                    </div>
+                    <div class="form-group">
+                      <label>Invoice No.</label>
+                      <input type="text" id="billInvoiceNo" class="form-control" placeholder="Auto-generated">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Items Summary</label>
+                    <input type="text" id="billItemsSummary" class="form-control" placeholder="2 Kanchipuram Bridal Sarees" value="Bridal Silk Sarees & Readymades">
+                  </div>
+
+                  <div class="bill-calc-summary">
+                    <div class="calc-row"><span>Gross Amount:</span><span id="summaryGross">₹0.00</span></div>
+                    <div class="calc-row"><span>Discount / Points Redeemed:</span><span id="summaryDeductions">-₹0.00</span></div>
+                    <div class="calc-row total"><span>Net Payable:</span><span id="summaryNet">₹0.00</span></div>
+                    <div class="calc-row points-earned"><span>⭐ Points Earned Today:</span><span id="summaryPointsEarned">+0 pts</span></div>
+                  </div>
+
+                  <div class="checkbox-wrapper" style="margin-bottom:18px;">
+                    <input type="checkbox" id="billSendWhatsapp" checked>
+                    <label for="billSendWhatsapp"><i class="fa-brands fa-whatsapp" style="color:var(--wa-green);"></i> Send WhatsApp receipt & points update</label>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary" style="width:100%; padding:14px;">
+                    <i class="fa-solid fa-paper-plane"></i> Record Sale & Send Receipt
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><h3><i class="fa-brands fa-whatsapp" style="color:var(--wa-green);"></i> Live Preview</h3></div>
+              <div class="card-body phone-mockup-container">
+                <div class="phone-mockup">
+                  <div class="phone-notch"></div>
+                  <div class="phone-screen">
+                    <div class="phone-header">
+                      <div class="avatar" id="mockupHeaderAvatar">TP</div>
+                      <div>
+                        <div class="title" id="mockupHeaderName">EasyToReach <i class="fa-solid fa-circle-check" style="color:#25d366; font-size:0.7rem;"></i></div>
+                        <div class="status">Business Account</div>
+                      </div>
+                    </div>
+                    <div class="phone-chat-body">
+                      <div class="chat-bubble outbound" id="receiptPreviewBubble">
+Namaste *Customer*! 🛍️✨
+
+Thank you for shopping!
+
+━━━━━━━━━━━━━━━━
+🧾 *DIGITAL RECEIPT*
+📌 Invoice: INV-AUTO
+👗 Items: Bridal Silk Sarees
+💵 Net Paid: ₹15,000.00
+━━━━━━━━━━━━━━━━
+⭐ Points Earned: +750 pts
+🎁 Balance: 1,200 Points
+
+We look forward to seeing you again!
+                        <div class="timestamp">Just now <i class="fa-solid fa-check-double" style="color:#53bdeb;"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== TAB: BIRTHDAYS ===== -->
+        <section id="tab-birthdays" class="tab-pane">
+          <div class="card" style="margin-bottom:20px;">
+            <div class="card-header" style="background:var(--warning-bg);">
+              <div>
+                <h3 style="color:#92400e;"><i class="fa-solid fa-cake-candles" style="color:var(--gold);"></i> Today's Birthdays (<span id="bdayTodayCount">0</span>)</h3>
+                <p style="font-size:0.8rem; color:#b45309; margin-top:2px;">Personalized discount vouchers are dispatched automatically</p>
+              </div>
+              <button class="btn btn-whatsapp btn-sm" onclick="App.triggerBirthdayWishes()">
+                <i class="fa-brands fa-whatsapp"></i> Send Wishes Now
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table>
+                <thead><tr><th>Customer</th><th>Phone</th><th>DOB</th><th>Preference</th><th>Points</th><th>Status</th><th>Action</th></tr></thead>
+                <tbody id="bdayTodayTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><h3><i class="fa-solid fa-calendar-days" style="color:var(--accent-600);"></i> Upcoming (Next 7 Days)</h3></div>
+            <div class="table-responsive">
+              <table>
+                <thead><tr><th>Customer</th><th>Phone</th><th>Birthday</th><th>In</th><th>Preference</th><th>Points</th></tr></thead>
+                <tbody id="bdayUpcomingTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== TAB: CAMPAIGNS ===== -->
+        <section id="tab-campaigns" class="tab-pane">
+          <div class="campaign-grid">
+            <div class="card">
+              <div class="card-header"><h3><i class="fa-solid fa-bullhorn" style="color:var(--success);"></i> Create Broadcast</h3></div>
+              <div class="card-body">
+                <form id="campaignForm" onsubmit="App.handleCampaignSubmit(event)">
+                  <div class="form-group">
+                    <label>Template</label>
+                    <select id="campTemplateSelect" class="form-control" onchange="App.handleTemplateSelect(this.value)">
+                      <option value="">— Custom Campaign —</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Campaign Title <span class="required">*</span></label>
+                    <input type="text" id="campTitle" class="form-control" placeholder="Deepavali Silk Mela 2026" required>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label><i class="fa-solid fa-layer-group"></i> Category</label>
+                      <select id="campType" class="form-control">
+                        <option value="FESTIVAL_OFFER">Festival Offer</option>
+                        <option value="NEW_COLLECTION">New Collection</option>
+                        <option value="FLASH_SALE">Flash Sale</option>
+                        <option value="LOYALTY_BONUS">Loyalty Bonus</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label><i class="fa-solid fa-tags" style="color:var(--primary);"></i> Target Audience</label>
+                      <select id="campAudience" class="form-control" onchange="App.updateCampaignAudienceEstimate()">
+                        <option value="ALL">All Target Audiences</option>
+                        <option value="VIP">VIP</option>
+                        <option value="FIRST_TIME">First Time Buyer</option>
+                        <option value="REGULAR">Regular</option>
+                        <option value="FREQUENT">Frequent Buyer</option>
+                        <option value="WEDDING">Wedding</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-row campaign-demographics-grid">
+                    <div class="form-group">
+                      <label><i class="fa-solid fa-venus-mars" style="color:var(--primary);"></i> Gender</label>
+                      <select id="campGender" class="form-control" onchange="App.updateCampaignAudienceEstimate()">
+                        <option value="ALL">All Genders</option>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label><i class="fa-solid fa-cake-candles" style="color:var(--primary);"></i> Age Group</label>
+                      <select id="campAge" class="form-control" onchange="App.updateCampaignAudienceEstimate()">
+                        <option value="ALL">All Ages</option>
+                        <option value="UNDER_5">&lt; 5 years</option>
+                        <option value="5_TO_18">5 - 18 years</option>
+                        <option value="18_TO_30">18 - 30 years</option>
+                        <option value="30_TO_50">30 - 50 years</option>
+                        <option value="50_PLUS">50+ years</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label><i class="fa-solid fa-coins" style="color:var(--primary);"></i> Loyalty Points</label>
+                      <select id="campPoints" class="form-control" onchange="App.updateCampaignAudienceEstimate()">
+                        <option value="ALL">All Points</option>
+                        <option value="ABOVE_0">&gt; 0 Points (Active)</option>
+                        <option value="ABOVE_50">50+ Points</option>
+                        <option value="ABOVE_100">100+ Points</option>
+                        <option value="ABOVE_500">500+ Points</option>
+                        <option value="ZERO">0 Points</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Audience Match Indicator -->
+                  <div id="campAudienceBadge" style="margin: 12px 0 16px; padding: 10px 14px; background: rgba(37,211,102,0.08); border: 1px solid rgba(37,211,102,0.25); border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem;">
+                    <span><i class="fa-solid fa-users" style="color:var(--success); margin-right:6px;"></i> Matched Audience:</span>
+                    <strong id="campAudienceCount" style="color:var(--success); font-size: 0.95rem;">Calculating...</strong>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Flyer / Image URL</label>
+                    <input type="url" id="campMediaUrl" class="form-control" placeholder="https://example.com/banner.jpg" oninput="App.updateCampaignPreview()">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Message <span class="required">*</span></label>
+                    <textarea id="campBody" class="form-control" rows="7" placeholder="Use {{customer_name}}, {{shop_name}}, {{points}}, {{city}}" required oninput="App.updateCampaignPreview()"></textarea>
+                    <div class="form-help">Variables: <code>{{customer_name}}</code>, <code>{{shop_name}}</code>, <code>{{points}}</code>, <code>{{city}}</code></div>
+                  </div>
+
+                  <button type="submit" class="btn btn-whatsapp" style="width:100%; padding:14px;">
+                    <i class="fa-solid fa-paper-plane"></i> Launch Broadcast
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><h3><i class="fa-brands fa-whatsapp" style="color:var(--wa-green);"></i> Preview</h3></div>
+              <div class="card-body phone-mockup-container">
+                <div class="phone-mockup">
+                  <div class="phone-notch"></div>
+                  <div class="phone-screen">
+                    <div class="phone-header">
+                      <div class="avatar" id="campMockupAvatar">TP</div>
+                      <div>
+                        <div class="title" id="campMockupName">EasyToReach <i class="fa-solid fa-circle-check" style="color:#25d366; font-size:0.7rem;"></i></div>
+                        <div class="status">Business Account</div>
+                      </div>
+                    </div>
+                    <div class="phone-chat-body">
+                      <div class="chat-bubble outbound" id="campPreviewBubble">
+                        <img id="campPreviewImg" src="" style="display:none;" alt="Flyer">
+                        <div id="campPreviewText">Type a message to preview...</div>
+                        <div class="timestamp">10:30 AM <i class="fa-solid fa-check-double" style="color:#53bdeb;"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:20px;">
+            <div class="card-header"><h3><i class="fa-solid fa-clock-rotate-left"></i> Campaign History</h3></div>
+            <div class="table-responsive">
+              <table>
+                <thead><tr><th>Campaign</th><th>Type</th><th>Audience</th><th>Status</th><th>Sent</th><th>Date</th></tr></thead>
+                <tbody id="campaignsHistoryTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== TAB: CONVERSATIONS ===== -->
+        <section id="tab-conversations" class="tab-pane">
+          <div class="conv-layout" id="convLayout">
+            <!-- LEFT: Conversation List Panel -->
+            <div class="conv-list-panel" id="convListPanel">
+              <div class="conv-list-header">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                  <h4 style="margin:0;font-size:1rem;"><i class="fa-solid fa-comments" style="color:var(--accent-600);"></i> Conversations</h4>
+                  <button class="btn btn-primary btn-sm" onclick="App.openNewChatModal()" title="Start new conversation" style="padding:5px 10px;font-size:0.78rem;">
+                    <i class="fa-solid fa-pen-to-square"></i> New Chat
+                  </button>
+                </div>
+                <input type="text" id="convSearchInput" class="form-control" placeholder="Search by name or phone…" oninput="App.filterConversations()" style="font-size:0.85rem;">
+              </div>
+              <div id="conversationsList"><div style="padding:24px;text-align:center;color:var(--text-muted);font-size:0.85rem;">Loading conversations…</div></div>
+            </div>
+
+            <!-- RIGHT: Chat Window -->
+            <div class="conv-chat-panel" id="convChatPanel">
+              <!-- Chat Header -->
+              <div id="chatHeader" class="conv-chat-header">
+                <button class="btn btn-secondary btn-sm conv-mobile-back-btn" id="convMobileBackBtn" onclick="App.closeActiveConversation()" title="Back to conversations list" style="display:none;margin-right:8px;padding:6px 10px;">
+                  <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-weight:700;font-size:0.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="chatCustomerName">Select a conversation</div>
+                  <div style="font-size:0.78rem;color:var(--text-muted);" id="chatCustomerPhone"></div>
+                </div>
+                <div id="chatHeaderActions" style="display:none;gap:8px;flex-shrink:0;align-items:center;">
+                  <button class="btn btn-secondary btn-sm" onclick="App.removeActiveConversation()" title="Remove this customer from conversation list" style="color:var(--text-muted);font-size:0.78rem;padding:5px 9px;">
+                    <i class="fa-solid fa-xmark"></i> Remove from list
+                  </button>
+                  <button class="btn btn-secondary btn-sm" onclick="App.loadConversations()" title="Refresh messages"><i class="fa-solid fa-arrows-rotate"></i></button>
+                </div>
+              </div>
+
+              <!-- Chat Messages Area -->
+              <div id="chatMessages" class="conv-messages-area">
+                <div style="text-align:center;color:var(--text-muted);margin-top:60px;">
+                  <i class="fa-solid fa-comments" style="font-size:2.5rem;margin-bottom:12px;display:block;opacity:0.4;"></i>
+                  Select a customer to start chatting
+                </div>
+              </div>
+
+              <!-- Chat Composer -->
+              <div id="chatComposer" class="conv-composer">
+                <div id="composerTextMode">
+                  <div style="display:flex;gap:10px;align-items:flex-end;">
+                    <textarea id="chatTextInput" class="form-control" rows="2" placeholder="Type a message… (Enter to send, Shift+Enter for newline)" style="flex:1;resize:none;font-size:0.88rem;"></textarea>
+                    <button class="btn btn-primary" onclick="App.sendManualChat()" style="white-space:nowrap;padding:8px 14px;" title="Send WhatsApp Message">
+                      <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== TAB: BOT FLOW BUILDER ===== -->
+        <section id="tab-flow-builder" class="tab-pane">
+          <div class="flow-builder-layout">
+            <!-- Top Controls Toolbar -->
+            <div class="flow-builder-toolbar">
+              <div class="flow-toolbar-left">
+                <div class="flow-select-group">
+                  <label><i class="fa-solid fa-diagram-project" style="color:#00a884;"></i> Flow:</label>
+                  <select id="flowSelectDropdown" class="form-control" onchange="FlowBuilder.loadSelectedFlow()">
+                    <option value="">Loading flows...</option>
+                  </select>
+                </div>
+                <div class="flow-input-group">
+                  <label>Name:</label>
+                  <input type="text" id="flowNameInput" class="form-control" placeholder="Flow Name..." value="Festive Offer Yes/No Flow">
+                </div>
+                <div class="flow-input-group">
+                  <label><i class="fa-solid fa-bolt" style="color:var(--gold);"></i> Trigger:</label>
+                  <input type="text" id="flowTriggerInput" class="form-control" placeholder="Keywords (e.g. offer, hi)..." value="offer, hi, help">
+                </div>
+              </div>
+              <div class="flow-toolbar-right">
+                <button class="btn btn-secondary btn-sm flow-palette-toggle-btn" id="flowPaletteToggleBtn" onclick="FlowBuilder.toggleMobilePalette()" title="Open Components Palette">
+                  <i class="fa-solid fa-shapes" style="color:var(--accent-500);"></i> <span>Components</span>
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="FlowBuilder.autoArrange()" title="Auto-align nodes in clean order">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i> Auto Arrange
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="FlowBuilder.openSimulatorModal()" title="Simulate WhatsApp customer responses">
+                  <i class="fa-solid fa-mobile-screen"></i> Test Simulator
+                </button>
+                <button class="btn btn-whatsapp btn-sm" id="flowSendBtn" onclick="FlowBuilder.openSendFlowModal()" title="Send this interactive flow directly to original customers" style="background:#25d366;border-color:#25d366;color:#fff;font-weight:600;">
+                  <i class="fa-brands fa-whatsapp"></i> Send to Customers
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="FlowBuilder.createNewFlow()" title="Create blank flow">
+                  <i class="fa-solid fa-plus"></i> New Flow
+                </button>
+                <button class="btn btn-primary btn-sm" onclick="FlowBuilder.saveCurrentFlow()" id="flowSaveBtn" style="background:#00a884;border-color:#00a884;">
+                  <i class="fa-solid fa-floppy-disk"></i> Save Flow
+                </button>
+              </div>
+            </div>
+
+            <!-- Workspace: Sidebar + Canvas -->
+            <div class="flow-workspace">
+              <!-- Left Components Palette -->
+              <div class="flow-components-panel" id="flowComponentsPanel">
+                <div class="flow-palette-title">
+                  <div style="display:flex;align-items:baseline;gap:6px;">
+                    <span>Components</span>
+                    <small style="font-size:0.68rem;color:var(--text-muted);font-weight:normal;">Click to add</small>
+                  </div>
+                  <button class="flow-palette-close-btn" onclick="FlowBuilder.toggleMobilePalette(false)" title="Close Components Palette" aria-label="Close Components"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="flow-palette-section">
+                  <span class="palette-sec-label">LOGIC</span>
+                  <div class="palette-items-grid">
+                    <button class="palette-item" onclick="FlowBuilder.addNode('trigger')" title="Add Trigger Node">
+                      <div class="palette-icon" style="background:rgba(234, 88, 12, 0.12);color:#ea580c;"><i class="fa-solid fa-bolt"></i></div>
+                      <span>Trigger</span>
+                    </button>
+                    <button class="palette-item" onclick="FlowBuilder.addNode('condition')" title="Add Condition Node">
+                      <div class="palette-icon" style="background:rgba(147, 51, 234, 0.12);color:#9333ea;"><i class="fa-solid fa-code-branch"></i></div>
+                      <span>Condition</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="flow-palette-section">
+                  <span class="palette-sec-label">INTERACTIVE</span>
+                  <div class="palette-items-grid">
+                    <button class="palette-item highlight-palette-item" onclick="FlowBuilder.addNode('buttons')" title="Add Interactive Buttons (Yes/No)">
+                      <div class="palette-icon" style="background:rgba(0, 168, 132, 0.15);color:#00a884;"><i class="fa-solid fa-list-check"></i></div>
+                      <span>Reply Buttons</span>
+                    </button>
+                    <button class="palette-item" onclick="FlowBuilder.addNode('list')" title="Add Interactive List Menu">
+                      <div class="palette-icon" style="background:rgba(14, 165, 233, 0.12);color:#0ea5e9;"><i class="fa-solid fa-bars-staggered"></i></div>
+                      <span>Menu List</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="flow-palette-section">
+                  <span class="palette-sec-label">CONTENT</span>
+                  <div class="palette-items-grid">
+                    <button class="palette-item" onclick="FlowBuilder.addNode('text')" title="Add Text Message Response">
+                      <div class="palette-icon" style="background:rgba(16, 185, 129, 0.12);color:#10b981;"><i class="fa-solid fa-message"></i></div>
+                      <span>Text Msg</span>
+                    </button>
+                    <button class="palette-item" onclick="FlowBuilder.addNode('coupon')" title="Add Discount Voucher">
+                      <div class="palette-icon" style="background:rgba(245, 158, 11, 0.12);color:#d97706;"><i class="fa-solid fa-tag"></i></div>
+                      <span>Coupon</span>
+                    </button>
+                    <button class="palette-item" onclick="FlowBuilder.addNode('agent')" title="Add Live Staff Handoff">
+                      <div class="palette-icon" style="background:rgba(236, 72, 153, 0.12);color:#db2777;"><i class="fa-solid fa-headset"></i></div>
+                      <span>Staff Handoff</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Helper tip -->
+                <div class="flow-sidebar-help">
+                  <i class="fa-solid fa-circle-info" style="color:var(--accent-600);"></i>
+                  <div>
+                    <strong>How to Connect:</strong><br>
+                    Click a colored circle on any button, then click the target node's left connector. Drag nodes anywhere to arrange!
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mobile Palette Backdrop Overlay -->
+              <div class="flow-palette-backdrop" id="flowPaletteBackdrop" onclick="FlowBuilder.toggleMobilePalette(false)"></div>
+
+              <!-- Center Canvas Area -->
+              <div class="flow-canvas-container" id="flowCanvasContainer">
+                <svg id="flowConnectionsSvg" class="flow-svg-layer"></svg>
+                <div id="flowNodesContainer" class="flow-nodes-container"></div>
+
+                <!-- Floating Canvas Controls -->
+                <div class="flow-canvas-controls">
+                  <button class="canvas-ctl-btn" onclick="FlowBuilder.zoomIn()" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
+                  <button class="canvas-ctl-btn" onclick="FlowBuilder.zoomOut()" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+                  <button class="canvas-ctl-btn" onclick="FlowBuilder.zoomReset()" title="Reset Zoom">100%</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== TAB: WHATSAPP LOGS ===== -->
+        <section id="tab-logs" class="tab-pane">
+          <div class="card">
+            <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <h3 style="margin:0;"><i class="fa-brands fa-whatsapp" style="color:var(--wa-green);"></i> Message Delivery Logs</h3>
+                <span class="badge" style="background:#e8f5e9;color:#2e7d32;font-size:0.75rem;padding:3px 8px;border-radius:12px;font-weight:600;">Last 3 Days Default</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <label for="logsDaysFilter" style="font-size:0.8rem;color:var(--text-muted);margin:0;">Filter:</label>
+                <select id="logsDaysFilter" class="form-control" style="width:auto;padding:4px 10px;font-size:0.82rem;" onchange="App.loadWhatsAppLogs()">
+                  <option value="3" selected>Last 3 Days</option>
+                  <option value="7">Last 7 Days</option>
+                  <option value="30">Last 30 Days</option>
+                  <option value="all">All Time</option>
+                </select>
+                <button class="btn btn-secondary btn-sm" onclick="App.loadWhatsAppLogs()"><i class="fa-solid fa-arrows-rotate"></i> Refresh</button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table>
+                <thead><tr><th>Time</th><th>Customer</th><th>Phone</th><th>Type</th><th>Status</th><th>Message ID</th><th>Preview</th></tr></thead>
+                <tbody id="whatsappLogsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== TAB: SETTINGS ===== -->
+        <section id="tab-settings" class="tab-pane">
+          <div class="card" style="max-width:780px; margin:0 auto;">
+            <div class="card-header"><h3><i class="fa-solid fa-gear" style="color:var(--accent-600);"></i> Shop Profile & API Settings</h3></div>
+            <div class="card-body">
+              <form id="shopSettingsForm" onsubmit="App.handleShopSettingsSubmit(event)">
+                <div class="settings-section">
+                  <h4><i class="fa-solid fa-store" style="color:var(--accent-600);"></i> Shop Details</h4>
+                  <div class="form-row">
+                    <div class="form-group"><label>Shop Name <span class="required">*</span></label><input type="text" id="setShopName" class="form-control" required></div>
+                    <div class="form-group"><label>Sender Display Name <span class="required">*</span></label><input type="text" id="setSenderName" class="form-control" required></div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group"><label>Contact Phone</label><input type="text" id="setShopPhone" class="form-control"></div>
+                    <div class="form-group"><label>City</label><input type="text" id="setShopCity" class="form-control"></div>
+                  </div>
+                  <div class="form-group"><label>Showroom Address</label><input type="text" id="setShopAddress" class="form-control"></div>
+                </div>
+
+                <div class="settings-section">
+                  <h4><i class="fa-brands fa-whatsapp" style="color:var(--wa-teal);"></i> Meta WhatsApp Cloud API</h4>
+                  <div class="info-banner success">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <div><strong>Simulation Mode Active:</strong> Leave credentials blank to test in simulated mode. Fill in your Meta Cloud API details to deliver real messages.</div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group"><label>Phone Number ID</label><input type="text" id="setMetaPhoneId" class="form-control" placeholder="e.g. 109823482394823"></div>
+                    <div class="form-group"><label>WABA ID</label><input type="text" id="setMetaWabaId" class="form-control" placeholder="e.g. 293847293847293"></div>
+                  </div>
+                  <div class="form-group"><label>Access Token</label><input type="password" id="setMetaToken" class="form-control" placeholder="EAABw..."></div>
+                </div>
+
+                <div class="settings-section">
+                  <h4><i class="fa-solid fa-cloud" style="color:var(--accent-500);"></i> Google Drive / Cloud Sheets Auto-Sync</h4>
+                  <div class="form-group">
+                    <label>Google Sheets Shareable / Published Link</label>
+                    <input type="url" id="setCloudSheetUrl" class="form-control" placeholder="https://docs.google.com/spreadsheets/d/...">
+                    <div class="form-help">Paste your Google Sheet link here. EasyToReach can auto-fetch customer rows directly without manual export.</div>
+                  </div>
+                </div>
+
+                <div class="settings-section">
+                  <h4><i class="fa-solid fa-robot" style="color:var(--accent-600);"></i> WhatsApp Interactive Auto-Replies</h4>
+                  <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:12px;">Customize the automatic messages sent to customers when they click interactive quick-reply buttons on WhatsApp.</p>
+                  <div class="form-group" style="margin-bottom:10px;">
+                    <label>Catalog / Plans Clicked Auto-Reply</label>
+                    <textarea id="setAutoReplyPlans" class="form-control" rows="2" placeholder="e.g. 🌸 Thank you for your interest! View our latest festive catalog here: https://..."></textarea>
+                  </div>
+                  <div class="form-group" style="margin-bottom:10px;">
+                    <label>Loyalty Points / Balance Clicked Auto-Reply</label>
+                    <textarea id="setAutoReplyPoints" class="form-control" rows="2" placeholder="e.g. ✨ Your loyalty balance is {points} Points (Worth ₹{points}). Redeem on your next visit!"></textarea>
+                  </div>
+                  <div class="form-group" style="margin-bottom:10px;">
+                    <label>Talk to Staff / Support Clicked Auto-Reply</label>
+                    <textarea id="setAutoReplyStaff" class="form-control" rows="2" placeholder="e.g. A store associate has been notified and will reply shortly on this chat."></textarea>
+                  </div>
+                  <div class="form-group" style="margin-bottom:10px;">
+                    <label>Not Interested / Opt-out Auto-Reply</label>
+                    <textarea id="setAutoReplyOptOut" class="form-control" rows="2" placeholder="e.g. Understood! We have noted your preference. Have a wonderful day!"></textarea>
+                  </div>
+                </div>
+
+                <div class="settings-section">
+                  <h4><i class="fa-solid fa-coins" style="color:var(--gold);"></i> Loyalty Points & Birthday Rules</h4>
+                  <div class="form-row">
+                    <div class="form-group"><label>Points per ₹100 Spent</label><input type="number" id="setPointsRule" class="form-control" min="0" step="0.5" value="5.0"><div class="form-help">e.g. 5 = 5% rewards</div></div>
+                    <div class="form-group"><label>Point Value in ₹</label><input type="number" id="setRedeemVal" class="form-control" min="0.1" step="0.1" value="1.0"></div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group"><label>Birthday Discount %</label><input type="number" id="setBdayDiscount" class="form-control" min="1" max="100" value="15"></div>
+                    <div class="form-group"><label>Offer Validity (Days)</label><input type="number" id="setBdayDays" class="form-control" min="1" max="30" value="7"></div>
+                  </div>
+                  <div class="checkbox-wrapper" style="margin-top:12px; background:var(--accent-50); border-color:var(--accent-200);">
+                    <input type="checkbox" id="setAutoBdayWishes" checked style="accent-color:var(--accent-600);">
+                    <label for="setAutoBdayWishes" style="color:var(--accent-700);">Enable Automated Daily Birthday Wishes</label>
+                  </div>
+                </div>
+
+                <!-- We Miss You Reminder -->
+                <div class="settings-section">
+                  <h4><i class="fa-solid fa-heart-crack" style="color:#e11d48;"></i> "We Miss You" Reminder</h4>
+                  <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:12px;">Automatically send a warm WhatsApp reminder to customers who haven't visited the shop for a set number of days.</p>
+                  <div class="checkbox-wrapper" style="margin-bottom:12px; background:rgba(225,29,72,0.06); border-color:rgba(225,29,72,0.2);">
+                    <input type="checkbox" id="setMissYouEnabled" checked style="accent-color:#e11d48;">
+                    <label for="setMissYouEnabled" style="color:#be123c;">Enable "We Miss You" Auto-Reminder</label>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>Trigger After (Days of No Visit)</label>
+                      <input type="number" id="setMissYouDays" class="form-control" min="7" max="365" value="30">
+                      <div class="form-help">Send reminder if customer hasn't visited in this many days</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Custom Message Template <span style="color:var(--text-muted);font-weight:400;">(optional — leave blank for default)</span></label>
+                    <textarea id="setMissYouTemplate" class="form-control" rows="3" placeholder="e.g. 💐 Namaste {{customer_name}}! We miss you at {{shop_name}}. Come visit us for exclusive new arrivals! Available variables: {{customer_name}}, {{shop_name}}, {{city}}, {{days}}"></textarea>
+                  </div>
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="App.triggerMissYouReminders()" style="margin-bottom:4px;">
+                    <i class="fa-solid fa-paper-plane"></i> Send "We Miss You" Now (Manual Trigger)
+                  </button>
+                </div>
+
+                <!-- Points Redemption Reminder -->
+                <div class="settings-section">
+                  <h4><i class="fa-solid fa-coins" style="color:var(--gold);"></i> Loyalty Points Redemption Reminder</h4>
+                  <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:12px;">Remind customers about their accumulated loyalty points so they don't forget to redeem them.</p>
+                  <div class="checkbox-wrapper" style="margin-bottom:12px; background:var(--gold-light); border-color:rgba(245,158,11,0.25);">
+                    <input type="checkbox" id="setPointsReminderEnabled" checked style="accent-color:var(--gold);">
+                    <label for="setPointsReminderEnabled" style="color:#92400e;">Enable Points Redemption Auto-Reminder</label>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>Remind Every (Days)</label>
+                      <input type="number" id="setPointsReminderDays" class="form-control" min="7" max="365" value="60">
+                      <div class="form-help">How often to send the reminder (e.g. every 60 days)</div>
+                    </div>
+                    <div class="form-group">
+                      <label>Minimum Points to Trigger</label>
+                      <input type="number" id="setPointsReminderMinPoints" class="form-control" min="1" value="50">
+                      <div class="form-help">Only remind customers with at least this many points</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Custom Message Template <span style="color:var(--text-muted);font-weight:400;">(optional)</span></label>
+                    <textarea id="setPointsReminderTemplate" class="form-control" rows="3" placeholder="e.g. 🌟 Namaste {{customer_name}}! You have {{points}} loyalty points (₹{{points_value}}) at {{shop_name}} — redeem them on your next visit!&#10;Available variables: {{customer_name}}, {{shop_name}}, {{city}}, {{points}}, {{points_value}}"></textarea>
+                  </div>
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="App.triggerPointsReminders()" style="margin-bottom:4px;">
+                    <i class="fa-solid fa-paper-plane"></i> Send Points Reminders Now (Manual Trigger)
+                  </button>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="margin-top:8px;"><i class="fa-solid fa-floppy-disk"></i> Save Settings</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== ADMIN OVERVIEW TAB ===== -->
+        <section id="tab-admin-overview" class="tab-pane">
+          <div class="card" style="margin-bottom:20px;">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-gauge-high" style="color:var(--accent-600);"></i> EasyToReach Dashboard — All Shops Summary</h3>
+              <button class="btn btn-secondary btn-sm" onclick="App.loadAdminOverview()"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+            </div>
+            <!-- Totals Row -->
+            <div id="adminOverviewTotals" class="stats-grid" style="margin:16px 0 8px;">
+              <div class="stat-card">
+                <div class="stat-value" id="aov-shops">—</div>
+                <div class="stat-label"><i class="fa-solid fa-store"></i> Total Shops</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value" id="aov-messages">—</div>
+                <div class="stat-label"><i class="fa-brands fa-whatsapp"></i> Messages Sent</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value" id="aov-meta-bill" style="color:var(--accent-600);">—</div>
+                <div class="stat-label"><i class="fa-solid fa-indian-rupee-sign"></i> Amount to Meta (₹1/msg)</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value" id="aov-active-subs" style="color:var(--success);">—</div>
+                <div class="stat-label"><i class="fa-solid fa-shield-halved"></i> Active Subscriptions</div>
+              </div>
+            </div>
+            <!-- Per-Shop Table -->
+            <div style="overflow-x:auto; margin-top:12px;">
+              <table class="data-table" id="adminOverviewTable">
+                <thead>
+                  <tr>
+                    <th>Shop Name</th>
+                    <th>City</th>
+                    <th>Messages Sent</th>
+                    <th>Amount to Meta (₹)</th>
+                    <th>Subscription Plan</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="adminOverviewTableBody">
+                  <tr><td colspan="9" style="text-align:center;padding:24px;color:var(--text-muted);">Loading shop data…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== TAB: STORE ACCOUNTS (FULL PAGE) ===== -->
+        <section id="tab-accounts" class="tab-pane">
+          <!-- Summary Cards -->
+          <div class="stats-grid" style="margin-bottom:20px;">
+            <div class="stat-card">
+              <div class="stat-value" id="accTotalUsers">—</div>
+              <div class="stat-label"><i class="fa-solid fa-users"></i> Total Accounts</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="accActiveUsers" style="color:var(--success);">—</div>
+              <div class="stat-label"><i class="fa-solid fa-circle-check"></i> Active Accounts</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="accSuspendedUsers" style="color:var(--danger);">—</div>
+              <div class="stat-label"><i class="fa-solid fa-circle-pause"></i> Suspended</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="accTotalShops">—</div>
+              <div class="stat-label"><i class="fa-solid fa-store"></i> Registered Shops</div>
+            </div>
+          </div>
+
+          <!-- Store Accounts Card -->
+          <div class="card" style="margin-bottom:24px;">
+            <div class="card-header">
+              <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                <input type="text" id="accountSearchInput" class="form-control" placeholder="Search username, name, store..." style="width:260px;" oninput="App.filterStoreAccounts()">
+                <select id="accountRoleFilter" class="form-control" style="width:140px;" onchange="App.filterStoreAccounts()">
+                  <option value="">All Roles</option>
+                  <option value="shop_owner">Shop Owner</option>
+                  <option value="admin">Platform Admin</option>
+                </select>
+                <select id="accountStatusFilter" class="form-control" style="width:140px;" onchange="App.filterStoreAccounts()">
+                  <option value="">All Status</option>
+                  <option value="ACTIVE">Active</option>
+                  <option value="SUSPENDED">Suspended</option>
+                </select>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button class="btn btn-secondary btn-sm" onclick="App.loadStoreAccountsPage()" title="Refresh Accounts List">
+                  <i class="fa-solid fa-rotate-right"></i> Refresh
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="App.openNewShopModal()" title="Add New Textile Showroom">
+                  <i class="fa-solid fa-store"></i> + Add Shop
+                </button>
+                <button class="btn btn-primary btn-sm" onclick="App.openCreateAccountModal()" title="Create New Store Owner Account">
+                  <i class="fa-solid fa-user-plus"></i> + Add Account
+                </button>
+              </div>
+            </div>
+
+            <!-- Accounts Table -->
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>User / Name</th>
+                    <th>Role</th>
+                    <th>Assigned Showroom</th>
+                    <th>Email & Phone</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="storeAccountsTableBody">
+                  <tr><td colspan="7" style="text-align:center; padding:24px; color:var(--text-muted);">Loading store accounts...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Registered Shops Management Card -->
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-store" style="color:var(--accent-600);"></i> Registered Shops Directory</h3>
+              <button class="btn btn-secondary btn-sm" onclick="App.openNewShopModal()"><i class="fa-solid fa-plus"></i> Add New Shop</button>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Shop Name</th>
+                    <th>City & Address</th>
+                    <th>Contact Phone</th>
+                    <th>WhatsApp Mode</th>
+                    <th>Store Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="storeShopsDirectoryBody">
+                  <tr><td colspan="5" style="text-align:center; padding:24px; color:var(--text-muted);">Loading shops directory...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ===== MODALS ===== -->
+
+  <!-- Flow Simulator Modal -->
+  <div id="flowSimulatorModal" class="modal-backdrop">
+    <div class="modal-dialog" style="max-width:390px;background:transparent;box-shadow:none;border:none;">
+      <div style="background:#111;border-radius:36px;padding:10px;box-shadow:0 25px 60px rgba(0,0,0,0.5);position:relative;">
+        <button onclick="FlowBuilder.closeSimulatorModal()" style="position:absolute;top:-12px;right:-12px;width:32px;height:32px;border-radius:50%;background:#ef4444;color:#fff;border:none;cursor:pointer;font-size:0.9rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(0,0,0,0.3);z-index:99;">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        
+        <div style="background:#efeae2;border-radius:26px;overflow:hidden;font-size:0.78rem;">
+          <!-- Phone Header -->
+          <div style="background:#128c7e;color:white;padding:14px 14px;display:flex;align-items:center;gap:9px;">
+            <div style="width:30px;height:30px;border-radius:50%;background:#075e54;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.75rem;">SL</div>
+            <div style="flex:1;">
+              <div style="font-weight:bold;font-size:0.84rem;">Sri Lakshmi Silks <i class="fa-solid fa-circle-check" style="color:#25d366;font-size:0.7rem;"></i></div>
+              <div style="font-size:0.65rem;color:#e0f2fe;"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#25d366;margin-right:4px;"></span>Online • Flow Test</div>
+            </div>
+            <button onclick="FlowBuilder.restartSimulation()" style="background:rgba(255,255,255,0.15);border:none;color:#fff;border-radius:6px;padding:4px 8px;cursor:pointer;font-size:0.75rem;" title="Restart Test">
+              <i class="fa-solid fa-rotate-right"></i> Reset
+            </button>
+          </div>
+
+          <!-- Phone Messages Scroll Area -->
+          <div id="simFlowMessagesArea" style="padding:14px;display:flex;flex-direction:column;gap:10px;min-height:360px;max-height:460px;overflow-y:auto;background:#efeae2;">
+            <!-- Dynamic simulation messages drop here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Send Flow to Original Customers Modal -->
+  <div id="flowSendModal" class="modal-backdrop">
+    <div class="modal-dialog" style="max-width:540px;">
+      <div class="modal-header" style="background:linear-gradient(135deg, #128c7e, #075e54);color:white;border-radius:12px 12px 0 0;padding:16px 20px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;">
+            <i class="fa-brands fa-whatsapp" style="font-size:1.4rem;color:#25d366;"></i>
+          </div>
+          <div>
+            <h3 style="margin:0;font-size:1.15rem;font-weight:700;color:white;">Send Interactive Flow to Customers</h3>
+            <p style="margin:2px 0 0;font-size:0.76rem;opacity:0.9;">Deliver customized interactive button message to customer WhatsApp</p>
+          </div>
+        </div>
+        <button class="modal-close" onclick="FlowBuilder.closeSendFlowModal()" style="color:white;opacity:0.85;"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body" style="padding:20px;">
+        <!-- Flow summary info -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:8px;margin-bottom:16px;">
+          <span style="font-size:0.82rem;color:var(--text-muted);"><i class="fa-solid fa-diagram-project" style="color:#00a884;margin-right:6px;"></i>Active Flow:</span>
+          <span id="flowSendModalFlowName" style="font-weight:700;color:var(--accent-600);font-size:0.88rem;">Festive Offer Yes/No Flow</span>
+        </div>
+
+        <!-- Target Audience Selector -->
+        <div style="margin-bottom:16px;">
+          <label style="font-size:0.82rem;font-weight:700;margin-bottom:8px;display:block;">1. Select Target Audience</label>
+          <div style="display:flex;gap:12px;margin-bottom:12px;">
+            <label style="display:flex;align-items:center;gap:8px;font-size:0.84rem;cursor:pointer;background:var(--bg-card);padding:10px 14px;border:1px solid var(--border-color);border-radius:8px;flex:1;">
+              <input type="radio" name="flowSendTarget" value="single" checked onchange="FlowBuilder.toggleSendTargetUI()">
+              <div>
+                <strong>Single Customer</strong>
+                <div style="color:var(--text-muted);font-size:0.74rem;">Direct 1-on-1 Chat message</div>
+              </div>
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:0.84rem;cursor:pointer;background:var(--bg-card);padding:10px 14px;border:1px solid var(--border-color);border-radius:8px;flex:1;">
+              <input type="radio" name="flowSendTarget" value="segment" onchange="FlowBuilder.toggleSendTargetUI()">
+              <div>
+                <strong>Broadcast Segment</strong>
+                <div style="color:var(--text-muted);font-size:0.74rem;">Mass send to customer group</div>
+              </div>
+            </label>
+          </div>
+
+          <!-- Single Customer Panel -->
+          <div id="flowSendSinglePanel">
+            <div style="margin-bottom:10px;">
+              <label style="font-size:0.78rem;font-weight:600;display:block;margin-bottom:4px;">Choose Existing Customer:</label>
+              <select id="flowSendCustomerSelect" class="form-control" style="font-size:0.84rem;" onchange="FlowBuilder.onSelectCustomerForSend(this)">
+                <option value="">-- Select an existing customer --</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:0.78rem;font-weight:600;display:block;margin-bottom:4px;">Or Enter WhatsApp Phone Number (with Country Code):</label>
+              <input type="tel" id="flowSendCustomPhone" class="form-control" placeholder="+91 8754702610" style="font-size:0.85rem;">
+            </div>
+          </div>
+
+          <!-- Segment Broadcast Panel -->
+          <div id="flowSendSegmentPanel" style="display:none;">
+            <label style="font-size:0.78rem;font-weight:600;display:block;margin-bottom:4px;">Audience Segment:</label>
+            <select id="flowSendSegmentSelect" class="form-control" style="font-size:0.85rem;">
+              <option value="all">👥 All Opted-In Customers</option>
+              <option value="vip">⭐ VIP Customers (High Spenders / Points)</option>
+              <option value="regular">🛍️ Regular Loyal Customers</option>
+              <option value="inactive">⏳ Inactive / Dormant (No visit in 30 days)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Live WhatsApp Message Preview -->
+        <div>
+          <label style="font-size:0.82rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:6px;">
+            <i class="fa-solid fa-eye" style="color:#00a884;"></i> 2. Message & Buttons Customer Will Receive:
+          </label>
+          <div style="background:#efeae2;border-radius:12px;padding:14px;border:1px solid #d1d7db;">
+            <div style="background:#fff;border-radius:8px 8px 8px 0;padding:10px 12px;box-shadow:0 1px 2px rgba(0,0,0,0.1);max-width:92%;margin-bottom:8px;">
+              <div id="flowSendPreviewMessage" style="font-size:0.82rem;line-height:1.45;white-space:pre-wrap;color:#111b21;">
+                Namaste {name}! 🛍️ Would you like to view our exclusive Festive Silk Collection with an instant 15% VIP discount?
+              </div>
+              <div style="text-align:right;font-size:0.65rem;color:#667781;margin-top:4px;">Now <i class="fa-solid fa-check-double" style="color:#53bdeb;"></i></div>
+            </div>
+            <div id="flowSendPreviewButtons" style="display:flex;flex-direction:column;gap:5px;max-width:92%;">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="padding:14px 20px;border-top:1px solid var(--border-color);display:flex;justify-content:flex-end;gap:10px;">
+        <button class="btn btn-secondary" onclick="FlowBuilder.closeSendFlowModal()">Cancel</button>
+        <button class="btn btn-whatsapp" id="flowSendSubmitBtn" onclick="FlowBuilder.submitSendFlow()" style="background:#25d366;border-color:#25d366;color:#fff;font-weight:600;padding:8px 18px;">
+          <i class="fa-brands fa-whatsapp"></i> Send WhatsApp Flow Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Chat Search Modal -->
+  <div id="newChatModal" class="modal-backdrop">
+    <div class="modal-dialog" style="max-width:480px;">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-magnifying-glass" style="color:var(--accent-600);"></i> Start New Conversation</h3>
+        <button class="modal-close" onclick="App.closeNewChatModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" style="padding:20px 24px;">
+        <div style="margin-bottom:14px;">
+          <label style="font-size:0.82rem;font-weight:600;color:var(--text-heading);display:block;margin-bottom:6px;">Search customer by name or phone number</label>
+          <div style="display:flex;gap:8px;">
+            <input type="text" id="newChatSearchInput" class="form-control" placeholder="e.g. Meenakshi or 9840112233" oninput="App.searchCustomersForNewChat()" style="flex:1;font-size:0.88rem;">
+            <button class="btn btn-secondary btn-sm" onclick="App.searchCustomersForNewChat()"><i class="fa-solid fa-search"></i></button>
+          </div>
+        </div>
+        <div id="newChatSearchResults" style="max-height:320px;overflow-y:auto;border:1px solid var(--border-color);border-radius:8px;">
+          <div style="padding:20px;text-align:center;color:var(--text-muted);font-size:0.85rem;">
+            <i class="fa-solid fa-users" style="font-size:1.5rem;display:block;margin-bottom:8px;opacity:0.4;"></i>
+            Type a name or phone number to search
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Admin Modal -->
+  <div id="contactAdminModal" class="modal-backdrop">
+    <div class="modal-dialog" style="max-width:420px;">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-headphones" style="color:var(--accent-600);"></i> Contact Admin</h3>
+        <button class="modal-close" onclick="App.closeContactAdminModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" style="text-align:center; padding:28px 24px;">
+        <div style="font-size:3rem; margin-bottom:12px;">🎧</div>
+        <h4 style="margin-bottom:6px; color:var(--text-primary);">Need Help?</h4>
+        <p style="color:var(--text-muted); margin-bottom:20px; font-size:0.95rem;">Our admin team is here to assist you with shop setup, billing issues, or any questions.</p>
+        <div style="background:var(--bg-secondary); border-radius:12px; padding:18px; text-align:left; display:flex; flex-direction:column; gap:12px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <i class="fa-solid fa-envelope" style="color:var(--accent-500); width:20px;"></i>
+            <div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">Email</div>
+              <a href="mailto:admin@easytoreach.in" style="color:var(--accent-400); font-weight:600;">admin@easytoreach.in</a>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <i class="fa-brands fa-whatsapp" style="color:#25d366; width:20px;"></i>
+            <div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">WhatsApp Support</div>
+              <a href="https://wa.me/919876543210" target="_blank" style="color:var(--accent-400); font-weight:600;">+91 98765 43210</a>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <i class="fa-solid fa-clock" style="color:var(--accent-500); width:20px;"></i>
+            <div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">Support Hours</div>
+              <span style="font-weight:600; color:var(--text-primary);">Mon – Sat, 9:00 AM – 6:00 PM</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" style="width:100%; margin-top:20px;" onclick="App.closeContactAdminModal()">
+          <i class="fa-solid fa-check"></i> Got it, Thanks!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customer Modal -->
+  <div id="customerModal" class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="customerModalTitle"><i class="fa-solid fa-user-plus" style="color:var(--accent-600);"></i> Add Customer</h3>
+        <button class="modal-close" onclick="App.closeCustomerModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="customerForm" onsubmit="App.handleCustomerSubmit(event)">
+        <div class="modal-body">
+          <input type="hidden" id="custFormId">
+          <div class="form-row">
+            <div class="form-group"><label>Full Name <span class="required">*</span></label><input type="text" id="custFormName" class="form-control" placeholder="Meenakshi Sundaram" required></div>
+            <div class="form-group"><label>Phone (WhatsApp) <span class="required">*</span></label><input type="tel" id="custFormPhone" class="form-control" placeholder="9840112233" required></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Date of Birth</label><input type="date" id="custFormDob" class="form-control"></div>
+            <div class="form-group"><label>Anniversary</label><input type="date" id="custFormAnniv" class="form-control"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Gender</label>
+              <select id="custFormGender" class="form-control"><option value="Female">Female</option><option value="Male">Male</option><option value="Other">Other</option></select>
+            </div>
+            <div class="form-group">
+              <label>Preference</label>
+              <select id="custFormPref" class="form-control">
+                <option value="Bridal Kanchipuram Sarees">Bridal Kanchipuram</option>
+                <option value="Soft Silk Sarees">Soft Silk</option>
+                <option value="Banarasi & Tussar">Banarasi & Tussar</option>
+                <option value="Handloom Cotton Sarees">Handloom Cotton</option>
+                <option value="Pattu Pavadai & Kurtis">Pattu Pavadai</option>
+                <option value="Raymond Suiting & Blazers">Raymond Suiting</option>
+                <option value="Silk Dhotis & Wedding Kurtas">Silk Dhotis</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Initial Points</label><input type="number" id="custFormPoints" class="form-control" value="100"></div>
+            <div class="form-group"><label>Tags (comma-sep)</label><input type="text" id="custFormTags" class="form-control" placeholder="VIP, Wedding" value="Regular"></div>
+          </div>
+          <div class="form-group"><label>Notes</label><textarea id="custFormNotes" class="form-control" rows="2" placeholder="Likes pastel, contrast borders"></textarea></div>
+          <div class="checkbox-wrapper" id="welcomeMsgCheckGroup">
+            <input type="checkbox" id="custSendWelcome" checked>
+            <label for="custSendWelcome"><i class="fa-brands fa-whatsapp" style="color:var(--wa-green);"></i> Send WhatsApp welcome with starting points</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="App.closeCustomerModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Customer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- New Shop Modal -->
+  <div id="newShopModal" class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-store" style="color:var(--accent-600);"></i> Add New Shop</h3>
+        <button class="modal-close" onclick="App.closeNewShopModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="newShopForm" onsubmit="App.handleNewShopSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group"><label>Shop Name <span class="required">*</span></label><input type="text" id="newShopName" class="form-control" placeholder="Mahaveer Silk Emporium" required></div>
+          <div class="form-group"><label>Tagline</label><input type="text" id="newShopTagline" class="form-control" placeholder="Pure Zari Wedding Sarees & Dhotis"></div>
+          <div class="form-row">
+            <div class="form-group"><label>City <span class="required">*</span></label><input type="text" id="newShopCity" class="form-control" placeholder="Madurai" required></div>
+            <div class="form-group"><label>Phone</label><input type="text" id="newShopPhone" class="form-control" placeholder="+91 98400 12345"></div>
+          </div>
+          <div class="form-group"><label>Address</label><input type="text" id="newShopAddress" class="form-control" placeholder="45, South Masi Street"></div>
+          <div class="form-group">
+            <label>Subscription Plan <span class="required">*</span></label>
+            <select id="newShopPlan" class="form-control" required>
+              <option value="Standard Annual" selected>Standard Annual (₹18,000 / year)</option>
+              <option value="Growth Semi-Annual">Growth Semi-Annual (₹10,000 / 6 mos)</option>
+              <option value="Starter Monthly">Starter Monthly (₹2,000 / month)</option>
+              <option value="Enterprise Multi-Store">Enterprise Multi-Store (₹35,000 / year)</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Subscription Start Date</label><input type="date" id="newShopSubStart" class="form-control"></div>
+            <div class="form-group"><label>Subscription End Date <span class="required">*</span></label><input type="date" id="newShopSubEnd" class="form-control" required></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="App.closeNewShopModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Shop</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Manage Store Subscription Modal -->
+  <div id="subscriptionModal" class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-file-invoice-dollar" style="color:var(--accent-600);"></i> Manage Store Subscription</h3>
+        <button class="modal-close" onclick="App.closeSubscriptionModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="subscriptionForm" onsubmit="App.handleSubscriptionSubmit(event)">
+        <div class="modal-body">
+          <input type="hidden" id="subShopId">
+          <div class="form-group">
+            <label>Showroom Name</label>
+            <input type="text" id="subShopName" class="form-control" readonly style="background:var(--bg-card); font-weight:600;">
+          </div>
+          <div class="form-group">
+            <label>Subscription Plan</label>
+            <select id="subPlan" class="form-control" required>
+              <option value="Standard Annual">Standard Annual</option>
+              <option value="Growth Semi-Annual">Growth Semi-Annual</option>
+              <option value="Starter Monthly">Starter Monthly</option>
+              <option value="Enterprise Multi-Store">Enterprise Multi-Store</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Start Date</label>
+              <input type="date" id="subStartDate" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>End Date (Expiry)</label>
+              <input type="date" id="subEndDate" class="form-control" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Account Status</label>
+            <select id="subStatus" class="form-control">
+              <option value="ACTIVE">ACTIVE (Store Online & Enabled)</option>
+              <option value="SUSPENDED">SUSPENDED (Access Locked)</option>
+            </select>
+          </div>
+          <div class="alert-info" style="font-size:0.8rem; padding:10px 14px; border-radius:6px; background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe;">
+            <i class="fa-solid fa-circle-info"></i> If the end date is past or status is Suspended, store owners cannot log in and will be notified to renew.
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="App.closeSubscriptionModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Update Subscription</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- CSV Import Modal -->
+  <div id="csvModal" class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-file-csv" style="color:var(--success);"></i> Bulk CSV Import</h3>
+        <button class="modal-close" onclick="App.closeCsvModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.85rem; color:var(--slate-500); margin-bottom:14px;">Import customer records. Required: name, phone. Birthday format: <code>YYYY-MM-DD</code>.</p>
+        <div style="margin-bottom:16px;">
+          <a href="/samples/customers_sample.csv" class="btn btn-secondary btn-sm" download><i class="fa-solid fa-download"></i> Download Sample CSV</a>
+        </div>
+        <div class="form-group"><label>Select CSV File</label><input type="file" id="csvFileInput" class="form-control" accept=".csv" onchange="App.handleCsvFileSelect(event)"></div>
+        <div class="form-group"><label>Or Paste CSV Text</label><textarea id="csvRawText" class="form-control" rows="5" placeholder="name,phone,date_of_birth..."></textarea></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeCsvModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="App.submitCsvImport()"><i class="fa-solid fa-upload"></i> Import</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Direct WhatsApp Modal -->
+  <div id="directWhatsappModal" class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3><i class="fa-brands fa-whatsapp" style="color:var(--wa-green);"></i> Direct WhatsApp</h3>
+        <button class="modal-close" onclick="App.closeDirectWhatsAppModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="directWhatsappForm" onsubmit="App.handleDirectWhatsAppSubmit(event)">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group"><label>Name</label><input type="text" id="directName" class="form-control" placeholder="Priya" required></div>
+            <div class="form-group"><label>Phone <span class="required">*</span></label><input type="tel" id="directPhone" class="form-control" placeholder="9840112233" required></div>
+          </div>
+          <div class="form-group"><label>Image URL</label><input type="url" id="directMedia" class="form-control" placeholder="https://..."></div>
+          <div class="form-group"><label>Message <span class="required">*</span></label><textarea id="directMsg" class="form-control" rows="4" placeholder="Type message..." required></textarea></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="App.closeDirectWhatsAppModal()">Cancel</button>
+          <button type="submit" class="btn btn-whatsapp"><i class="fa-solid fa-paper-plane"></i> Send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Cloud / Google Drive Sync Modal -->
+  <div id="cloudSyncModal" class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-cloud-arrow-down" style="color:var(--accent-500);"></i> Google Drive / Cloud Auto-Sync</h3>
+        <button class="modal-close" onclick="App.closeCloudSyncModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;">
+          Automatically pull customer rows directly from a Google Sheet, Google Drive CSV, or online POS spreadsheet. No manual file downloads needed!
+        </p>
+
+        <div class="info-banner info" style="margin-bottom:16px;">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div>
+            <strong>How to get your Google Sheet Link:</strong><br>
+            In Google Sheets, click <em>Share &rarr; Anyone with the link can view</em> (or <em>File &rarr; Share &rarr; Publish to web as CSV</em>), and paste the link below.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Google Sheets / Drive Public or Share Link <span class="required">*</span></label>
+          <input type="url" id="cloudSyncInputUrl" class="form-control" placeholder="https://docs.google.com/spreadsheets/d/...">
+        </div>
+
+        <div style="background:var(--bg-surface); padding:12px; border-radius:8px; border:1px solid var(--border-color); font-size:0.8rem; color:var(--text-muted);">
+          <strong style="color:var(--text-heading);"><i class="fa-solid fa-bolt" style="color:var(--gold);"></i> Real-Time Cloud Webhook (Optional):</strong><br>
+          You can also connect Shopify, Zapier, Make.com, or Google Forms to auto-push customers directly via this URL:<br>
+          <code style="display:block; background:var(--input-bg); padding:6px 10px; margin-top:6px; border-radius:4px; word-break:break-all; color:var(--accent-500);">POST http://your-domain:5050/api/webhooks/customer</code>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeCloudSyncModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="App.submitCloudSync()"><i class="fa-solid fa-arrows-rotate"></i> Fetch & Sync Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Store Owner Account Modal -->
+  <div id="createAccountModal" class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-user-plus" style="color:var(--accent-500);"></i> Add Store Account</h3>
+        <button class="modal-close" onclick="App.closeCreateAccountModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="createShopOwnerForm" onsubmit="App.handleCreateShopOwner(event)">
+        <div class="modal-body">
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;">
+            Provision an account for a textile showroom owner. The owner will <strong>strictly only view and manage their assigned shop data</strong>.
+          </p>
+
+          <div class="form-group">
+            <label>Assigned Textile Shop <span class="required">*</span></label>
+            <select id="newOwnerShopId" class="form-control" required></select>
+          </div>
+          <div class="form-group">
+            <label>Full Name <span class="required">*</span></label>
+            <input type="text" id="newOwnerFullName" class="form-control" placeholder="e.g. Senthil Nathan" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Username (Login ID) <span class="required">*</span></label>
+              <input type="text" id="newOwnerUsername" class="form-control" placeholder="e.g. senthil_silks" required>
+            </div>
+            <div class="form-group">
+              <label>Initial Password <span class="required">*</span></label>
+              <input type="text" id="newOwnerPassword" class="form-control" placeholder="e.g. Silks@2026" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email Address <span class="required">*</span></label>
+              <input type="email" id="newOwnerEmail" class="form-control" placeholder="owner@store.com" required>
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" id="newOwnerPhone" class="form-control" placeholder="+91 98401 23456">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="App.closeCreateAccountModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-user-check"></i> Create Account
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,3474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyToReach — WhatsApp Marketing, Loyalty & Sales Automation for Modern Businesses</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ============================================================
+       EXPANSIVE, IMMERSIVE & RESPONSIVE LANDING PAGE STYLES
+       ============================================================ */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .landing-body {
+      background: var(--bg-body);
+      color: var(--text-body);
+      overflow-x: hidden;
+      overflow-y: auto;
+      height: 100vh;
+      display: block;
+      position: relative;
+    }
+
+    /* Ambient Background Glows filling side margins */
+    .ambient-glow-left {
+      position: fixed;
+      top: 10%;
+      left: -120px;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.14), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      animation: floatGlow 12s ease-in-out infinite alternate;
+    }
+
+    .ambient-glow-right {
+      position: fixed;
+      top: 40%;
+      right: -120px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.12), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      animation: floatGlow 14s ease-in-out infinite alternate-reverse;
+    }
+
+    .ambient-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+      background-size: 36px 36px;
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes floatGlow {
+      0% { transform: translateY(0) scale(0.95); }
+      100% { transform: translateY(50px) scale(1.08); }
+    }
+
+    /* Sticky Header */
+    .landing-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: var(--bg-topbar);
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 4vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s var(--ease);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-heading);
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-brand i {
+      font-size: 1.6rem;
+      background: linear-gradient(135deg, var(--accent-500), var(--primary-500));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-500);
+      transform: translateY(-1px);
+    }
+
+    /* Book a Demo Button in nav */
+    .nav-demo-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: linear-gradient(135deg, #25d366, #008069);
+      color: #fff !important;
+      padding: 9px 20px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-decoration: none !important;
+      cursor: pointer;
+      border: none;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(37,211,102,0.35);
+      transition: all 0.2s ease;
+      letter-spacing: -0.2px;
+    }
+    .nav-demo-btn:hover {
+      background: linear-gradient(135deg, #22c55e, #005c4b);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37,211,102,0.45);
+    }
+
+    /* Demo Modal */
+    .demo-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .demo-modal-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .demo-modal {
+      background: var(--bg-card, #fff);
+      border-radius: 24px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.3);
+      width: min(96vw, 920px);
+      max-height: 90vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(32px) scale(0.97);
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      border: 1px solid var(--border-color, rgba(255,255,255,0.1));
+    }
+    .demo-modal-backdrop.open .demo-modal {
+      transform: translateY(0) scale(1);
+    }
+    .demo-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 28px 20px;
+      border-bottom: 1px solid var(--border-color, #e5e7eb);
+      flex-shrink: 0;
+    }
+    .demo-modal-header h2 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-heading);
+    }
+    .demo-modal-header h2 i {
+      color: #25d366;
+      font-size: 1.4rem;
+    }
+    .demo-modal-close {
+      background: var(--bg-secondary, #f3f4f6);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 1rem;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .demo-modal-close:hover {
+      background: #ef4444;
+      color: #fff;
+    }
+    .demo-modal-body {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .demo-modal-left {
+      width: 240px;
+      flex-shrink: 0;
+      background: linear-gradient(145deg, #0b1317, #1a2b25);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      overflow-y: auto;
+    }
+    .demo-modal-left .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .demo-modal-left .brand-wrap i {
+      font-size: 1.5rem;
+      color: #25d366;
+    }
+    .demo-modal-left .brand-wrap span {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .demo-info-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .demo-info-item .icon-wrap {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(37,211,102,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .demo-info-item .icon-wrap i {
+      color: #25d366;
+      font-size: 0.9rem;
+    }
+    .demo-info-item .info-text strong {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #fff;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .demo-info-item .info-text span {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.4;
+    }
+    .demo-modal-right {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .demo-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border-color, #e5e7eb);
+      padding: 0 24px;
+      flex-shrink: 0;
+    }
+    .demo-tab-btn {
+      padding: 14px 18px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .demo-tab-btn.active {
+      color: #008069;
+      border-bottom-color: #008069;
+    }
+    .demo-tab-btn:hover:not(.active) {
+      color: var(--text-primary);
+    }
+    .demo-tab-panel {
+      flex: 1;
+      overflow-y: auto;
+      display: none;
+    }
+    .demo-tab-panel.active {
+      display: flex;
+      flex-direction: column;
+    }
+    /* ── Custom Appointment Calendar ─────────────────────── */
+    .appt-cal-wrap {
+      display: flex;
+      flex: 1;
+      min-height: 480px;
+      overflow: hidden;
+    }
+    .appt-cal-left {
+      width: 260px;
+      flex-shrink: 0;
+      padding: 24px 20px;
+      border-right: 1px solid var(--border-color, #e5e7eb);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .appt-cal-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-color, #e5e7eb);
+    }
+    .appt-cal-meta-block { display: flex; flex-direction: column; }
+    .appt-cal-meta-block .meta-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 500; }
+    .appt-cal-meta-block .meta-val   { font-size: 0.82rem; font-weight: 700; color: var(--text-heading); }
+    .appt-mini-cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      margin-top: 4px;
+    }
+    .appt-mini-cal-header .cal-month-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-heading);
+    }
+    .appt-mini-cal-header button {
+      background: none;
+      border: 1px solid var(--border-color, #e5e7eb);
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      transition: all 0.15s;
+    }
+    .appt-mini-cal-header button:hover:not(:disabled) { background: var(--bg-secondary, #f3f4f6); }
+    .appt-mini-cal-header button:disabled { opacity: 0.3; cursor: default; }
+    .appt-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1px;
+      text-align: center;
+    }
+    .appt-mini-grid .dow {
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      padding: 4px 0 6px;
+      text-transform: uppercase;
+    }
+    .appt-day-cell {
+      font-size: 0.75rem;
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--text-heading);
+      transition: background 0.15s, color 0.15s;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: none;
+      font-family: inherit;
+    }
+    .appt-day-cell:hover:not(.disabled):not(.empty) {
+      background: rgba(37,211,102,0.15);
+      color: #008069;
+    }
+    .appt-day-cell.selected {
+      background: #008069 !important;
+      color: #fff !important;
+      font-weight: 700;
+    }
+    .appt-day-cell.today:not(.selected) {
+      background: rgba(37,211,102,0.12);
+      color: #25d366;
+      font-weight: 700;
+    }
+    .appt-day-cell.has-slots:not(.selected):not(.today) {
+      font-weight: 600;
+      color: #008069;
+    }
+    .appt-day-cell.disabled, .appt-day-cell.empty {
+      color: var(--border-color, #d1d5db);
+      cursor: default;
+      pointer-events: none;
+    }
+    .appt-cal-right {
+      flex: 1;
+      min-width: 0;
+      padding: 24px 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .appt-slots-header {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .appt-tz-badge {
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--bg-secondary, #f3f4f6);
+      border-radius: 100px;
+      padding: 2px 10px;
+      margin-left: auto;
+    }
+    .appt-slots-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .appt-slot-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 16px;
+      border: 1.5px solid var(--border-color, #e5e7eb);
+      border-radius: 10px;
+      background: var(--bg-body, #fff);
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      transition: all 0.18s;
+      font-family: inherit;
+      width: 100%;
+      text-align: left;
+    }
+    .appt-slot-btn:hover { border-color: #008069; background: rgba(37,211,102,0.06); color: #008069; }
+    .appt-slot-btn.selected { border-color: #008069; background: #008069; color: #fff; }
+    .appt-slot-btn .slot-dur { font-size: 0.72rem; font-weight: 500; opacity: 0.6; }
+    .appt-no-slots {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+    .appt-no-slots i { font-size: 1.8rem; color: var(--border-color,#d1d5db); display: block; margin-bottom: 10px; }
+    /* Confirm step */
+    .appt-confirm-wrap {
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .appt-confirm-wrap.show { display: flex; }
+    .appt-confirm-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: rgba(37,211,102,0.08);
+      border: 1px solid rgba(37,211,102,0.3);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .appt-confirm-banner i { color: #25d366; font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+    .appt-confirm-banner .slot-txt { font-size: 0.9rem; font-weight: 700; color: var(--text-heading); }
+    .appt-confirm-banner .slot-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 3px; }
+    .appt-confirm-fields { display: flex; flex-direction: column; gap: 10px; }
+    .appt-confirm-field { display: flex; flex-direction: column; gap: 5px; }
+    .appt-confirm-field label { font-size: 0.78rem; font-weight: 600; color: var(--text-heading); }
+    .appt-confirm-field label .req { color: #ef4444; margin-left: 2px; }
+    .appt-confirm-field input {
+      padding: 10px 13px;
+      border: 1.5px solid var(--border-color, #e5e7eb);
+      border-radius: 10px;
+      font-size: 0.85rem;
+      background: var(--bg-body, #f9fafb);
+      color: var(--text-heading);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+    }
+    .appt-confirm-field input:focus { border-color: #008069; box-shadow: 0 0 0 3px rgba(0,128,105,0.12); }
+    .appt-confirm-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .appt-cal-confirm-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      background: linear-gradient(135deg,#25d366,#008069);
+      color: #fff; border: none; border-radius: 100px;
+      padding: 13px 28px; font-size: 0.92rem; font-weight: 700;
+      cursor: pointer; box-shadow: 0 4px 14px rgba(37,211,102,0.3);
+      transition: all 0.2s; font-family: inherit; width: 100%;
+    }
+    .appt-cal-confirm-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,211,102,0.4); }
+    .appt-cal-back-btn {
+      background: none; border: 1.5px solid var(--border-color,#e5e7eb);
+      border-radius: 100px; padding: 10px 20px; font-size: 0.82rem;
+      font-weight: 600; cursor: pointer; color: var(--text-muted);
+      display: flex; align-items: center; gap: 7px;
+      transition: all 0.15s; font-family: inherit;
+    }
+    .appt-cal-back-btn:hover { border-color: var(--text-muted); color: var(--text-heading); }
+    /* Booking success */
+    .appt-booked-panel {
+      display: none; flex-direction: column; align-items: center; justify-content: center;
+      padding: 40px 24px; text-align: center; gap: 14px; flex: 1;
+    }
+    .appt-booked-panel.show { display: flex; }
+    .appt-booked-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg,#25d366,#008069);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; color: #fff;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+      animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @media (max-width: 768px) {
+      .appt-cal-wrap { flex-direction: column; min-height: auto; }
+      .appt-cal-left { width: 100%; border-right: none; border-bottom: 1px solid var(--border-color,#e5e7eb); padding: 16px; }
+      .appt-cal-right { padding: 16px; }
+      .appt-confirm-row { grid-template-columns: 1fr; }
+    }
+    .demo-form {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .demo-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .demo-form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .demo-form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-heading);
+    }
+    .demo-form-group label .req {
+      color: #ef4444;
+      margin-left: 2px;
+    }
+    .demo-form-group input,
+    .demo-form-group select,
+    .demo-form-group textarea {
+      padding: 10px 13px;
+      border: 1.5px solid var(--border-color, #e5e7eb);
+      border-radius: 10px;
+      font-size: 0.85rem;
+      background: var(--bg-body, #f9fafb);
+      color: var(--text-heading);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+    }
+    .demo-form-group input:focus,
+    .demo-form-group select:focus,
+    .demo-form-group textarea:focus {
+      border-color: #008069;
+      box-shadow: 0 0 0 3px rgba(0,128,105,0.12);
+    }
+    .demo-form-group textarea { resize: vertical; min-height: 80px; }
+    .demo-submit-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #25d366, #008069);
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      padding: 14px 32px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(37,211,102,0.35);
+      transition: all 0.2s;
+      width: 100%;
+      margin-top: 4px;
+    }
+    .demo-submit-btn:hover {
+      background: linear-gradient(135deg, #22c55e, #005c4b);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(37,211,102,0.4);
+    }
+    .demo-success-panel {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 32px;
+      text-align: center;
+      gap: 16px;
+    }
+    .demo-success-panel.show { display: flex; }
+    .demo-success-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #25d366, #008069);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+      animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes popIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .demo-trust-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 4px;
+    }
+    .demo-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.6);
+    }
+    .demo-trust-item i { color: #25d366; font-size: 0.7rem; }
+
+    /* Book a Demo feature section */
+    .book-demo-section {
+      background: linear-gradient(135deg, #0b1317 0%, #0d2420 50%, #0b1317 100%);
+      border-top: 1px solid rgba(37,211,102,0.15);
+      border-bottom: 1px solid rgba(37,211,102,0.15);
+      padding: 80px 4vw;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .book-demo-section::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(37,211,102,0.2), transparent 70%);
+      pointer-events: none;
+    }
+    .book-demo-section::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0,168,132,0.12), transparent 60%);
+      pointer-events: none;
+    }
+    .book-demo-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 44px auto 0;
+      text-align: left;
+    }
+    .book-demo-step {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(37,211,102,0.15);
+      border-radius: 16px;
+      padding: 22px 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .book-demo-step .step-num {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #25d366;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .book-demo-step .step-icon {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .book-demo-step h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .book-demo-step p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .demo-modal-body { flex-direction: column; }
+      .demo-modal-left { width: 100%; padding: 20px; gap: 12px; }
+      .demo-modal-left .brand-wrap { margin-bottom: 0; }
+      .demo-info-item { display: none; }
+      .demo-info-item:nth-child(2) { display: flex; }
+      .demo-info-item:nth-child(3) { display: flex; }
+      .demo-form-row { grid-template-columns: 1fr; }
+      .demo-modal { max-height: 95vh; }
+      .appt-cal-wrap { min-height: auto; }
+      .book-demo-steps { grid-template-columns: 1fr; }
+      .demo-tabs { padding: 0 16px; }
+      .demo-tab-btn { padding: 12px 12px; font-size: 0.78rem; }
+    }
+
+    /* Navbar Actions & Responsiveness */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    @media (max-width: 992px) {
+      .landing-nav {
+        padding: 12px 4vw !important;
+      }
+      .nav-links { display: none !important; }
+      .nav-desktop-only { display: none !important; }
+      .mobile-menu-btn {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        padding: 0;
+        font-size: 1.15rem;
+      }
+      .theme-toggle-btn .theme-label { display: none !important; }
+      .theme-toggle-btn { padding: 6px 8px !important; }
+      .nav-actions { gap: 8px !important; }
+    }
+    @media (max-width: 520px) {
+      .landing-nav {
+        padding: 10px 12px !important;
+      }
+      .nav-brand {
+        font-size: 1.2rem !important;
+        gap: 6px !important;
+      }
+      .nav-brand .brand-badge {
+        display: none !important; /* Hide badge on extra small phones so everything fits with zero overflow */
+      }
+      .nav-signin-btn {
+        padding: 6px 10px !important;
+        font-size: 0.8rem !important;
+      }
+      .theme-toggle-btn {
+        width: 34px !important;
+        height: 34px !important;
+        padding: 0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      .mobile-menu-btn {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 1.1rem !important;
+      }
+    }
+
+    /* Mobile Hamburger Menu */
+    .mobile-menu-btn {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-heading);
+      font-size: 1.2rem;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+
+    .mobile-nav-drawer {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-lg);
+      z-index: 99;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .mobile-nav-drawer.open {
+      display: flex;
+      animation: paneFadeIn 0.25s ease;
+    }
+
+    .mobile-nav-drawer a {
+      text-decoration: none;
+      color: var(--text-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    /* Full-Width Section Wrapper with generous side padding */
+    .full-width-section {
+      width: 100%;
+      position: relative;
+      padding: 80px 4vw;
+      box-sizing: border-box;
+    }
+
+    .full-width-section.alt-bg {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .section-container {
+      max-width: 1540px;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero Section */
+    .hero-wrap {
+      max-width: 1540px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 60px 4vw 40px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 20px;
+      background: var(--accent-50);
+      border: 1px solid var(--accent-200);
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-700);
+      margin-bottom: 24px;
+      animation: floatBadge 4s ease-in-out infinite alternate;
+      box-shadow: var(--shadow-sm);
+    }
+
+    [data-theme="dark"] .hero-badge {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: rgba(99, 102, 241, 0.35);
+      color: var(--accent-400);
+    }
+
+    @keyframes floatBadge {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-4px); }
+    }
+
+    .hero-title {
+      font-size: clamp(2.3rem, 4.6vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -1.2px;
+      color: var(--text-heading);
+      max-width: 920px;
+      margin: 0 auto 24px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero-title .gradient-text {
+      background: linear-gradient(
+        120deg,
+        var(--accent-600) 0%,
+        var(--primary-500) 30%,
+        var(--gold) 50%,
+        var(--primary-500) 70%,
+        var(--accent-600) 100%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmerText 5s linear infinite;
+      display: inline-block;
+    }
+
+    [data-theme="dark"] .hero-title .gradient-text {
+      background: linear-gradient(
+        120deg,
+        #818cf8 0%,
+        #f472b6 25%,
+        #fbbf24 50%,
+        #f472b6 75%,
+        #818cf8 100%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmerText 5s linear infinite;
+      filter: drop-shadow(0 0 25px rgba(236, 72, 153, 0.4));
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 1.6vw, 1.25rem);
+      color: var(--text-muted);
+      max-width: 820px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+      font-weight: 400;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero-cta-group .btn {
+      padding: 14px 32px;
+      font-size: 1rem;
+      border-radius: var(--radius-sm);
+    }
+
+    /* Floating Side Badges (strictly placed outside center text column) */
+    .floating-pill {
+      display: none !important;
+    }
+
+    /* Expansive Hero Preview Showcase */
+    .hero-preview-wrapper {
+      position: relative;
+      margin-top: 30px;
+      border-radius: var(--radius-xl);
+      padding: 12px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.25));
+      box-shadow: 0 25px 60px -15px rgba(0,0,0,0.25);
+    }
+
+    .hero-preview-inner {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      display: grid;
+      grid-template-columns: 1.7fr 1fr;
+      text-align: left;
+    }
+
+    /* KPI Highlights Bar */
+    .kpi-section {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 40px 4vw;
+      position: relative;
+      z-index: 1;
+    }
+
+    .kpi-grid {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+
+    .kpi-item h3 {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900;
+      color: var(--accent-500);
+      letter-spacing: -0.5px;
+    }
+
+    .kpi-item p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* Section Headers */
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .section-badge {
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--accent-500);
+      letter-spacing: 1.5px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.7rem);
+      font-weight: 800;
+      color: var(--text-heading);
+      letter-spacing: -0.6px;
+      margin-bottom: 14px;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Features Grid (Spans gracefully across full width) */
+    .feature-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 28px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 34px 30px;
+      transition: all 0.3s var(--ease);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent-500);
+      box-shadow: var(--shadow-md), var(--glow-indigo);
+    }
+
+    .feature-icon-bubble {
+      width: 58px;
+      height: 58px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.45rem;
+      margin-bottom: 22px;
+      transition: transform 0.3s var(--ease-bounce);
+    }
+
+    .feature-card:hover .feature-icon-bubble {
+      transform: scale(1.15) rotate(6deg);
+    }
+
+    .feature-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .feature-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.86rem;
+      color: var(--text-body);
+    }
+
+    .feature-card ul li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-card ul li i {
+      color: var(--success);
+      font-size: 0.85rem;
+    }
+
+    /* ============================================================
+       EXPANSIVE COMPARISON SECTION (Spans fully with no empty side gaps)
+       ============================================================ */
+    .compare-container-layout {
+      display: grid;
+      grid-template-columns: minmax(360px, 440px) 1fr;
+      gap: 48px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .compare-intro-box h2 {
+      font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--text-heading);
+      margin: 12px 0 16px;
+    }
+
+    .compare-intro-box p {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .compare-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      overflow-x: auto;
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s var(--ease);
+      position: relative;
+    }
+
+    .compare-card:hover {
+      box-shadow: var(--shadow-lg), var(--glow-indigo);
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+
+    .compare-table th, .compare-table td {
+      padding: 20px 24px;
+      text-align: left;
+    }
+
+    .compare-table th:nth-child(3),
+    .compare-table td:nth-child(3) {
+      background: rgba(37, 211, 102, 0.05);
+      border-left: 2px solid rgba(37, 211, 102, 0.25);
+      border-right: 2px solid rgba(37, 211, 102, 0.25);
+    }
+
+    [data-theme="dark"] .compare-table th:nth-child(3),
+    [data-theme="dark"] .compare-table td:nth-child(3) {
+      background: rgba(37, 211, 102, 0.1);
+      border-left: 2px solid rgba(37, 211, 102, 0.4);
+      border-right: 2px solid rgba(37, 211, 102, 0.4);
+    }
+
+    .compare-table th {
+      background: var(--bg-surface);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-heading);
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .compare-table td {
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.92rem;
+      transition: background-color 0.15s;
+    }
+
+    .compare-table tr:hover td {
+      background: var(--bg-table-hover);
+    }
+
+    /* ROI Calculator Section */
+    .roi-box {
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-surface) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      box-shadow: var(--shadow-md);
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    /* Testimonials (Full-width 3-columns) */
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .testi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 34px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: all 0.25s var(--ease);
+    }
+
+    .testi-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent-400);
+    }
+
+    .testi-stars {
+      color: var(--gold);
+      font-size: 0.95rem;
+    }
+
+    .testi-text {
+      font-size: 0.96rem;
+      line-height: 1.6;
+      color: var(--text-body);
+      font-style: italic;
+    }
+
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: auto;
+    }
+
+    .testi-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-500), var(--primary-500));
+      color: white;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    /* Pricing Section (Fluid Responsive 3-col) */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+
+    .pricing-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 40px 34px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all 0.3s var(--ease);
+    }
+
+    .pricing-card.featured {
+      border: 2px solid var(--accent-500);
+      box-shadow: var(--shadow-lg), var(--glow-indigo);
+      transform: translateY(-8px);
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .pricing-plan-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--accent-600), var(--primary-600));
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 5px 16px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .plan-price {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--text-heading);
+      margin: 18px 0 8px;
+    }
+
+    .plan-price span {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* FAQ */
+    .faq-list {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+    }
+
+    .faq-item:hover {
+      border-color: var(--accent-400);
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.10);
+      transform: translateY(-2px);
+    }
+
+    .faq-item.faq-open {
+      border-color: var(--accent-500);
+      box-shadow: 0 6px 28px rgba(99, 102, 241, 0.14);
+    }
+
+    .faq-q {
+      font-size: 1.03rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 22px 26px;
+      user-select: none;
+    }
+
+    .faq-q i {
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      color: var(--accent-500);
+      transition: transform 0.38s cubic-bezier(0.34, 1.4, 0.64, 1);
+    }
+
+    /* Smooth max-height accordion — no disappearing */
+    .faq-a {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 26px;
+      transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                  padding 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.35s ease;
+      opacity: 0;
+    }
+
+    .faq-item.faq-open .faq-a {
+      max-height: 300px;
+      padding: 0 26px 22px;
+      opacity: 1;
+    }
+
+    .faq-item.faq-open .faq-q {
+      color: var(--accent-600);
+    }
+
+    .faq-item.faq-open .faq-q i {
+      transform: rotate(180deg);
+      color: var(--accent-500);
+    }
+
+    [data-theme="dark"] .faq-item.faq-open .faq-q {
+      color: var(--accent-400);
+    }
+
+    /* Bottom CTA Banner */
+    .bottom-cta {
+      background: linear-gradient(135deg, var(--slate-900), #1e1b4b);
+      color: white;
+      border-radius: var(--radius-xl);
+      padding: 64px 40px;
+      text-align: center;
+      margin: 40px auto 80px;
+      max-width: 1440px;
+      box-shadow: var(--shadow-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bottom-cta::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.35), transparent 70%);
+      pointer-events: none;
+    }
+
+    .landing-footer {
+      border-top: 1px solid var(--border-color);
+      padding: 40px 4vw;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      background: var(--bg-card);
+    }
+
+    /* ============================================================
+       SCROLL REVEAL ANIMATIONS
+       ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       RESPONSIVE BREAKPOINTS (Laptop, Tablet, Mobile)
+       ============================================================ */
+    @media (max-width: 1200px) {
+      .floating-pill { display: none; }
+      .compare-container-layout { grid-template-columns: 1fr; }
+      .hero-preview-inner { grid-template-columns: 1fr; }
+      .roi-box { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 992px) {
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: block; }
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .feature-cards-grid { grid-template-columns: 1fr; }
+      .pricing-card.featured { transform: none; }
+    }
+
+    @media (max-width: 768px) {
+      .full-width-section { padding: 50px 4vw; }
+      .hero-wrap { padding: 40px 4vw 20px; }
+      .kpi-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .hero-cta-group { flex-direction: column; width: 100%; }
+      .hero-cta-group .btn { width: 100%; }
+      .roi-box { padding: 24px; }
+      .bottom-cta { padding: 40px 20px; margin: 20px 4vw 40px; }
+    }
+    /* Phone Simulator Controls & Interactive Message Buttons */
+    /* ===================================================
+       PHONE MESSAGE TABS — Pill slider with smooth glow
+       =================================================== */
+    .sim-tabs-wrap {
+      position: relative;
+      display: flex;
+      gap: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      padding: 4px;
+      width: 100%;
+      max-width: 290px;
+      margin-bottom: 14px;
+    }
+
+    .sim-tabs-wrap .slider-track {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      height: calc(100% - 8px);
+      width: calc(33.33% - 4px);
+      background: linear-gradient(135deg, var(--primary-600), var(--accent-500));
+      border-radius: var(--radius-full);
+      transition: transform 0.38s cubic-bezier(0.34, 1.3, 0.64, 1);
+      box-shadow: 0 3px 12px rgba(219, 39, 119, 0.4);
+      z-index: 0;
+    }
+
+    .sim-tabs-wrap .slider-track.pos-1 { transform: translateX(0); }
+    .sim-tabs-wrap .slider-track.pos-2 { transform: translateX(100%); }
+    .sim-tabs-wrap .slider-track.pos-3 { transform: translateX(200%); }
+
+    .phone-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 7px 6px 5px;
+      border-radius: var(--radius-full);
+      font-size: 0.7rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: color 0.25s var(--ease);
+      outline: none;
+      flex: 1;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      line-height: 1.15;
+    }
+
+    .phone-tab .tab-emoji {
+      font-size: 1.05rem;
+      display: block;
+    }
+
+    .phone-tab:hover {
+      color: var(--primary-500);
+    }
+
+    .phone-tab.active {
+      color: #ffffff;
+    }
+
+    .sim-action-btn {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      color: #0284c7;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .sim-action-btn:hover {
+      background: #f0f9ff;
+      border-color: #38bdf8;
+    }
+
+    /* Side Activity Pills — Positioned safely in wide margins outside text */
+    .side-pill {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 11px 20px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 10px 28px -4px rgba(99, 102, 241, 0.18), 0 4px 12px rgba(0, 0, 0, 0.05);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 5;
+      pointer-events: auto;
+      cursor: default;
+      transition: all 0.3s var(--ease-spring);
+    }
+
+    .side-pill:hover {
+      transform: translateY(-4px) scale(1.05) !important;
+      box-shadow: 0 16px 36px -4px rgba(99, 102, 241, 0.32), 0 0 24px rgba(99, 102, 241, 0.25);
+    }
+
+    [data-theme="dark"] .side-pill {
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(129, 140, 248, 0.45);
+      box-shadow: 0 14px 38px rgba(0, 0, 0, 0.8), 0 0 25px rgba(99, 102, 241, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      color: #f8fafc;
+    }
+
+    [data-theme="dark"] .side-pill:hover {
+      border-color: rgba(236, 72, 153, 0.7);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.9), 0 0 35px rgba(236, 72, 153, 0.45);
+    }
+
+    .side-pill .pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981, 0 0 20px rgba(16, 185, 129, 0.6);
+      display: inline-block;
+      animation: livePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.7; }
+    }
+
+    /* Placed safely outside the 920px central text column:
+       Center is at 50%, text edge is at 50% +/- 460px.
+       Placing pills at 50% +/- 710px leaves 250px clear space! */
+    .side-pill-left-1 {
+      top: 130px;
+      left: max(16px, calc(50% - 710px));
+      animation: floatSideLeft 4.8s ease-in-out infinite alternate;
+    }
+
+    .side-pill-left-2 {
+      top: 450px;
+      left: max(16px, calc(50% - 710px));
+      animation: floatSideLeft 5.4s ease-in-out infinite alternate-reverse;
+      animation-delay: -2s;
+    }
+
+    .side-pill-right-1 {
+      top: 150px;
+      right: max(16px, calc(50% - 710px));
+      animation: floatSideRight 5.1s ease-in-out infinite alternate;
+      animation-delay: -1.2s;
+    }
+
+    .side-pill-right-2 {
+      top: 470px;
+      right: max(16px, calc(50% - 710px));
+      animation: floatSideRight 4.6s ease-in-out infinite alternate-reverse;
+      animation-delay: -3s;
+    }
+
+    @keyframes floatSideLeft {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-16px) rotate(-1.5deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+
+    @keyframes floatSideRight {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-18px) rotate(1.5deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+
+    /* On screens narrower than 1400px, hide side pills to prevent text overlap */
+    @media (max-width: 1399px) {
+      .side-pill { display: none !important; }
+    }
+
+    /* Live Activity Ticker (cleanly displayed below CTAs on < 1400px screens) */
+    .hero-live-ticker {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 0 auto 32px;
+      padding: 9px 22px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-body);
+      max-width: 720px;
+      box-shadow: var(--shadow-sm);
+      animation: fadeInTicker 0.6s ease;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero-live-ticker .ticker-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: var(--success);
+      background: var(--success-bg);
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+    }
+
+    .hero-live-ticker .ticker-divider {
+      color: var(--border-color);
+      font-size: 0.9rem;
+    }
+
+    [data-theme="dark"] .hero-live-ticker {
+      background: rgba(15, 23, 42, 0.85);
+      border-color: rgba(99, 102, 241, 0.35);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(99, 102, 241, 0.2);
+      color: #f1f5f9;
+    }
+
+    @keyframes fadeInTicker {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 1399px) {
+      .hero-live-ticker { display: inline-flex; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-live-ticker {
+        font-size: 0.72rem;
+        padding: 7px 14px;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .hero-live-ticker .ticker-item:nth-child(n+4) { display: none; }
+      .hero-live-ticker .ticker-divider { display: none; }
+    }
+
+    /* Counter Numbers Animation Styling */
+    .counter-num {
+      transition: transform 0.3s ease;
+    }
+
+    /* Mobile Table Scroll Helper */
+    .table-scroll-hint {
+      display: none;
+      text-align: right;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    @media (max-width: 768px) {
+      .table-scroll-hint { display: block; }
+    }
+
+    /* Dark Mode Ambient & Particle Enhancements */
+    [data-theme="dark"] .ambient-glow-left {
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.28), transparent 70%);
+      filter: blur(40px);
+    }
+
+    [data-theme="dark"] .ambient-glow-right {
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.24), transparent 70%);
+      filter: blur(40px);
+    }
+
+    [data-theme="dark"] .ambient-grid {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1.5px, transparent 1.5px);
+      opacity: 0.55;
+    }
+
+    [data-theme="dark"] .sparkle {
+      box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+    }
+
+    /* =================================================================
+       EXTRA ANIMATIONS & POLISH
+       ================================================================= */
+
+    /* 1. Typing indicator dots */
+    .typing-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #aaa;
+      display: inline-block;
+      animation: typingBounce 0.9s ease-in-out infinite;
+    }
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30%           { transform: translateY(-5px); opacity: 1; }
+    }
+
+    /* 2. Shimmer effect on gradient hero title */
+    @keyframes shimmerText {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .gradient-text {
+      background: linear-gradient(
+        120deg,
+        var(--accent-600) 0%,
+        var(--primary-500) 30%,
+        var(--gold) 50%,
+        var(--primary-500) 70%,
+        var(--accent-600) 100%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmerText 4s linear infinite;
+    }
+
+    /* 3. Pulsing green verified badge on phone */
+    @keyframes verifiedPing {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.7; transform: scale(1.3); }
+    }
+    .verified-ping {
+      animation: verifiedPing 2s ease-in-out infinite;
+    }
+
+    /* 4. Button ripple on click */
+    .btn {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      background: rgba(255,255,255,0.35);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+      opacity: 0;
+    }
+    .btn:active::after {
+      width: 300px;
+      height: 300px;
+      opacity: 0;
+    }
+
+    /* 5. Floating sparkle particles in hero */
+    .sparkle-wrap {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-400);
+      opacity: 0;
+      animation: sparklePop var(--dur, 3.5s) var(--delay, 0s) ease-in-out infinite;
+    }
+    @keyframes sparklePop {
+      0%   { opacity: 0; transform: translateY(0) scale(0.5); }
+      30%  { opacity: 0.7; }
+      70%  { opacity: 0.5; }
+      100% { opacity: 0; transform: translateY(-80px) scale(1.2); }
+    }
+
+    /* 6. Glowing gradient border on feature cards on hover */
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background: linear-gradient(135deg, var(--accent-500), var(--primary-500), var(--gold));
+      opacity: 0;
+      z-index: -1;
+      transition: opacity 0.35s ease;
+    }
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    /* 7. Scroll progress bar at very top */
+    #scrollProgressBar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-500), var(--primary-500), var(--gold));
+      width: 0%;
+      z-index: 9999;
+      transition: width 0.1s linear;
+    }
+
+    /* 8. Stat numbers in KPI bar — pop on entry */
+    @keyframes kpiPop {
+      0%   { transform: scale(0.7); opacity: 0; }
+      70%  { transform: scale(1.08); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .kpi-item.reveal.active h3 {
+      animation: kpiPop 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+    }
+
+    /* 9. Testimonial card auto-scroll highlight ring */
+    .testimonial-card {
+      transition: box-shadow 0.3s ease, transform 0.3s ease !important;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-6px) scale(1.015);
+      box-shadow: 0 16px 48px rgba(99,102,241,0.18) !important;
+    }
+
+    /* 10. Live "Typing…" status bar on phone mockup header */
+    .sim-status-bar {
+      font-size: 0.6rem;
+      opacity: 0.8;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .sim-status-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #25d366;
+      box-shadow: 0 0 6px #25d366;
+      animation: verifiedPing 1.4s ease-in-out infinite;
+    }
+
+  </style>
+</head>
+<body class="landing-body" id="landingBody">
+
+  <!-- Scroll Progress Bar -->
+  <div id="scrollProgressBar"></div>
+
+  <!-- Ambient Glow Orbs & Grid filling side margins -->
+  <div class="ambient-glow-left"></div>
+  <div class="ambient-glow-right"></div>
+  <div class="ambient-grid"></div>
+
+  <!-- Ambient Floating Activity Pills on large laptop / desktop margins -->
+  <div class="side-pill side-pill-left-1">
+    <span class="pulse-dot"></span> <span>🛍️ <strong>Royal Menswear</strong> issued ₹4,200 bill</span>
+  </div>
+  <div class="side-pill side-pill-left-2">
+    <span class="pulse-dot"></span> <span>🎂 <strong>Urban Trendz</strong> sent 18 birthday coupons</span>
+  </div>
+  <div class="side-pill side-pill-right-1">
+    <span class="pulse-dot"></span> <span>💚 <strong>98.8%</strong> Read Rate on Product Catalogs</span>
+  </div>
+  <div class="side-pill side-pill-right-2">
+    <span class="pulse-dot"></span> <span>🛡️ <strong>Meta Verified Tier-1 API</strong> (Zero Bans)</span>
+  </div>
+
+  <!-- ================= STICKY NAVBAR ================= -->
+  <header class="landing-nav">
+    <a href="/" class="nav-brand">
+      <span>EasyToReach</span>
+      <span class="brand-badge" style="font-size:0.6rem; padding:2px 8px;">WhatsApp CRM</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#comparison">Why WhatsApp</a></li>
+      <li><a href="#roi">ROI Calculator</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="theme-toggle-btn" id="themeToggleBtn" onclick="LandingApp.toggleTheme()" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+        <span class="theme-icon-box"><i class="fa-solid fa-moon" id="themeIcon"></i></span>
+        <span class="theme-label" id="themeLabel">Dark</span>
+      </button>
+
+      <a href="/login" class="btn btn-secondary btn-sm nav-signin-btn" title="Shop Owner & Admin Portal">
+        <i class="fa-solid fa-lock"></i> Sign In
+      </a>
+
+      <a href="/book-demo" class="nav-demo-btn nav-desktop-only">
+        <i class="fa-solid fa-calendar-check"></i> Book a Demo
+      </a>
+
+      <a href="/dashboard" class="btn btn-primary btn-sm nav-desktop-only">
+        <i class="fa-solid fa-chart-pie"></i> Open Dashboard
+      </a>
+
+      <button class="mobile-menu-btn" onclick="LandingApp.toggleMobileMenu()" aria-label="Open Navigation Menu">
+        <i class="fa-solid fa-bars" id="mobileMenuIcon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-drawer" id="mobileDrawer">
+    <a href="/login" onclick="LandingApp.toggleMobileMenu()" style="color:var(--accent-400); font-weight:700;"><i class="fa-solid fa-lock"></i> Portal Sign In</a>
+    <a href="/book-demo" onclick="LandingApp.toggleMobileMenu();" style="background:linear-gradient(135deg,#25d366,#008069);color:#fff;border:none;border-radius:100px;padding:12px 20px;font-weight:700;font-size:0.9rem;text-decoration:none;display:flex;align-items:center;gap:8px;">
+      <i class="fa-solid fa-calendar-check"></i> Book a Free Demo
+    </a>
+    <a href="/dashboard" onclick="LandingApp.toggleMobileMenu()" style="color:var(--primary-500); font-weight:700;"><i class="fa-solid fa-chart-pie"></i> Open CRM Dashboard</a>
+    <a href="#features" onclick="LandingApp.toggleMobileMenu()">Features & Capabilities</a>
+    <a href="#comparison" onclick="LandingApp.toggleMobileMenu()">Why WhatsApp vs SMS</a>
+    <a href="#roi" onclick="LandingApp.toggleMobileMenu()">ROI Growth Calculator</a>
+    <a href="#testimonials" onclick="LandingApp.toggleMobileMenu()">Customer Reviews</a>
+    <a href="#pricing" onclick="LandingApp.toggleMobileMenu()">Pricing Plans</a>
+    <a href="#faq" onclick="LandingApp.toggleMobileMenu()">Frequently Asked Questions</a>
+  </div>
+
+  <!-- ================= HERO SECTION (Full-width with interactive margins) ================= -->
+  <section class="hero-wrap">
+    <!-- Floating sparkle particles -->
+    <div class="sparkle-wrap" aria-hidden="true">
+      <div class="sparkle" style="left:12%; top:25%; --dur:3.2s; --delay:0s; background:var(--accent-400);"></div>
+      <div class="sparkle" style="left:28%; top:60%; --dur:4.5s; --delay:0.8s; background:var(--primary-500);"></div>
+      <div class="sparkle" style="left:45%; top:15%; --dur:3.8s; --delay:1.5s; background:var(--gold);"></div>
+      <div class="sparkle" style="left:62%; top:70%; --dur:4.1s; --delay:0.3s; background:var(--accent-500);"></div>
+      <div class="sparkle" style="left:78%; top:30%; --dur:3.5s; --delay:1.1s; background:var(--primary-400);"></div>
+      <div class="sparkle" style="left:88%; top:55%; --dur:4.8s; --delay:0.6s; background:var(--gold);"></div>
+      <div class="sparkle" style="left:5%;  top:75%; --dur:3.1s; --delay:2s; background:var(--wa-green);"></div>
+      <div class="sparkle" style="left:55%; top:45%; --dur:5s;   --delay:1.8s; background:var(--accent-400);"></div>
+    </div>
+
+    <div class="hero-badge">
+      <i class="fa-brands fa-whatsapp" style="color:var(--wa-green); font-size:1.15rem;"></i>
+      Official Meta WhatsApp Cloud API Platform • Built for Modern Retail, D2C & Businesses
+    </div>
+
+    <h1 class="hero-title">
+      Turn First-Time Shoppers Into <br>
+      <span class="gradient-text">Lifetime Repeat Customers on WhatsApp</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Automate personalized <strong>Birthday vouchers</strong>, festive <strong>Diwali & Pongal broadcasts</strong>, paperless <strong>digital billing receipts</strong>, and cashable <strong>loyalty rewards</strong> directly inside your customers' favorite app.
+    </p>
+
+    <div class="hero-cta-group">
+      <a href="/dashboard" class="btn btn-primary" style="font-size:1.05rem; padding:15px 34px;">
+        <i class="fa-solid fa-rocket"></i> Launch Free Store Dashboard
+      </a>
+      <a href="#features" class="btn btn-secondary" style="font-size:1.05rem; padding:15px 30px;">
+        <i class="fa-solid fa-circle-play"></i> Explore Features & Services
+      </a>
+      <a href="/book-demo" style="display:inline-flex;align-items:center;gap:9px;background:transparent;border:2px solid rgba(37,211,102,0.5);color:var(--text-heading);border-radius:100px;padding:14px 28px;font-size:1.05rem;font-weight:700;text-decoration:none;cursor:pointer;transition:all 0.2s;font-family:inherit;" onmouseover="this.style.borderColor='#25d366';this.style.color='#008069'" onmouseout="this.style.borderColor='rgba(37,211,102,0.5)';this.style.color='var(--text-heading)'">
+        <i class="fa-solid fa-calendar-check" style="color:#25d366;"></i> Book a Live Demo
+      </a>
+    </div>
+
+    <!-- Live Activity Ticker (Visible on mobile, tablet & laptop) -->
+    <div class="hero-live-ticker">
+      <span class="ticker-badge"><span class="pulse-dot"></span> LIVE STORE ACTIVITY</span>
+      <span class="ticker-item">🛍️ <strong>Metro Supermarket</strong> issued ₹3,850 bill (+190 pts)</span>
+      <span class="ticker-divider">•</span>
+      <span class="ticker-item">🎂 <strong>Urban Trendz</strong> sent 16 birthday coupons</span>
+      <span class="ticker-divider">•</span>
+      <span class="ticker-item">💚 <strong>98.8%</strong> Read Rate on Lookbook</span>
+    </div>
+
+    <!-- Live Interactive Preview Showcase -->
+    <div class="hero-preview-wrapper reveal">
+      <div class="hero-preview-inner">
+        <!-- Left: Mini Dashboard View -->
+        <div style="padding:32px; border-right:1px solid var(--border-color);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+            <div>
+              <span class="tag tag-vip">Store Active</span>
+              <h3 style="font-size:1.25rem; font-weight:800; margin-top:4px;">Apex Retail & Stores</h3>
+              <p style="font-size:0.8rem; color:var(--text-muted);">Main Store • 8,420 Active Customers</p>
+            </div>
+            <span class="status-badge status-sent"><i class="fa-solid fa-bolt"></i> Live Automation</span>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+            <div style="background:var(--bg-surface); padding:16px; border-radius:12px; border:1px solid var(--border-subtle);">
+              <span style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">LOYALTY POINTS EARNED</span>
+              <div style="font-size:1.6rem; font-weight:900; color:var(--accent-500); margin-top:4px;">18,450 pts</div>
+              <small style="color:var(--success); font-size:0.75rem;"><i class="fa-solid fa-arrow-trend-up"></i> +24% repeat sales</small>
+            </div>
+            <div style="background:var(--bg-surface); padding:16px; border-radius:12px; border:1px solid var(--border-subtle);">
+              <span style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">WHATSAPP OPEN RATE</span>
+              <div style="font-size:1.6rem; font-weight:900; color:var(--wa-green); margin-top:4px;">98.4%</div>
+              <small style="color:var(--text-muted); font-size:0.75rem;">vs 11% SMS average</small>
+            </div>
+          </div>
+
+          <div style="background:var(--bg-surface); padding:16px; border-radius:12px; border:1px solid var(--border-color);">
+            <div style="display:flex; justify-content:space-between; font-size:0.88rem; font-weight:700; margin-bottom:8px; flex-wrap:wrap;">
+              <span>Today's Automated Birthday Pipeline</span>
+              <span style="color:var(--gold);">3 Customers Celebrating Today 🎂</span>
+            </div>
+            <div style="font-size:0.8rem; color:var(--text-muted); line-height:1.5;">
+              Automated 15% discount coupon dispatched at 9:00 AM with exclusive VIP store invitation. Show coupon at checkout or online to redeem.
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Real-time Customer Phone Simulation -->
+        <div style="padding:28px; background:var(--bg-surface); display:flex; flex-direction:column; justify-content:center; align-items:center;">
+          <!-- Interactive Selector Tabs — Pill Slider -->
+          <div class="sim-tabs-wrap">
+            <div class="slider-track pos-1" id="simSlider"></div>
+            <button class="phone-tab active" onclick="LandingApp.switchSim('birthday', this, 0)">
+              <span class="tab-emoji">🎂</span>Birthday
+            </button>
+            <button class="phone-tab" onclick="LandingApp.switchSim('receipt', this, 1)">
+              <span class="tab-emoji">🧾</span>POS Bill
+            </button>
+            <button class="phone-tab" onclick="LandingApp.switchSim('festival', this, 2)">
+              <span class="tab-emoji">✨</span>Lookbook
+            </button>
+          </div>
+
+          <div style="width:100%; max-width:290px; background:#111; border-radius:32px; padding:10px; box-shadow:var(--shadow-xl);">
+            <div style="background:var(--wa-bg); border-radius:24px; overflow:hidden; font-size:0.78rem;">
+              <div style="background:var(--wa-dark); color:white; padding:14px 12px; display:flex; align-items:center; gap:8px;">
+                <div style="width:28px; height:28px; border-radius:50%; background:var(--primary-600); display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:0.72rem;">SL</div>
+                <div>
+                  <div style="font-weight:bold; font-size:0.82rem;">EasyToReach Store <i class="fa-solid fa-circle-check" style="color:#25d366; font-size:0.68rem;"></i></div>
+                  <div class="sim-status-bar"><span class="sim-status-dot"></span>Online — Verified Business</div>
+                </div>
+              </div>
+              <div style="padding:12px; display:flex; flex-direction:column; gap:8px;">
+                <div class="chat-bubble outbound" id="simBubble" style="font-size:0.74rem; line-height:1.45;">
+                  <div id="simBubbleContent">🎉 Happy Birthday <strong>Meenakshi</strong>! 🎂✨<br><br>Warm wishes from <strong>EasyToReach Store</strong>!<br>Enjoy an exclusive <strong>15% BIRTHDAY DISCOUNT</strong> on our new collection!<br><br>📌 Show this at checkout.<br>⏳ Valid for the next 7 days.</div>
+                  <div class="timestamp" id="simBubbleTime" style="font-size:0.6rem;">09:00 AM <i class="fa-solid fa-check-double" style="color:#53bdeb;"></i></div>
+                </div>
+                <div id="simBubbleButtons" style="display:flex; flex-direction:column; gap:6px;">
+                  <button class="sim-action-btn"><i class="fa-solid fa-tag"></i> Claim 15% Voucher</button>
+                  <button class="sim-action-btn"><i class="fa-solid fa-store"></i> View Store Catalog</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <small style="color:var(--text-muted); font-size:0.72rem; margin-top:10px;"><i class="fa-solid fa-hand-pointer"></i> Click tabs above to test real message templates</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= KPI BAR (Expansive) ================= -->
+  <section class="kpi-section">
+    <div class="kpi-grid">
+      <div class="kpi-item reveal">
+        <h3 class="counter-num" data-target="98.4" data-suffix="%">98.4%</h3>
+        <p>WhatsApp Message Open Rate</p>
+      </div>
+      <div class="kpi-item reveal" style="transition-delay: 0.1s;">
+        <h3 class="counter-num" data-target="4.8" data-suffix="x">4.8x</h3>
+        <p>Higher Footfall on Birthday Offers</p>
+      </div>
+      <div class="kpi-item reveal" style="transition-delay: 0.2s;">
+        <h3 class="counter-num" data-target="100" data-suffix="%">100%</h3>
+        <p>Meta Cloud API Delivery SLA</p>
+      </div>
+      <div class="kpi-item reveal" style="transition-delay: 0.3s;">
+        <h3 class="counter-num" data-target="0" data-suffix=" Bans">0 Bans</h3>
+        <p>Zero Risk with Verified Cloud API</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURES & SERVICES ================= -->
+  <section class="full-width-section" id="features">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <span class="section-badge">Everything Your Business Needs</span>
+        <h2 class="section-title">Engineered For Modern Retailers, D2C & Growing Businesses</h2>
+        <p class="section-desc">Traditional generic CRMs and expensive SMS gateways fail to drive real repeat sales. EasyToReach is built from the ground up with interactive buttons, WhatsApp automation, and cashable loyalty points that customers actually love.</p>
+      </div>
+
+      <div class="feature-cards-grid">
+        <!-- 1. Birthday Automation -->
+        <div class="feature-card reveal">
+          <div class="feature-icon-bubble" style="background:var(--gold-light); color:#b45309;">
+            <i class="fa-solid fa-cake-candles"></i>
+          </div>
+          <h3>Automated Birthday & Anniversary Gifting</h3>
+          <p>Never miss a customer's special day. Our automated daily cron engine dispatches personalized greeting cards with a 7-day exclusive discount voucher directly to their WhatsApp.</p>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Personalized customer name & discount %</li>
+            <li><i class="fa-solid fa-check"></i> Strict anti-spam rule (1 wish per calendar year)</li>
+            <li><i class="fa-solid fa-check"></i> Automated morning delivery at 9:00 AM</li>
+          </ul>
+        </div>
+
+        <!-- 2. Festive Broadcasts -->
+        <div class="feature-card reveal" style="transition-delay: 0.1s;">
+          <div class="feature-icon-bubble" style="background:var(--primary-100); color:var(--primary-600);">
+            <i class="fa-solid fa-bullhorn"></i>
+          </div>
+          <h3>Festive & Promotional Broadcast Campaigns</h3>
+          <p>Broadcast high-resolution catalog flyers and new arrival announcements for Deepavali, Pongal, Wedding Season, and Eid to 10,000+ customers in seconds.</p>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Rich photo attachments & catalog flyers</li>
+            <li><i class="fa-solid fa-check"></i> Smart audience segmentation (VIP, High-Spenders, Inactive)</li>
+            <li><i class="fa-solid fa-check"></i> Pre-written festive Indian templates</li>
+          </ul>
+        </div>
+
+        <!-- 3. Billing POS & Receipts -->
+        <div class="feature-card reveal" style="transition-delay: 0.2s;">
+          <div class="feature-icon-bubble" style="background:var(--accent-100); color:var(--accent-600);">
+            <i class="fa-solid fa-receipt"></i>
+          </div>
+          <h3>Paperless POS Billing & Digital Receipts</h3>
+          <p>Cashier enters the customer's phone number & invoice amount. Customers immediately receive a branded digital WhatsApp invoice detailing their points earned today and total balance.</p>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Instant digital WhatsApp receipt</li>
+            <li><i class="fa-solid fa-check"></i> Automatic 5% loyalty points cashback</li>
+            <li><i class="fa-solid fa-check"></i> 1-click counter redemption discount</li>
+          </ul>
+        </div>
+
+        <!-- 4. Multi-Tenant -->
+        <div class="feature-card reveal">
+          <div class="feature-icon-bubble" style="background:#e0e7ff; color:#4338ca;">
+            <i class="fa-solid fa-store"></i>
+          </div>
+          <h3>Multi-Store & Branch Management</h3>
+          <p>Running multiple branches or outlets across cities? Manage all your stores from a unified dashboard. Every branch maintains its own isolated customer base, sender name, and billing ledger.</p>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Separate WhatsApp numbers per branch</li>
+            <li><i class="fa-solid fa-check"></i> Role-based cashier & store manager views</li>
+            <li><i class="fa-solid fa-check"></i> Branch-wise revenue & points analytics</li>
+          </ul>
+        </div>
+
+        <!-- 5. Cloud Drive Sync -->
+        <div class="feature-card reveal" style="transition-delay: 0.1s;">
+          <div class="feature-icon-bubble" style="background:var(--info-bg); color:var(--info);">
+            <i class="fa-solid fa-cloud-arrow-down"></i>
+          </div>
+          <h3>Google Drive & Sheets Auto-Sync</h3>
+          <p>Staff recording entries in an Excel or Google Sheet? Simply paste your Google Sheet share link into EasyToReach to auto-fetch and continuously sync customer records without manual uploads.</p>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Direct Google Sheets link auto-sync</li>
+            <li><i class="fa-solid fa-check"></i> 1-Click Excel CSV export</li>
+            <li><i class="fa-solid fa-check"></i> Real-time cloud webhook (Shopify/Forms)</li>
+          </ul>
+        </div>
+
+        <!-- 6. Shared Inbox & Official Meta API -->
+        <div class="feature-card reveal" style="transition-delay: 0.2s;">
+          <div class="feature-icon-bubble" style="background:var(--success-bg); color:var(--success);">
+            <i class="fa-brands fa-whatsapp"></i>
+          </div>
+          <h3>Official Meta Verified Sender Identity</h3>
+          <p>Say goodbye to banned numbers. By integrating directly with Meta's official WhatsApp Business Cloud API, your messages arrive under your registered business name with zero risk of bans.</p>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Store name & logo at chat top</li>
+            <li><i class="fa-solid fa-check"></i> Meta Cloud API Tier-1 throughput</li>
+            <li><i class="fa-solid fa-check"></i> Live WhatsApp simulator for safe trials</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COMPARISON SECTION (Spans fully with no empty side gaps) ================= -->
+  <section class="full-width-section alt-bg" id="comparison">
+    <div class="section-container">
+      <div class="compare-container-layout">
+        <!-- Left Side: Persuasive Callout -->
+        <div class="compare-intro-box reveal">
+          <span class="section-badge">Why It Outperforms Everything Else</span>
+          <h2>Traditional SMS Gateways vs EasyToReach WhatsApp</h2>
+          <p>
+            See why thousands of fast-growing businesses across India have abandoned 160-character plain text SMS messages in favor of rich, verified WhatsApp engagement.
+          </p>
+
+          <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:28px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:36px; height:36px; border-radius:50%; background:var(--success-bg); color:var(--success); display:flex; align-items:center; justify-content:center; font-weight:bold;">
+                <i class="fa-solid fa-check"></i>
+              </div>
+              <span style="font-weight:600; font-size:0.95rem;">98% Open Rate — Read within 3 minutes</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:36px; height:36px; border-radius:50%; background:var(--success-bg); color:var(--success); display:flex; align-items:center; justify-content:center; font-weight:bold;">
+                <i class="fa-solid fa-check"></i>
+              </div>
+              <span style="font-weight:600; font-size:0.95rem;">High-res Product Catalogs & PDF Flyers</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:36px; height:36px; border-radius:50%; background:var(--success-bg); color:var(--success); display:flex; align-items:center; justify-content:center; font-weight:bold;">
+                <i class="fa-solid fa-check"></i>
+              </div>
+              <span style="font-weight:600; font-size:0.95rem;">Verified Green Tick Store Branding</span>
+            </div>
+          </div>
+
+          <a href="/dashboard" class="btn btn-primary">
+            <i class="fa-solid fa-arrow-right"></i> Upgrade Your Store Today
+          </a>
+        </div>
+
+        <!-- Right Side: Full Glassmorphic Table -->
+        <div class="compare-card reveal" style="transition-delay: 0.15s;">
+          <div class="table-scroll-hint"><i class="fa-solid fa-arrows-left-right"></i> Scroll table horizontally to compare</div>
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>Feature / Capability</th>
+                <th style="color:var(--danger);"><i class="fa-solid fa-xmark"></i> Old Plain SMS</th>
+                <th style="color:var(--wa-green);"><i class="fa-brands fa-whatsapp"></i> EasyToReach WhatsApp <span style="background:var(--wa-green); color:white; font-size:0.65rem; padding:3px 8px; border-radius:12px; font-weight:800; margin-left:6px; letter-spacing:0.5px; vertical-align:middle;">RECOMMENDED</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Message Open Rate</strong></td>
+                <td>Only 10% - 15% (Filtered into spam inbox)</td>
+                <td><strong style="color:var(--wa-green);"><i class="fa-solid fa-bolt"></i> 98%+ (Read within 3 minutes)</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Rich Product Catalogs & Image Flyers</strong></td>
+                <td>Plain text only, zero images or videos</td>
+                <td><strong style="color:var(--success);">Rich Media, Product Photos & Video Previews</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Sender Trust & Identity</strong></td>
+                <td>Random unreadable codes (e.g. <code>VK-TEXTIL</code>)</td>
+                <td><strong style="color:var(--accent-500);">Your Store Name & Official Logo</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Customer Two-Way Chat</strong></td>
+                <td>No response possible</td>
+                <td><strong>Instant 2-way chat & interactive button ordering</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Loyalty Points & Cash Receipts</strong></td>
+                <td>Disconnected; customers forget balance</td>
+                <td><strong>Live points balance on every receipt</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Delivery Reliability</strong></td>
+                <td>Unpredictable DND blocks</td>
+                <td><strong>Official Meta Cloud API Guaranteed Delivery</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ROI CALCULATOR ================= -->
+  <section class="full-width-section" id="roi">
+    <div class="section-container">
+      <div class="roi-box reveal">
+        <div>
+          <span class="section-badge">Projected Store Growth</span>
+          <h2 style="font-size:2.2rem; font-weight:800; color:var(--text-heading); margin-bottom:12px;">Calculate Your Extra Store Revenue</h2>
+          <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.6; margin-bottom:28px;">
+            By re-engaging your past customers on their birthdays and festive seasons, your customer lifetime value multiplies dramatically.
+          </p>
+
+          <div style="margin-bottom:24px;">
+            <label style="font-weight:700; font-size:0.92rem; display:block; margin-bottom:10px;">
+              Your Monthly Store Customer Visits: <span id="calcCustLabel" style="color:var(--accent-500); font-size:1.15rem; font-weight:800;">2,500</span>
+            </label>
+            <input type="range" id="calcRange" min="500" max="20000" step="500" value="2500" style="width:100%; height:8px; accent-color:var(--accent-500); cursor:pointer;" oninput="LandingApp.updateROI(this.value)">
+          </div>
+
+          <div style="font-size:0.85rem; color:var(--text-muted);">
+            Based on average repeat conversion of 14% with ₹2,800 average order value.
+          </div>
+        </div>
+
+        <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:36px; text-align:center; box-shadow:var(--shadow-sm);">
+          <span style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Estimated Additional Monthly Revenue</span>
+          <div id="calcRevenueResult" style="font-size:clamp(2.2rem, 3.5vw, 3.2rem); font-weight:900; color:var(--success); margin:14px 0;">₹11,20,000</div>
+          <div style="font-size:0.88rem; color:var(--text-muted); margin-bottom:24px;">
+            Generated from automated birthday offers + festive broadcasts.
+          </div>
+          <a href="/dashboard" class="btn btn-primary" style="width:100%; padding:14px;">
+            <i class="fa-solid fa-bolt"></i> Start Unlocking Revenue Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIALS ================= -->
+  <section class="full-width-section alt-bg" id="testimonials">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <span class="section-badge">Trusted Across India</span>
+        <h2 class="section-title">What Business Owners Say</h2>
+        <p class="section-desc">See how traditional retailers transformed their repeat footfall using EasyToReach.</p>
+      </div>
+
+      <div class="testi-grid">
+        <div class="testi-card reveal">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Our festive campaign launch had a record 38% repeat buyer turnout. Sending interactive photo flyers with customer names on WhatsApp made customers feel truly valued and brought them back to our stores."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">SL</div>
+            <div>
+              <strong style="font-size:0.92rem; color:var(--text-heading);">Meenakshi Ramanathan</strong>
+              <div style="font-size:0.75rem; color:var(--text-muted);">Founder & CEO, Lifestyle Retail Brands</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card reveal" style="transition-delay: 0.1s;">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"We completely stopped printing paper bills. Every groom and executive gets their Raymond suit invoice and loyalty points on WhatsApp. They return every season!"</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:linear-gradient(135deg, #10b981, #059669);">RM</div>
+            <div>
+              <strong style="font-size:0.92rem; color:var(--text-heading);">Rajesh Kumar</strong>
+              <div style="font-size:0.75rem; color:var(--text-muted);">Founder, Royal Menswear & Suiting</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card reveal" style="transition-delay: 0.2s;">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Google Sheets sync is magic. Our billing desk types customer numbers into a simple sheet, and EasyToReach automatically sends welcome gifts and birthday discount coupons."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:linear-gradient(135deg, #f59e0b, #d97706);">KW</div>
+            <div>
+              <strong style="font-size:0.92rem; color:var(--text-heading);">Senthil Murugan</strong>
+              <div style="font-size:0.75rem; color:var(--text-muted);">Kanchipuram Handloom Collective</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRICING ================= -->
+  <section class="full-width-section" id="pricing">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <span class="section-badge">Simple, Transparent Pricing</span>
+        <h2 class="section-title">Plans Scaled for Single Boutiques to Retail Chains</h2>
+        <p class="section-desc">Zero hidden commissions. Connect your own Meta Cloud API credentials or use our turnkey managed delivery.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Starter -->
+        <div class="pricing-card reveal">
+          <h3 style="font-size:1.35rem; font-weight:800; color:var(--text-heading);">Single Store</h3>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Ideal for standalone retail stores, boutiques & single-location businesses.</p>
+          <div class="plan-price">₹1,499<span> / month</span></div>
+          <ul style="list-style:none; padding:0; margin:24px 0; display:flex; flex-direction:column; gap:12px; font-size:0.88rem;">
+            <li><i class="fa-solid fa-check" style="color:var(--success);"></i> 1 Store Location</li>
+            <li><i class="fa-solid fa-check" style="color:var(--success);"></i> Unlimited Customer Profiles</li>
+            <li><i class="fa-solid fa-check" style="color:var(--success);"></i> Automated Daily Birthday Wishes</li>
+            <li><i class="fa-solid fa-check" style="color:var(--success);"></i> POS Billing & WhatsApp Receipts</li>
+            <li><i class="fa-solid fa-check" style="color:var(--success);"></i> Google Sheets Cloud Sync</li>
+          </ul>
+          <a href="/dashboard" class="btn btn-secondary" style="margin-top:auto; width:100%;">Get Started</a>
+        </div>
+
+        <!-- Growth (Featured) -->
+        <div class="pricing-card featured reveal" style="transition-delay: 0.1s;">
+          <span class="pricing-plan-badge">Most Popular for Growing Brands</span>
+          <h3 style="font-size:1.35rem; font-weight:800; color:var(--accent-500);">Growth Retailer</h3>
+          <p style="font-size:0.85rem; color:var(--text-muted);">For multi-outlet businesses broadcasting weekly catalogs & promotional offers.</p>
+          <div class="plan-price" style="color:var(--accent-500);">₹2,999<span> / month</span></div>
+          <ul style="list-style:none; padding:0; margin:24px 0; display:flex; flex-direction:column; gap:12px; font-size:0.88rem;">
+            <li><i class="fa-solid fa-check" style="color:var(--success);"></i> Up to 3 Store Locations</li>
+            <li><i class="fa-solid fa-check" style="color:var(--success);"></i> Unlimited WhatsApp Broadcasts</li>
+            <li><i class="fa-solid fa-check" style="color:var(--success);"></i> Rich Lookbook & Photo Attachments</li>
+            <li><i class="fa-solid fa-check" style="color:var(--success);"></i> Automated Birthday & Anniversary Engine</li>
+            <li><i class="fa-solid fa-check" style="color:var(--success);"></i> Loyalty Points Cash Redemption POS</li>
+            <li><i class="fa-solid fa-check" style="color:var(--success);"></i> Dedicated Onboarding & Meta Verification</li>
+          </ul>
+          <a href="/dashboard" class="btn btn-primary" style="margin-top:auto; width:100%;">Start 14-Day Free Trial</a>
+        </div>
+
+        <!-- Multi-Chain -->
+        <div class="pricing-card reveal" style="transition-delay: 0.2s;">
+          <h3 style="font-size:1.35rem; font-weight:800; color:var(--text-heading);">Multi-Chain Franchise</h3>
+          <p style="font-size:0.85rem; color:var(--text-muted);">For retail chains, multi-city brands & franchised business networks.</p>
+          <div class="plan-price">₹6,999<span> / month</span></div>
+          <ul style="list-style:none; padding:0; margin:24px 0; display:flex; flex-direction:column; gap:12px; font-size:0.88rem;">
+            <li><i class="fa-solid fa-check" style="color:var(--success);"></i> Unlimited Store Locations</li>
+            <li><i class="fa-solid fa-check" style="color:var(--success);"></i> Multi-Agent Shared Team Inbox</li>
+            <li><i class="fa-solid fa-check" style="color:var(--success);"></i> Custom ERP/POS Webhook Integration</li>
+            <li><i class="fa-solid fa-check" style="color:var(--success);"></i> Multi-City Segmented Broadcasts</li>
+            <li><i class="fa-solid fa-check" style="color:var(--success);"></i> SLA Guaranteed 99.9% Uptime</li>
+          </ul>
+          <a href="/dashboard" class="btn btn-secondary" style="margin-top:auto; width:100%;">Contact Enterprise</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="full-width-section alt-bg" id="faq">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <span class="section-badge">Got Questions?</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-desc">Everything you need to know about setting up WhatsApp automation for your business.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item reveal" onclick="LandingApp.toggleFAQ(this)">
+          <div class="faq-q">
+            <span>Can messages be sent with our store's verified name instead of a random number?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-a">Yes! EasyToReach connects directly to official Meta WhatsApp Cloud API. Once verified, your business's official name and verified checkmark appear at the top of customer chats.</div>
+        </div>
+
+        <div class="faq-item reveal" onclick="LandingApp.toggleFAQ(this)">
+          <div class="faq-q">
+            <span>How does the automated birthday discount work?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-a">Every day at 9:00 AM, our background engine scans your customer database. Anyone having a birthday today receives an exclusive personalized discount voucher (e.g. 15% OFF valid for 7 days). Our anti-spam ledger ensures no customer ever receives duplicate wishes in the same calendar year.</div>
+        </div>
+
+        <div class="faq-item reveal" onclick="LandingApp.toggleFAQ(this)">
+          <div class="faq-q">
+            <span>Can we import our existing customer Excel or Google Sheets list?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-a">Yes. You can upload an Excel CSV file in 1 click or paste your Google Sheets link. EasyToReach will automatically pull names, mobile numbers, birthdays, and customer preferences without manual typing.</div>
+        </div>
+
+        <div class="faq-item reveal" onclick="LandingApp.toggleFAQ(this)">
+          <div class="faq-q">
+            <span>Is our customer data secure?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-a">Absolutely. All customer data is stored in your private, isolated database. It is never sold, scraped, or shared with third-party advertising brokers.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= BOOK A DEMO SECTION ================= -->
+  <section class="book-demo-section" id="book-demo">
+    <div style="position:relative;z-index:1;max-width:800px;margin:0 auto;">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);border-radius:100px;padding:6px 18px;margin-bottom:24px;">
+        <span style="width:8px;height:8px;border-radius:50%;background:#25d366;display:inline-block;animation:pulse 2s infinite;"></span>
+        <span style="font-size:0.78rem;font-weight:700;color:#25d366;text-transform:uppercase;letter-spacing:1px;">Live Demo Available</span>
+      </div>
+      <h2 style="font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;color:#fff;margin-bottom:16px;line-height:1.2;">
+        See EasyToReach in Action.<br>
+        <span style="background:linear-gradient(135deg,#25d366,#00a884);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Book a 1-on-1 Live Demo.</span>
+      </h2>
+      <p style="font-size:1.05rem;color:rgba(255,255,255,0.65);max-width:580px;margin:0 auto 36px;line-height:1.65;">
+        Our team will walk you through how to set up WhatsApp automation, loyalty billing, and customer broadcast campaigns for your business — in under 30 minutes.
+      </p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;">
+        <a href="/book-demo" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#25d366,#008069);color:#fff;border:none;border-radius:100px;padding:16px 36px;font-size:1.05rem;font-weight:800;text-decoration:none;cursor:pointer;box-shadow:0 8px 24px rgba(37,211,102,0.4);transition:all 0.2s;font-family:inherit;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 32px rgba(37,211,102,0.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 24px rgba(37,211,102,0.4)'">
+          <i class="fa-solid fa-calendar-check"></i> Book My Free Demo
+        </a>
+        <a href="https://wa.me/919994770276?text=Hi!%20I%20want%20to%20book%20a%20demo%20of%20EasyToReach%20WhatsApp%20CRM" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:10px;background:transparent;border:2px solid rgba(255,255,255,0.2);color:#fff;border-radius:100px;padding:14px 32px;font-size:1rem;font-weight:700;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.2)'">
+          <i class="fa-brands fa-whatsapp" style="color:#25d366;"></i> Chat on WhatsApp
+        </a>
+      </div>
+      <div class="book-demo-steps reveal">
+        <div class="book-demo-step">
+          <span class="step-num">Step 01</span>
+          <span class="step-icon">📅</span>
+          <h4>Pick a Time Slot</h4>
+          <p>Choose a 30-minute slot that works for you from our Google Calendar scheduler.</p>
+        </div>
+        <div class="book-demo-step">
+          <span class="step-num">Step 02</span>
+          <span class="step-icon">📲</span>
+          <h4>Get a Confirmation</h4>
+          <p>Receive instant Google Meet link and calendar invite in your inbox.</p>
+        </div>
+        <div class="book-demo-step">
+          <span class="step-num">Step 03</span>
+          <span class="step-icon">🚀</span>
+          <h4>Live Walkthrough</h4>
+          <p>Our expert walks you through billing, campaigns, and loyalty automation — live on your data.</p>
+        </div>
+        <div class="book-demo-step">
+          <span class="step-num">Step 04</span>
+          <span class="step-icon">✅</span>
+          <h4>Get Onboarded Same Day</h4>
+          <p>If it's a fit, we set up your WhatsApp Business API and onboard your store within 24 hours.</p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:24px;margin-top:36px;flex-wrap:wrap;">
+        <span style="display:flex;align-items:center;gap:6px;font-size:0.8rem;color:rgba(255,255,255,0.5);"><i class="fa-solid fa-check-circle" style="color:#25d366;"></i> No credit card required</span>
+        <span style="display:flex;align-items:center;gap:6px;font-size:0.8rem;color:rgba(255,255,255,0.5);"><i class="fa-solid fa-check-circle" style="color:#25d366;"></i> 30 minutes, free of charge</span>
+        <span style="display:flex;align-items:center;gap:6px;font-size:0.8rem;color:rgba(255,255,255,0.5);"><i class="fa-solid fa-check-circle" style="color:#25d366;"></i> Tailored to your store</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BOTTOM CTA ================= -->
+  <section class="bottom-cta reveal">
+    <h2 style="font-size:clamp(1.8rem, 3.5vw, 2.7rem); font-weight:900; margin-bottom:16px;">Ready to Modernize Your Customer Retention & Sales on WhatsApp?</h2>
+    <p style="font-size:1.1rem; opacity:0.85; max-width:700px; margin:0 auto 34px; line-height:1.6;">
+      Join hundreds of forward-thinking retailers and brands delighting customers on WhatsApp today.
+    </p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="/dashboard" class="btn btn-whatsapp" style="font-size:1.1rem; padding:15px 36px;">
+        <i class="fa-brands fa-whatsapp"></i> Launch Free Store CRM Dashboard
+      </a>
+      <a href="/book-demo" style="display:inline-flex;align-items:center;gap:10px;background:transparent;border:2px solid rgba(255,255,255,0.4);color:#fff;border-radius:100px;padding:14px 32px;font-size:1.05rem;font-weight:800;text-decoration:none;cursor:pointer;transition:all 0.2s;font-family:inherit;" onmouseover="this.style.borderColor='rgba(255,255,255,0.9)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.4)'">
+        <i class="fa-solid fa-calendar-check"></i> Book a Free Demo
+      </a>
+    </div>
+  </section>
+
+
+  <!-- ================= BOOK A DEMO MODAL ================= -->
+  <div class="demo-modal-backdrop" id="demoModalBackdrop" onclick="LandingApp.closeDemoModal(event)">
+    <div class="demo-modal" onclick="event.stopPropagation()">
+      <!-- Modal Header -->
+      <div class="demo-modal-header">
+        <h2>
+          <i class="fa-brands fa-whatsapp"></i>
+          Book a Free 30-Min Demo
+        </h2>
+        <button class="demo-modal-close" onclick="LandingApp.closeDemoModal()" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="demo-modal-body">
+        <!-- Left sidebar info panel -->
+        <div class="demo-modal-left">
+          <div class="brand-wrap">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>EasyToReach</span>
+          </div>
+          <div class="demo-info-item">
+            <div class="icon-wrap"><i class="fa-solid fa-clock"></i></div>
+            <div class="info-text">
+              <strong>Duration</strong>
+              <span>30 minutes, one-on-one</span>
+            </div>
+          </div>
+          <div class="demo-info-item">
+            <div class="icon-wrap"><i class="fa-brands fa-google"></i></div>
+            <div class="info-text">
+              <strong>How</strong>
+              <span>Google Meet video call</span>
+            </div>
+          </div>
+          <div class="demo-info-item">
+            <div class="icon-wrap"><i class="fa-solid fa-store"></i></div>
+            <div class="info-text">
+              <strong>What We Cover</strong>
+              <span>WhatsApp automation, billing, loyalty rewards, campaigns</span>
+            </div>
+          </div>
+          <div class="demo-info-item">
+            <div class="icon-wrap"><i class="fa-solid fa-rupee-sign"></i></div>
+            <div class="info-text">
+              <strong>Cost</strong>
+              <span>Completely free, no obligation</span>
+            </div>
+          </div>
+          <div class="demo-info-item">
+            <div class="icon-wrap"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="info-text">
+              <strong>Privacy</strong>
+              <span>No spam, we respect your data</span>
+            </div>
+          </div>
+          <div class="demo-trust-row" style="margin-top:auto;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08);">
+            <div class="demo-trust-item"><i class="fa-solid fa-check-circle"></i> Meta Verified</div>
+            <div class="demo-trust-item"><i class="fa-solid fa-check-circle"></i> 100% Free</div>
+            <div class="demo-trust-item"><i class="fa-solid fa-check-circle"></i> No Card Needed</div>
+          </div>
+        </div>
+
+        <!-- Right: Tabs (Calendar + Form) -->
+        <div class="demo-modal-right">
+          <div class="demo-tabs">
+            <button class="demo-tab-btn active" id="demoTabCalendar" onclick="LandingApp.switchDemoTab('calendar')">
+              <i class="fa-solid fa-calendar"></i> Schedule a Call
+            </button>
+            <button class="demo-tab-btn" id="demoTabForm" onclick="LandingApp.switchDemoTab('form')">
+              <i class="fa-solid fa-envelope"></i> Send a Request
+            </button>
+          </div>
+
+          <!-- Calendar Tab: Custom Appointment Scheduler -->
+          <div class="demo-tab-panel active" id="demoPanelCalendar">
+            <!-- Booking success screen -->
+            <div class="appt-booked-panel" id="apptBookedPanel">
+              <div class="appt-booked-icon"><i class="fa-solid fa-check"></i></div>
+              <h3 style="font-size:1.2rem;font-weight:800;color:var(--text-heading);margin:0;">Appointment Confirmed! 🎉</h3>
+              <p id="apptBookedMsg" style="color:var(--text-muted);font-size:0.88rem;max-width:320px;line-height:1.6;margin:0;"></p>
+              <a id="apptWhatsappLink" href="#" target="_blank" rel="noopener noreferrer"
+                 style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#25d366,#008069);color:#fff;text-decoration:none;padding:11px 24px;border-radius:100px;font-weight:700;font-size:0.88rem;">
+                <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+              </a>
+            </div>
+
+            <!-- Main Calendar Picker -->
+            <div class="appt-cal-wrap" id="apptCalMain">
+              <!-- Left: mini month calendar -->
+              <div class="appt-cal-left">
+                <div class="appt-cal-meta">
+                  <div class="appt-cal-meta-block">
+                    <span class="meta-label"><i class="fa-solid fa-clock" style="color:#25d366;margin-right:4px;"></i>Duration</span>
+                    <span class="meta-val">30 min</span>
+                  </div>
+                  <div style="width:1px;height:28px;background:var(--border-color,#e5e7eb);margin:0 8px;"></div>
+                  <div class="appt-cal-meta-block">
+                    <span class="meta-label"><i class="fa-brands fa-google-meet" style="color:#1a73e8;margin-right:4px;"></i>Via</span>
+                    <span class="meta-val">Google Meet</span>
+                  </div>
+                </div>
+                <div class="appt-mini-cal-header">
+                  <button id="apptPrevMonth" onclick="DemoCalendar.prevMonth()" title="Previous month"><i class="fa-solid fa-chevron-left"></i></button>
+                  <span class="cal-month-label" id="apptMonthLabel"></span>
+                  <button id="apptNextMonth" onclick="DemoCalendar.nextMonth()" title="Next month"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <div class="appt-mini-grid" id="apptMiniGrid">
+                  <div class="dow">S</div><div class="dow">M</div><div class="dow">T</div>
+                  <div class="dow">W</div><div class="dow">T</div><div class="dow">F</div><div class="dow">S</div>
+                </div>
+              </div>
+
+              <!-- Right: Time slots + Confirm form -->
+              <div class="appt-cal-right">
+                <!-- Slot picker -->
+                <div id="apptSlotsView">
+                  <div class="appt-slots-header">
+                    <span id="apptSelectedDateLabel">Select a date</span>
+                    <span class="appt-tz-badge" id="apptTzBadge">IST (GMT+5:30)</span>
+                  </div>
+                  <div class="appt-slots-grid" id="apptSlotsGrid">
+                    <div class="appt-no-slots"><i class="fa-regular fa-calendar"></i>Pick a date on the left to see available slots.</div>
+                  </div>
+                </div>
+
+                <!-- Confirm details form -->
+                <div class="appt-confirm-wrap" id="apptConfirmView">
+                  <div class="appt-confirm-banner">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <div>
+                      <div class="slot-txt" id="apptConfirmSlotLabel"></div>
+                      <div class="slot-sub">30-minute Google Meet · Free</div>
+                    </div>
+                  </div>
+                  <div class="appt-confirm-row appt-confirm-fields">
+                    <div class="appt-confirm-field">
+                      <label>Your Name <span class="req">*</span></label>
+                      <input type="text" id="apptName" placeholder="e.g. Rajesh Kumar">
+                    </div>
+                    <div class="appt-confirm-field">
+                      <label>WhatsApp Number <span class="req">*</span></label>
+                      <input type="tel" id="apptPhone" placeholder="e.g. 9876543210">
+                    </div>
+                  </div>
+                  <div class="appt-confirm-field">
+                    <label>Email <span style="color:var(--text-muted);font-weight:400;">(optional)</span></label>
+                    <input type="email" id="apptEmail" placeholder="yourname@email.com">
+                  </div>
+                  <div class="appt-confirm-field">
+                    <label>Store / Shop Name</label>
+                    <input type="text" id="apptShop" placeholder="e.g. Apex Retail, Urban Brands">
+                  </div>
+                  <button class="appt-cal-confirm-btn" id="apptConfirmBtn" onclick="DemoCalendar.confirmBooking()">
+                    <i class="fa-solid fa-calendar-check"></i> Confirm Appointment
+                  </button>
+                  <button class="appt-cal-back-btn" onclick="DemoCalendar.backToSlots()">
+                    <i class="fa-solid fa-arrow-left"></i> Back to time slots
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Tab: Quick request form -->
+          <div class="demo-tab-panel" id="demoPanelForm">
+            <!-- Success Panel -->
+            <div class="demo-success-panel" id="demoSuccessPanel">
+              <div class="demo-success-icon"><i class="fa-solid fa-check"></i></div>
+              <h3 style="font-size:1.3rem;font-weight:800;color:var(--text-heading);">Demo Request Sent! 🎉</h3>
+              <p style="color:var(--text-muted);font-size:0.92rem;max-width:360px;line-height:1.6;">We've received your request. Our team will reach out within 2 business hours to confirm your slot.</p>
+              <p style="font-size:0.82rem;color:var(--text-muted);">Or you can WhatsApp us directly:</p>
+              <a href="https://wa.me/919994770276?text=Hi!%20I%20submitted%20a%20demo%20request%20on%20EasyToReach%20website" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#25d366,#008069);color:#fff;text-decoration:none;padding:11px 24px;border-radius:100px;font-weight:700;font-size:0.88rem;">
+                <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+              </a>
+            </div>
+            <!-- Form -->
+            <form class="demo-form" id="demoRequestForm" onsubmit="LandingApp.submitDemoRequest(event)">
+              <p style="font-size:0.82rem;color:var(--text-muted);margin:0 0 4px;">Fill in your details and we'll reach out within 2 business hours to confirm your slot.</p>
+              <div class="demo-form-row">
+                <div class="demo-form-group">
+                  <label>Your Name <span class="req">*</span></label>
+                  <input type="text" id="demoName" placeholder="e.g. Rajesh Kumar" required>
+                </div>
+                <div class="demo-form-group">
+                  <label>WhatsApp Number <span class="req">*</span></label>
+                  <input type="tel" id="demoPhone" placeholder="e.g. 9876543210" required>
+                </div>
+              </div>
+              <div class="demo-form-row">
+                <div class="demo-form-group">
+                  <label>Store / Shop Name <span class="req">*</span></label>
+                  <input type="text" id="demoShop" placeholder="e.g. Apex Retail, Urban Brands" required>
+                </div>
+                <div class="demo-form-group">
+                  <label>City</label>
+                  <input type="text" id="demoCity" placeholder="e.g. Kanchipuram">
+                </div>
+              </div>
+              <div class="demo-form-group">
+                <label>Business Type</label>
+                <select id="demoBizType">
+                  <option value="">Select your business type</option>
+                  <option>Retail Store &amp; Supermarket</option>
+                  <option>E-Commerce &amp; D2C Brand</option>
+                  <option>Fashion, Apparel &amp; Boutiques</option>
+                  <option>Restaurant &amp; Food Delivery</option>
+                  <option>Healthcare &amp; Clinic</option>
+                  <option>Franchise / Multi-Outlet Chain</option>
+                  <option>Other Business</option>
+                </select>
+              </div>
+              <div class="demo-form-group">
+                <label>How many customers do you currently have?</label>
+                <select id="demoCustomers">
+                  <option value="">Select approximate count</option>
+                  <option>Under 500</option>
+                  <option>500 – 2,000</option>
+                  <option>2,000 – 10,000</option>
+                  <option>10,000+</option>
+                </select>
+              </div>
+              <div class="demo-form-group">
+                <label>What do you want to achieve? <span style="color:var(--text-muted);font-weight:400;">(optional)</span></label>
+                <textarea id="demoGoal" placeholder="e.g. Automate birthday offers, send festive broadcasts, replace manual reminders..."></textarea>
+              </div>
+              <button type="submit" class="demo-submit-btn" id="demoSubmitBtn">
+                <i class="fa-solid fa-paper-plane"></i> Send My Demo Request
+              </button>
+              <p style="text-align:center;font-size:0.74rem;color:var(--text-muted);margin:0;">🔒 We never spam. Your data is private and secure.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="landing-footer">
+    <div class="section-container">
+      <p>© 2026 EasyToReach Technologies. Built with ❤️ for Modern Retailers, Brands & Growing Businesses.</p>
+      <p style="margin-top:6px; font-size:0.75rem;">Official Meta Cloud API Compatible • Multi-Tenant Architecture • End-to-End Encrypted</p>
+    </div>
+  </footer>
+
+  <script>
+    // Landing Page Controller, Theme, Accordion & Scroll Observer
+    const LandingApp = {
+      currentTheme: 'light',
+
+      init() {
+        const savedTheme = localStorage.getItem("textile_theme") || 
+          (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        this.applyTheme(savedTheme);
+        this.initScrollReveal();
+        this.initCounters();
+        this.initScrollProgress();
+      },
+
+      initScrollProgress() {
+        const bar = document.getElementById("scrollProgressBar");
+        if (!bar) return;
+        const updateProgress = () => {
+          const bodyEl = document.getElementById("landingBody");
+          let scrollTop = bodyEl ? bodyEl.scrollTop : window.pageYOffset;
+          let scrollHeight = bodyEl ? (bodyEl.scrollHeight - bodyEl.clientHeight) : (document.documentElement.scrollHeight - window.innerHeight);
+          if (scrollHeight <= 0) {
+            scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+          }
+          const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+          bar.style.width = `${Math.min(Math.max(progress, 0), 100)}%`;
+        };
+        const bodyEl = document.getElementById("landingBody");
+        if (bodyEl) bodyEl.addEventListener("scroll", updateProgress, { passive: true });
+        window.addEventListener("scroll", updateProgress, { passive: true });
+      },
+
+      simData: {
+        birthday: {
+          content: `🎉 Happy Birthday <strong>Meenakshi</strong>! 🎂✨<br><br>Warm wishes from <strong>EasyToReach Store</strong>!<br>Enjoy an exclusive <strong>15% BIRTHDAY DISCOUNT</strong> on our new collection!<br><br>📌 Show this at checkout.<br>⏳ Valid for the next 7 days.`,
+          time: '09:00 AM',
+          buttons: ['<i class="fa-solid fa-tag"></i> Claim 15% Voucher', '<i class="fa-solid fa-store"></i> View Store Catalog']
+        },
+        receipt: {
+          content: `🧾 <strong>EASYTOREACH STORE</strong> — Tax Invoice<br><br>Dear <strong>Ananya</strong>,<br>Thank you for shopping with us today!<br><br>📄 Bill No: #ETR-8492<br>💰 Total Paid: ₹4,500<br>⭐ Loyalty Cashback: <strong>+225 Points</strong><br>🎁 Current Balance: <strong>580 Points</strong> (₹580 cash value)`,
+          time: '04:15 PM',
+          buttons: ['<i class="fa-solid fa-file-pdf"></i> Download PDF Bill', '<i class="fa-solid fa-star"></i> Rate Experience ⭐⭐⭐⭐⭐']
+        },
+        festival: {
+          content: `✨ <strong>FESTIVE MEGA SALE</strong> 🎁<br><br>Exciting new collections and festive arrivals are here at <strong>EasyToReach Store</strong>!<br>Flat ₹500 OFF on purchases above ₹3,000 this festive weekend.<br><br>📍 Visit our nearest store or order online<br>⏳ Limited festive offer!`,
+          time: '11:30 AM',
+          buttons: ['<i class="fa-solid fa-bag-shopping"></i> Browse Catalog', '<i class="fa-solid fa-tag"></i> Claim Festive Offer']
+        }
+      },
+
+      switchSim(type, btnEl, pos) {
+        document.querySelectorAll('.phone-tab').forEach(b => b.classList.remove('active'));
+        if (btnEl) btnEl.classList.add('active');
+
+        // Move slider track
+        const slider = document.getElementById('simSlider');
+        if (slider) {
+          slider.className = `slider-track pos-${(pos || 0) + 1}`;
+        }
+
+        const contentEl = document.getElementById('simBubbleContent');
+        const timeEl = document.getElementById('simBubbleTime');
+        const btnsEl = document.getElementById('simBubbleButtons');
+        const bubbleEl = document.getElementById('simBubble');
+        if (!contentEl) return;
+
+        // Fade out
+        if (bubbleEl) {
+          bubbleEl.style.opacity = '0';
+          bubbleEl.style.transform = 'translateY(6px)';
+          bubbleEl.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+        }
+        if (btnsEl) {
+          btnsEl.style.opacity = '0';
+          btnsEl.style.transition = 'opacity 0.15s ease';
+        }
+
+        setTimeout(() => {
+          // Show typing indicator
+          contentEl.innerHTML = `<span style="display:flex; align-items:center; gap:5px; color:#aaa; font-style:italic;"><span class="typing-dot"></span><span class="typing-dot" style="animation-delay:0.15s"></span><span class="typing-dot" style="animation-delay:0.3s"></span></span>`;
+          if (bubbleEl) {
+            bubbleEl.style.opacity = '1';
+            bubbleEl.style.transform = 'translateY(0)';
+          }
+
+          setTimeout(() => {
+            const item = this.simData[type] || this.simData.birthday;
+            contentEl.innerHTML = item.content;
+            if (timeEl) timeEl.innerHTML = `${item.time} <i class="fa-solid fa-check-double" style="color:#53bdeb;"></i>`;
+            if (btnsEl) {
+              btnsEl.innerHTML = item.buttons.map(b => `<button class="sim-action-btn">${b}</button>`).join('');
+              btnsEl.style.opacity = '0';
+              btnsEl.style.display = 'flex';
+              setTimeout(() => { btnsEl.style.opacity = '1'; }, 50);
+            }
+          }, 500);
+        }, 200);
+      },
+
+      initCounters() {
+        const counters = document.querySelectorAll('.counter-num');
+        let animated = false;
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !animated) {
+              animated = true;
+              counters.forEach(c => {
+                const target = parseFloat(c.getAttribute('data-target') || 0);
+                const prefix = c.getAttribute('data-prefix') || '';
+                const suffix = c.getAttribute('data-suffix') || '';
+                let val = 0;
+                const duration = 1200;
+                const startTime = performance.now();
+                function update(now) {
+                  const elapsed = now - startTime;
+                  const progress = Math.min(elapsed / duration, 1);
+                  const easeProgress = 1 - (1 - progress) * (1 - progress);
+                  val = target * easeProgress;
+                  c.textContent = prefix + (Number.isInteger(target) ? Math.round(val) : val.toFixed(1)) + suffix;
+                  if (progress < 1) {
+                    requestAnimationFrame(update);
+                  } else {
+                    c.textContent = prefix + target + suffix;
+                  }
+                }
+                requestAnimationFrame(update);
+              });
+            }
+          });
+        }, { threshold: 0.25 });
+
+        const kpi = document.querySelector('.kpi-section');
+        if (kpi) observer.observe(kpi);
+      },
+
+      toggleTheme() {
+        const nextTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+        const icon = document.getElementById("themeIcon");
+        if (icon) {
+          icon.classList.remove("icon-spin");
+          void icon.offsetWidth;
+          icon.classList.add("icon-spin");
+        }
+        this.applyTheme(nextTheme);
+      },
+
+      applyTheme(theme) {
+        this.currentTheme = theme;
+        document.documentElement.setAttribute("data-theme", theme);
+        document.body.setAttribute("data-theme", theme);
+        localStorage.setItem("textile_theme", theme);
+
+        const icon = document.getElementById("themeIcon");
+        const label = document.getElementById("themeLabel");
+        if (icon) {
+          icon.className = theme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+        }
+        if (label) {
+          label.textContent = theme === "dark" ? "Light" : "Dark";
+        }
+      },
+
+      toggleMobileMenu() {
+        const drawer = document.getElementById("mobileDrawer");
+        const icon = document.getElementById("mobileMenuIcon");
+        drawer.classList.toggle("open");
+        if (drawer.classList.contains("open")) {
+          icon.className = "fa-solid fa-xmark";
+        } else {
+          icon.className = "fa-solid fa-bars";
+        }
+      },
+
+      toggleFAQ(el) {
+        const isOpen = el.classList.contains('faq-open');
+        // Close all other open FAQs for clean accordion behaviour
+        document.querySelectorAll('.faq-item.faq-open').forEach(item => {
+          if (item !== el) {
+            item.classList.remove('faq-open');
+          }
+        });
+        if (isOpen) {
+          el.classList.remove('faq-open');
+        } else {
+          el.classList.add('faq-open');
+        }
+      },
+
+      initScrollReveal() {
+        const reveals = document.querySelectorAll(".reveal");
+        // Immediately reveal elements already inside initial viewport
+        reveals.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight) {
+            el.classList.add("active");
+          }
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("active");
+            }
+          });
+        }, { threshold: 0.08 });
+
+        reveals.forEach(r => observer.observe(r));
+      },
+
+      updateROI(val) {
+        document.getElementById("calcCustLabel").textContent = parseInt(val).toLocaleString("en-IN");
+        // Formula: customers * 14% repeat conversion * ₹3,200 avg order value
+        const repeatBuyers = Math.round(val * 0.14);
+        const revenue = repeatBuyers * 3200;
+        const resEl = document.getElementById("calcRevenueResult");
+        if (resEl) {
+          resEl.textContent = `₹${revenue.toLocaleString("en-IN")}`;
+          resEl.style.transform = 'scale(1.06)';
+          resEl.style.transition = 'transform 0.15s ease';
+          clearTimeout(this._roiTimer);
+          this._roiTimer = setTimeout(() => { resEl.style.transform = 'scale(1)'; }, 150);
+        }
+      },
+
+      // ── Book a Demo ───────────────────────────────────────────────────
+      openDemoModal() {
+        window.location.href = "/book-demo";
+      },
+
+      closeDemoModal(e) {
+        // If called from backdrop click, only close if the backdrop itself was clicked
+        if (e && e.target !== document.getElementById("demoModalBackdrop")) return;
+        const backdrop = document.getElementById("demoModalBackdrop");
+        if (backdrop) backdrop.classList.remove("open");
+        document.body.style.overflow = "";
+      },
+
+      switchDemoTab(tab) {
+        const calBtn   = document.getElementById("demoTabCalendar");
+        const formBtn  = document.getElementById("demoTabForm");
+        const calPanel = document.getElementById("demoPanelCalendar");
+        const formPanel= document.getElementById("demoPanelForm");
+        if (!calBtn || !formBtn) return;
+
+        if (tab === "calendar") {
+          calBtn.classList.add("active");
+          formBtn.classList.remove("active");
+          calPanel.classList.add("active");
+          formPanel.classList.remove("active");
+        } else {
+          formBtn.classList.add("active");
+          calBtn.classList.remove("active");
+          formPanel.classList.add("active");
+          calPanel.classList.remove("active");
+        }
+      },
+
+      async submitDemoRequest(e) {
+        e.preventDefault();
+        const btn = document.getElementById("demoSubmitBtn");
+        const form = document.getElementById("demoRequestForm");
+        const successPanel = document.getElementById("demoSuccessPanel");
+
+        const name      = (document.getElementById("demoName")?.value || "").trim();
+        const phone     = (document.getElementById("demoPhone")?.value || "").trim();
+        const shop      = (document.getElementById("demoShop")?.value || "").trim();
+        const city      = (document.getElementById("demoCity")?.value || "").trim();
+        const biz_type  = (document.getElementById("demoBizType")?.value || "").trim();
+        const customers = (document.getElementById("demoCustomers")?.value || "").trim();
+        const goal      = (document.getElementById("demoGoal")?.value || "").trim();
+
+        if (!name || !phone) {
+          alert("Please fill in your name and WhatsApp number.");
+          return;
+        }
+
+        // Show loading state
+        if (btn) {
+          btn.disabled = true;
+          btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending…';
+        }
+
+        try {
+          const res = await fetch("/api/demo-request", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, phone, shop, city, biz_type, customers, goal })
+          });
+          const data = await res.json();
+
+          if (res.ok && data.success) {
+            // Hide form, show success
+            if (form) form.style.display = "none";
+            if (successPanel) successPanel.classList.add("show");
+          } else {
+            alert(data.error || "Something went wrong. Please try again.");
+            if (btn) {
+              btn.disabled = false;
+              btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send My Demo Request';
+            }
+          }
+        } catch (err) {
+          alert("Network error. Please check your connection and try again.");
+          if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send My Demo Request';
+          }
+        }
+      }
+    };
+
+    // ── DemoCalendar: Custom Appointment Booking Engine ──────────────────────
+    const DemoCalendar = {
+      _inited: false,
+      curYear: 0,
+      curMonth: 0,
+      selectedDate: null,   // "YYYY-MM-DD"
+      selectedSlot: null,   // "10:00 AM"
+      bookedSlots: {},      // { "YYYY-MM-DD": ["10:00 AM", ...] }
+
+      // Available time slots (Mon–Fri only, 10 AM – 5 PM)
+      ALL_SLOTS: [
+        "10:00 AM","10:30 AM","11:00 AM","11:30 AM",
+        "12:00 PM","12:30 PM","01:00 PM","01:30 PM",
+        "02:00 PM","02:30 PM","03:00 PM","03:30 PM",
+        "04:00 PM","04:30 PM","05:00 PM"
+      ],
+
+      init() {
+        if (this._inited) return;
+        this._inited = true;
+        const now = new Date();
+        this.curYear  = now.getFullYear();
+        this.curMonth = now.getMonth();
+        this.renderMonth();
+      },
+
+      isWeekend(year, month, day) {
+        const d = new Date(year, month, day).getDay();
+        return d === 0 || d === 6;
+      },
+
+      isPast(year, month, day) {
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        return new Date(year, month, day) < today;
+      },
+
+      dateKey(year, month, day) {
+        return `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+      },
+
+      renderMonth() {
+        const months = ["January","February","March","April","May","June",
+                        "July","August","September","October","November","December"];
+        document.getElementById("apptMonthLabel").textContent =
+          `${months[this.curMonth]} ${this.curYear}`;
+
+        // Disable prev button if current month is this month
+        const now = new Date();
+        const prevBtn = document.getElementById("apptPrevMonth");
+        if (prevBtn) {
+          prevBtn.disabled = (this.curYear === now.getFullYear() && this.curMonth <= now.getMonth());
+        }
+
+        const grid = document.getElementById("apptMiniGrid");
+        // Keep the 7 DOW headers, remove old day cells
+        const rows = grid.querySelectorAll(".appt-day-cell");
+        rows.forEach(r => r.remove());
+
+        const firstDay = new Date(this.curYear, this.curMonth, 1).getDay();
+        const daysInMonth = new Date(this.curYear, this.curMonth + 1, 0).getDate();
+        const today = new Date();
+        today.setHours(0,0,0,0);
+
+        // Empty cells before first day
+        for (let i = 0; i < firstDay; i++) {
+          const e = document.createElement("button");
+          e.className = "appt-day-cell empty";
+          grid.appendChild(e);
+        }
+
+        for (let d = 1; d <= daysInMonth; d++) {
+          const btn = document.createElement("button");
+          btn.className = "appt-day-cell";
+          btn.textContent = d;
+          const key = this.dateKey(this.curYear, this.curMonth, d);
+          const isWknd = this.isWeekend(this.curYear, this.curMonth, d);
+          const isPast = this.isPast(this.curYear, this.curMonth, d);
+
+          if (isPast || isWknd) {
+            btn.classList.add("disabled");
+          } else {
+            btn.classList.add("has-slots");
+          }
+
+          if (key === this.dateKey(today.getFullYear(), today.getMonth(), today.getDate())) {
+            btn.classList.add("today");
+          }
+          if (key === this.selectedDate) btn.classList.add("selected");
+
+          btn.onclick = () => this.selectDate(this.curYear, this.curMonth, d, btn);
+          grid.appendChild(btn);
+        }
+      },
+
+      prevMonth() {
+        this.curMonth--;
+        if (this.curMonth < 0) { this.curMonth = 11; this.curYear--; }
+        this.renderMonth();
+      },
+
+      nextMonth() {
+        this.curMonth++;
+        if (this.curMonth > 11) { this.curMonth = 0; this.curYear++; }
+        this.renderMonth();
+      },
+
+      selectDate(year, month, day, btn) {
+        // Update selection highlight
+        document.querySelectorAll(".appt-day-cell.selected").forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        this.selectedDate = this.dateKey(year, month, day);
+        this.selectedSlot = null;
+        this.showSlots();
+        // Switch to slots view
+        document.getElementById("apptSlotsView").style.display = "flex";
+        document.getElementById("apptSlotsView").style.flexDirection = "column";
+        document.getElementById("apptConfirmView").classList.remove("show");
+      },
+
+      showSlots() {
+        const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        const [y, m, d] = this.selectedDate.split("-").map(Number);
+        const dateObj = new Date(y, m-1, d);
+        const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        document.getElementById("apptSelectedDateLabel").textContent =
+          `${days[dateObj.getDay()]}, ${months[m-1]} ${d}`;
+
+        // Detect user timezone
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Kolkata";
+        const offset = -new Date().getTimezoneOffset();
+        const h = Math.floor(Math.abs(offset)/60), min = Math.abs(offset)%60;
+        const tzStr = `GMT${offset>=0?'+':'-'}${String(h).padStart(2,'0')}:${String(min).padStart(2,'0')}`;
+        document.getElementById("apptTzBadge").textContent = `${tz.split('/').pop().replace('_',' ')} (${tzStr})`;
+
+        const booked = this.bookedSlots[this.selectedDate] || [];
+        const grid = document.getElementById("apptSlotsGrid");
+        grid.innerHTML = "";
+
+        this.ALL_SLOTS.forEach(slot => {
+          const isBooked = booked.includes(slot);
+          const btn = document.createElement("button");
+          btn.className = "appt-slot-btn" + (isBooked ? " booked" : "");
+          btn.innerHTML = `<span>${slot}</span><span class="slot-dur">30 min</span>`;
+          btn.disabled = isBooked;
+          btn.onclick = () => this.selectSlot(slot, btn);
+          grid.appendChild(btn);
+        });
+      },
+
+      selectSlot(slot, btn) {
+        document.querySelectorAll(".appt-slot-btn.selected").forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        this.selectedSlot = slot;
+
+        // Show confirm view after short delay
+        setTimeout(() => {
+          const [y, m, d] = this.selectedDate.split("-").map(Number);
+          const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+          const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+          const dateObj = new Date(y, m-1, d);
+          const label = `${days[dateObj.getDay()]}, ${months[m-1]} ${d} ${y} · ${slot}`;
+          document.getElementById("apptConfirmSlotLabel").textContent = label;
+          document.getElementById("apptSlotsView").style.display = "none";
+          document.getElementById("apptConfirmView").classList.add("show");
+        }, 220);
+      },
+
+      backToSlots() {
+        document.getElementById("apptConfirmView").classList.remove("show");
+        document.getElementById("apptSlotsView").style.display = "flex";
+        document.getElementById("apptSlotsView").style.flexDirection = "column";
+      },
+
+      async confirmBooking() {
+        const name  = (document.getElementById("apptName")?.value || "").trim();
+        const phone = (document.getElementById("apptPhone")?.value || "").trim();
+        const email = (document.getElementById("apptEmail")?.value || "").trim();
+        const shop  = (document.getElementById("apptShop")?.value || "").trim();
+
+        if (!name || !phone) {
+          alert("Please enter your name and WhatsApp number to confirm.");
+          return;
+        }
+
+        const btn = document.getElementById("apptConfirmBtn");
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Confirming…';
+
+        try {
+          const res = await fetch("/api/demo-request", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name, phone, shop,
+              city: "",
+              biz_type: "Appointment",
+              customers: "",
+              goal: `Scheduled appointment: ${this.selectedDate} at ${this.selectedSlot}`,
+              appointment_date: this.selectedDate,
+              appointment_time: this.selectedSlot,
+              email
+            })
+          });
+          const data = await res.json();
+
+          if (res.ok && data.success) {
+            // Mark slot as booked locally
+            if (!this.bookedSlots[this.selectedDate]) this.bookedSlots[this.selectedDate] = [];
+            this.bookedSlots[this.selectedDate].push(this.selectedSlot);
+
+            // Show success
+            const [y, m, d] = this.selectedDate.split("-").map(Number);
+            const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+            document.getElementById("apptBookedMsg").textContent =
+              `Your 30-min demo is set for ${months[m-1]} ${d}, ${y} at ${this.selectedSlot} IST. We'll send a Google Meet link to your WhatsApp shortly.`;
+            const wa = `https://wa.me/919994770276?text=Hi!%20I%20booked%20a%20demo%20for%20${encodeURIComponent(this.selectedDate)}%20at%20${encodeURIComponent(this.selectedSlot)}`;
+            document.getElementById("apptWhatsappLink").href = wa;
+
+            document.getElementById("apptCalMain").style.display = "none";
+            document.getElementById("apptBookedPanel").classList.add("show");
+          } else {
+            alert(data.error || "Something went wrong. Please try again.");
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Confirm Appointment';
+          }
+        } catch (err) {
+          alert("Network error. Please try again.");
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Confirm Appointment';
+        }
+      }
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      LandingApp.init();
+      // Close demo modal on Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          const backdrop = document.getElementById("demoModalBackdrop");
+          if (backdrop && backdrop.classList.contains("open")) {
+            backdrop.classList.remove("open");
+            document.body.style.overflow = "";
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

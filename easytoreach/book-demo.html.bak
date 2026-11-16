@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Free Demo — EasyToReach WhatsApp CRM</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ── Reset & Base ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green:     #25d366;
+      --green-dk:  #008069;
+      --green-xdk: #005c4b;
+      --bg:        #f5f7fa;
+      --white:     #ffffff;
+      --border:    #e2e8f0;
+      --text:      #1a202c;
+      --muted:     #64748b;
+      --radius:    14px;
+    }
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Inter, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Top Nav ───────────────────────────────────────────── */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .topnav a.back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      transition: all 0.15s;
+    }
+    .topnav a.back-btn:hover { color: var(--text); border-color: #94a3b8; }
+    .topnav .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .topnav .brand i { color: var(--green); font-size: 1.3rem; }
+    .topnav .badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      background: var(--green);
+      color: #fff;
+      padding: 2px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Page Layout ───────────────────────────────────────── */
+    .page-wrap {
+      min-height: calc(100vh - 57px);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 32px 16px 60px;
+    }
+    .book-card {
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+      border: 1px solid var(--border);
+      width: 100%;
+      max-width: 980px;
+      display: flex;
+      flex-direction: row;
+      overflow: hidden;
+    }
+
+    /* ── Left Info Panel ───────────────────────────────────── */
+    .info-panel {
+      width: 280px;
+      flex-shrink: 0;
+      background: linear-gradient(145deg, #0b1317, #1a2b25);
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .info-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .info-brand i { font-size: 1.6rem; color: var(--green); }
+    .info-brand span { font-size: 1.15rem; font-weight: 800; color: #fff; }
+    .info-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.3;
+    }
+    .info-title span {
+      background: linear-gradient(135deg, var(--green), #00a884);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+    }
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .info-item .ico {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(37,211,102,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .info-item .ico i { color: var(--green); font-size: 0.88rem; }
+    .info-item .txt strong { font-size: 0.82rem; font-weight: 700; color: #fff; display: block; margin-bottom: 2px; }
+    .info-item .txt span  { font-size: 0.75rem; color: rgba(255,255,255,0.55); line-height: 1.4; }
+    .trust-row {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.55);
+    }
+    .trust-item i { color: var(--green); font-size: 0.72rem; }
+
+    /* ── Right Panel ───────────────────────────────────────── */
+    .right-panel {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Tab bar */
+    .tab-bar {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      flex-shrink: 0;
+    }
+    .tab-btn {
+      padding: 16px 20px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: inherit;
+    }
+    .tab-btn.active  { color: var(--green-dk); border-bottom-color: var(--green-dk); }
+    .tab-btn:hover:not(.active) { color: var(--text); }
+
+    /* Tab panels */
+    .tab-panel { display: none; flex-direction: column; flex: 1; }
+    .tab-panel.active { display: flex; }
+
+    /* ── Calendar Panel ─────────────────────────────────────── */
+    .cal-wrap {
+      display: flex;
+      flex: 1;
+    }
+
+    /* Mini calendar column */
+    .cal-left {
+      width: 300px;
+      flex-shrink: 0;
+      padding: 28px 24px;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .cal-meta-row {
+      display: flex;
+      gap: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cal-meta-item .label { font-size: 0.7rem; color: var(--muted); font-weight: 500; display: flex; align-items: center; gap: 5px; }
+    .cal-meta-item .val   { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-top: 2px; }
+    .month-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .month-nav .month-label { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .nav-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 0.75rem;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+    .nav-btn:hover:not(:disabled) { background: #f1f5f9; border-color: #94a3b8; }
+    .nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+    /* Day grid */
+    .day-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      text-align: center;
+    }
+    .day-grid .dow {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--muted);
+      padding: 4px 0 8px;
+      text-transform: uppercase;
+    }
+    .day-btn {
+      aspect-ratio: 1;
+      border: none;
+      background: none;
+      border-radius: 50%;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, color 0.15s;
+      font-family: inherit;
+      width: 100%;
+    }
+    .day-btn:hover:not(.disabled):not(.empty)  { background: rgba(37,211,102,0.15); color: var(--green-dk); }
+    .day-btn.today:not(.selected)              { background: rgba(37,211,102,0.12); color: var(--green); font-weight: 700; }
+    .day-btn.has-slots:not(.today):not(.selected) { font-weight: 700; color: var(--green-dk); }
+    .day-btn.selected                          { background: var(--green-dk) !important; color: #fff !important; font-weight: 700; }
+    .day-btn.disabled, .day-btn.empty          { color: #cbd5e1; cursor: default; pointer-events: none; }
+
+    /* Slots column */
+    .cal-right {
+      flex: 1;
+      min-width: 0;
+      padding: 28px 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .slots-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .slots-date-label { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+    .tz-badge {
+      font-size: 0.7rem;
+      background: #f1f5f9;
+      border-radius: 100px;
+      padding: 3px 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .slots-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 480px) { .slots-grid { grid-template-columns: 1fr; } }
+    .slot-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      background: var(--white);
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: all 0.18s;
+      font-family: inherit;
+      text-align: left;
+    }
+    .slot-btn:hover  { border-color: var(--green-dk); background: rgba(37,211,102,0.06); color: var(--green-dk); }
+    .slot-btn.selected { border-color: var(--green-dk); background: var(--green-dk); color: #fff; }
+    .slot-btn .dur { font-size: 0.7rem; opacity: 0.6; font-weight: 400; }
+    .no-slots {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+    .no-slots i { font-size: 2rem; color: #cbd5e1; display: block; margin-bottom: 12px; }
+
+    /* Confirm step */
+    .confirm-wrap {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .confirm-wrap.show { display: flex; }
+    .confirm-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .confirm-banner i { color: var(--green); font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+    .confirm-banner .slot-txt { font-size: 0.9rem; font-weight: 700; color: var(--text); }
+    .confirm-banner .slot-sub { font-size: 0.75rem; color: var(--muted); margin-top: 3px; }
+    .confirm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 500px) { .confirm-grid { grid-template-columns: 1fr; } }
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field label { font-size: 0.78rem; font-weight: 600; color: var(--text); }
+    .field label .req { color: #ef4444; margin-left: 2px; }
+    .field input {
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.88rem;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+    }
+    .field input:focus { border-color: var(--green-dk); box-shadow: 0 0 0 3px rgba(0,128,105,0.12); }
+    .confirm-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--green), var(--green-dk));
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      padding: 15px 32px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+      transition: all 0.2s;
+      font-family: inherit;
+      width: 100%;
+    }
+    .confirm-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,211,102,0.45); }
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 0.84rem;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: center;
+      justify-content: center;
+      text-decoration: underline;
+    }
+    .back-link:hover { color: var(--text); }
+
+    /* Success screen */
+    .booked-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+      text-align: center;
+      gap: 16px;
+      flex: 1;
+    }
+    .booked-screen.show { display: flex; }
+    .booked-icon {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green), var(--green-dk));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.2rem; color: #fff;
+      box-shadow: 0 8px 28px rgba(37,211,102,0.4);
+      animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .booked-screen h2 { font-size: 1.4rem; font-weight: 800; }
+    .booked-screen p  { color: var(--muted); font-size: 0.9rem; max-width: 360px; line-height: 1.6; }
+    .wa-cta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--green), var(--green-dk));
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 28px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 14px rgba(37,211,102,0.35);
+    }
+
+    /* ── Send a Request Form ─────────────────────────────────── */
+    .request-form-wrap {
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 600px;
+      width: 100%;
+      align-self: center;
+    }
+    .request-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+      padding: 48px 24px;
+    }
+    .request-success.show { display: flex; }
+
+    /* Mobile intro banner (visible when left info-panel is hidden) */
+    .mobile-intro-banner {
+      display: none;
+      background: linear-gradient(135deg, #0b1317, #1a2b25);
+      color: #fff;
+      padding: 22px 20px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-intro-banner .mob-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--green);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+    }
+    .mobile-intro-banner h1 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .mobile-intro-banner p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .mobile-intro-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.85);
+      font-weight: 600;
+    }
+    .mobile-intro-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    @media (max-width: 860px) {
+      .mobile-intro-banner { display: block; }
+    }
+
+    /* ── Responsive breakpoints ─────────────────────────────── */
+    @media (max-width: 860px) {
+      .info-panel { display: none; }
+      .book-card { max-width: 100%; border-radius: 16px; }
+    }
+    @media (max-width: 640px) {
+      .page-wrap { padding: 12px 0 48px; }
+      .book-card { border-radius: 0; box-shadow: none; border-left: none; border-right: none; }
+      .cal-wrap { flex-direction: column; }
+      .cal-left { width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding: 20px 16px; }
+      .cal-right { padding: 20px 16px; }
+      .slots-grid { grid-template-columns: repeat(2,1fr); }
+      .tab-btn { padding: 14px 14px; font-size: 0.82rem; }
+      .request-form-wrap { padding: 20px 16px; }
+      .confirm-wrap { gap: 12px; }
+    }
+    @media (max-width: 360px) {
+      .slots-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Top Nav ── -->
+<nav class="topnav">
+  <a href="/" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back</a>
+  <a href="/" class="brand" style="margin-left:4px;">
+    EasyToReach
+    <span class="badge">FREE DEMO</span>
+  </a>
+</nav>
+
+<!-- ── Page Body ── -->
+<div class="page-wrap">
+  <div class="book-card">
+
+    <!-- ── Left info panel (hidden on mobile) ── -->
+    <aside class="info-panel">
+      <div class="info-brand">
+        <span>EasyToReach</span>
+      </div>
+      <div class="info-title">
+        Book a Free<br>
+        <span>30-Min Demo</span>
+      </div>
+      <div class="info-item">
+        <div class="ico"><i class="fa-solid fa-clock"></i></div>
+        <div class="txt"><strong>Duration</strong><span>30 minutes, one-on-one</span></div>
+      </div>
+      <div class="info-item">
+        <div class="ico"><i class="fa-brands fa-google"></i></div>
+        <div class="txt"><strong>How</strong><span>Google Meet video call</span></div>
+      </div>
+      <div class="info-item">
+        <div class="ico"><i class="fa-solid fa-store"></i></div>
+        <div class="txt"><strong>What We Cover</strong><span>WhatsApp CRM, broadcast campaigns, digital billing receipts & loyalty rewards</span></div>
+      </div>
+      <div class="info-item">
+        <div class="ico"><i class="fa-solid fa-rupee-sign"></i></div>
+        <div class="txt"><strong>Cost</strong><span>Completely free, no obligation</span></div>
+      </div>
+      <div class="info-item">
+        <div class="ico"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="txt"><strong>Privacy</strong><span>No spam, we respect your data</span></div>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item"><i class="fa-solid fa-circle-check"></i> Meta Verified</div>
+        <div class="trust-item"><i class="fa-solid fa-circle-check"></i> 100% Free · No Card Needed</div>
+        <div class="trust-item"><i class="fa-solid fa-circle-check"></i> Same-day onboarding available</div>
+      </div>
+    </aside>
+
+    <!-- ── Right panel ── -->
+    <div class="right-panel">
+
+      <!-- Mobile intro banner (visible only on mobile/tablet) -->
+      <div class="mobile-intro-banner">
+        <div class="mob-tag">EasyToReach Demo</div>
+        <h1>Book a Free 30-Min Demo</h1>
+        <p>1-on-1 live walkthrough of WhatsApp CRM, billing & loyalty automation for your retail shop</p>
+        <div class="mobile-intro-meta">
+          <span><i class="fa-solid fa-clock" style="color:var(--green);"></i> 30 mins</span>
+          <span><i class="fa-brands fa-google" style="color:#4285f4;"></i> Google Meet</span>
+          <span><i class="fa-solid fa-shield-halved" style="color:var(--green);"></i> 100% Free</span>
+        </div>
+      </div>
+
+      <!-- Tab bar -->
+      <div class="tab-bar">
+        <button class="tab-btn active" id="tabCalBtn" onclick="Page.switchTab('cal')">
+          <i class="fa-solid fa-calendar-days"></i> Schedule a Call
+        </button>
+        <button class="tab-btn" id="tabFormBtn" onclick="Page.switchTab('form')">
+          <i class="fa-solid fa-envelope"></i> Send a Request
+        </button>
+      </div>
+
+      <!-- ═══ TAB 1: Calendar ═══ -->
+      <div class="tab-panel active" id="panelCal">
+        <!-- Booked success screen -->
+        <div class="booked-screen" id="bookedScreen">
+          <div class="booked-icon"><i class="fa-solid fa-check"></i></div>
+          <h2>Appointment Confirmed! 🎉</h2>
+          <p id="bookedMsg">Your 30-minute demo has been booked. A calendar invite has been sent to your email.</p>
+
+          <!-- Google Meet Video Link Box (shown if generated) -->
+          <div id="meetLinkBox" style="display:none;background:#f0fdf4;border:1.5px solid #86efac;border-radius:14px;padding:16px 20px;max-width:440px;width:100%;text-align:left;margin:4px 0;">
+            <div style="font-size:0.75rem;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:0.5px;display:flex;align-items:center;gap:6px;">
+              <i class="fa-brands fa-google" style="color:#1a73e8;"></i> Google Meet Video Conference
+            </div>
+            <a id="meetLinkAnchor" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:8px;font-size:0.95rem;font-weight:700;color:#15803d;margin-top:8px;word-break:break-all;text-decoration:underline;">
+              <i class="fa-solid fa-video"></i> <span id="meetLinkText"></span>
+            </a>
+            <div style="font-size:0.75rem;color:#4b5563;margin-top:6px;">Click the link above to join the Google Meet call at your scheduled time.</div>
+          </div>
+
+          <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:6px;">
+            <a id="gcalAddBtn" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:#1f2937;border:1.5px solid #d1d5db;text-decoration:none;padding:12px 24px;border-radius:100px;font-weight:700;font-size:0.88rem;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:all 0.2s;">
+              <i class="fa-solid fa-calendar-plus" style="color:#2563eb;"></i> Add to Google Calendar
+            </a>
+            <a id="bookedWaLink" href="https://wa.me/919994770276" target="_blank" class="wa-cta-link">
+              <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+            </a>
+          </div>
+
+          <button onclick="Page.bookAnother()" style="background:none;border:none;color:var(--muted);font-size:0.84rem;cursor:pointer;text-decoration:underline;margin-top:10px;">
+            Book another slot
+          </button>
+        </div>
+
+        <!-- Calendar UI -->
+        <div class="cal-wrap" id="calMain">
+          <!-- Mini calendar -->
+          <div class="cal-left">
+            <div class="cal-meta-row">
+              <div class="cal-meta-item">
+                <div class="label"><i class="fa-solid fa-clock" style="color:var(--green);"></i> Duration</div>
+                <div class="val">30 min</div>
+              </div>
+              <div class="cal-meta-item">
+                <div class="label"><i class="fa-brands fa-google" style="color:#1a73e8;"></i> Via</div>
+                <div class="val">Google Meet</div>
+              </div>
+            </div>
+            <div class="month-nav">
+              <button class="nav-btn" id="prevMonthBtn" onclick="Cal.prevMonth()" title="Previous month">
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+              <span class="month-label" id="monthLabel"></span>
+              <button class="nav-btn" id="nextMonthBtn" onclick="Cal.nextMonth()" title="Next month">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="day-grid" id="dayGrid">
+              <div class="dow">S</div><div class="dow">M</div><div class="dow">T</div>
+              <div class="dow">W</div><div class="dow">T</div><div class="dow">F</div><div class="dow">S</div>
+            </div>
+          </div>
+
+          <!-- Slots + confirm -->
+          <div class="cal-right">
+            <!-- Slots view -->
+            <div id="slotsView" style="display:flex;flex-direction:column;gap:14px;">
+              <div class="slots-header">
+                <span class="slots-date-label" id="slotsDateLabel">Select a date →</span>
+                <span class="tz-badge" id="tzBadge">IST (GMT+5:30)</span>
+              </div>
+              <div class="slots-grid" id="slotsGrid">
+                <div class="no-slots" style="grid-column:1/-1;">
+                  <i class="fa-regular fa-calendar-days"></i>
+                  Pick a date on the left to see available time slots.
+                </div>
+              </div>
+            </div>
+
+            <!-- Confirm view -->
+            <div class="confirm-wrap" id="confirmView">
+              <div class="confirm-banner">
+                <i class="fa-solid fa-calendar-check"></i>
+                <div>
+                  <div class="slot-txt" id="confirmSlotLabel"></div>
+                  <div class="slot-sub">30-minute Google Meet · Free of charge</div>
+                </div>
+              </div>
+              <p style="font-size:0.8rem;color:var(--muted);">Enter your details to confirm the slot.</p>
+              <div class="confirm-grid">
+                <div class="field">
+                  <label>Your Name <span class="req">*</span></label>
+                  <input type="text" id="apptName" placeholder="e.g. Rajesh Kumar" autocomplete="name">
+                </div>
+                <div class="field">
+                  <label>WhatsApp Number <span class="req">*</span></label>
+                  <input type="tel" id="apptPhone" placeholder="e.g. 9876543210" autocomplete="tel">
+                </div>
+              </div>
+              <div class="field">
+                <label>Email Address <span class="req">*</span> <span style="color:var(--muted);font-weight:400;font-size:0.75rem;">(Google Meet invite will be sent here)</span></label>
+                <input type="email" id="apptEmail" placeholder="yourname@company.com" required autocomplete="email">
+              </div>
+              <div class="field">
+                <label>Business / Company Name</label>
+                <input type="text" id="apptShop" placeholder="e.g. Apex Retail, Urban Brands">
+              </div>
+              <button class="confirm-cta" id="confirmBtn" onclick="Cal.confirmBooking()">
+                <i class="fa-solid fa-calendar-check"></i> Confirm Appointment
+              </button>
+              <button class="back-link" onclick="Cal.backToSlots()">
+                <i class="fa-solid fa-arrow-left"></i> Back to time slots
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ TAB 2: Send a Request ═══ -->
+      <div class="tab-panel" id="panelForm">
+        <!-- Success -->
+        <div class="request-success" id="reqSuccess">
+          <div class="booked-icon"><i class="fa-solid fa-check"></i></div>
+          <h2 style="font-size:1.3rem;font-weight:800;">Request Sent! 🎉</h2>
+          <p style="color:var(--muted);font-size:0.9rem;max-width:360px;line-height:1.6;">
+            We've received your request. Our team will reach out within 2 business hours.
+          </p>
+          <a href="https://wa.me/919994770276?text=Hi!%20I%20submitted%20a%20demo%20request%20on%20EasyToReach%20website"
+             target="_blank" class="wa-cta-link">
+            <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+          </a>
+        </div>
+
+        <!-- Form -->
+        <div class="request-form-wrap" id="reqForm">
+          <p style="font-size:0.85rem;color:var(--muted);">Fill in your details and we'll reach out within 2 business hours to confirm your slot.</p>
+          <div class="confirm-grid">
+            <div class="field">
+              <label>Your Name <span class="req">*</span></label>
+              <input type="text" id="reqName" placeholder="e.g. Rajesh Kumar" required>
+            </div>
+            <div class="field">
+              <label>WhatsApp Number <span class="req">*</span></label>
+              <input type="tel" id="reqPhone" placeholder="e.g. 9876543210" required>
+            </div>
+          </div>
+          <div class="confirm-grid">
+            <div class="field">
+              <label>Email Address <span class="req">*</span></label>
+              <input type="email" id="reqEmail" placeholder="yourname@company.com" required>
+            </div>
+            <div class="field">
+              <label>Business / Company Name <span class="req">*</span></label>
+              <input type="text" id="reqShop" placeholder="e.g. Apex Retail, Urban Brands" required>
+            </div>
+          </div>
+          <div class="confirm-grid">
+            <div class="field">
+              <label>City</label>
+              <input type="text" id="reqCity" placeholder="e.g. Mumbai, Chennai, Bengaluru">
+            </div>
+            <div class="field">
+              <label>Business Category</label>
+              <select id="reqBizType" style="padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:0.88rem;background:var(--bg);color:var(--text);font-family:inherit;outline:none;">
+                <option value="">Select your category</option>
+                <option>Retail &amp; Supermarket</option>
+                <option>E-Commerce &amp; D2C Brand</option>
+                <option>Apparel, Fashion &amp; Boutiques</option>
+                <option>Restaurant, Cafe &amp; Food</option>
+                <option>Healthcare &amp; Clinic</option>
+                <option>Salon, Spa &amp; Wellness</option>
+                <option>B2B &amp; Professional Services</option>
+                <option>Franchise &amp; Multi-Outlet Chain</option>
+                <option>Other Business</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>How many customers do you currently have?</label>
+            <select id="reqCust" style="padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:0.88rem;background:var(--bg);color:var(--text);font-family:inherit;outline:none;">
+              <option value="">Select approximate count</option>
+              <option>Under 500</option>
+              <option>500 – 2,000</option>
+              <option>2,000 – 10,000</option>
+              <option>10,000+</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>What do you want to achieve? <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
+            <textarea id="reqGoal" placeholder="e.g. Automate birthday offers, send festive broadcasts…"
+              style="padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:0.88rem;
+                     background:var(--bg);color:var(--text);font-family:inherit;outline:none;
+                     resize:vertical;min-height:80px;transition:border-color 0.2s;"></textarea>
+          </div>
+          <button class="confirm-cta" id="reqSubmitBtn" onclick="Page.submitRequest()">
+            <i class="fa-solid fa-paper-plane"></i> Send My Demo Request
+          </button>
+          <p style="text-align:center;font-size:0.74rem;color:var(--muted);">🔒 We never spam. Your data is private.</p>
+        </div>
+      </div>
+
+    </div><!-- /right-panel -->
+  </div><!-- /book-card -->
+</div><!-- /page-wrap -->
+
+<script>
+// ── Tab switcher ───────────────────────────────────────────
+const Page = {
+  switchTab(tab) {
+    ['Cal','Form'].forEach(t => {
+      document.getElementById(`tab${t}Btn`).classList.toggle('active', t.toLowerCase() === tab);
+      document.getElementById(`panel${t}`).classList.toggle('active', t.toLowerCase() === tab);
+    });
+  },
+
+  async submitRequest() {
+    const name   = (document.getElementById('reqName')?.value || '').trim();
+    const phone  = (document.getElementById('reqPhone')?.value || '').trim();
+    const email  = (document.getElementById('reqEmail')?.value || '').trim();
+    const shop   = (document.getElementById('reqShop')?.value || '').trim();
+    const city   = (document.getElementById('reqCity')?.value || '').trim();
+    const biz    = (document.getElementById('reqBizType')?.value || '').trim();
+    const cust   = (document.getElementById('reqCust')?.value || '').trim();
+    const goal   = (document.getElementById('reqGoal')?.value || '').trim();
+
+    if (!name || !phone || !email || !email.includes('@')) {
+      alert('Please fill in your Name, WhatsApp number, and a valid Email address.');
+      return;
+    }
+
+    const btn = document.getElementById('reqSubmitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending…';
+
+    try {
+      const res = await fetch('/api/demo-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, email, shop, city, biz_type: biz, customers: cust, goal })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        document.getElementById('reqForm').style.display = 'none';
+        document.getElementById('reqSuccess').classList.add('show');
+      } else {
+        alert(data.error || 'Something went wrong. Please try again.');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send My Demo Request';
+      }
+    } catch { 
+      alert('Network error. Please try again.');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send My Demo Request';
+    }
+  },
+
+  bookAnother() {
+    Cal.selectedDate = null;
+    Cal.selectedSlot = null;
+    document.getElementById('bookedScreen').classList.remove('show');
+    document.getElementById('calMain').style.display = '';
+    document.getElementById('slotsView').style.display = 'flex';
+    document.getElementById('slotsView').style.flexDirection = 'column';
+    document.getElementById('confirmView').classList.remove('show');
+    document.getElementById('slotsGrid').innerHTML = '<div class="no-slots" style="grid-column:1/-1;"><i class="fa-regular fa-calendar-days"></i>Pick a date on the left to see available time slots.</div>';
+    document.getElementById('slotsDateLabel').textContent = 'Select a date →';
+    document.querySelectorAll('.day-btn.selected').forEach(b => b.classList.remove('selected'));
+    Cal.renderMonth();
+  }
+};
+
+// ── Calendar engine ────────────────────────────────────────
+const Cal = {
+  year: 0, month: 0,
+  selectedDate: null,
+  selectedSlot: null,
+  bookedSlots: {},  // { "YYYY-MM-DD": ["10:00 AM", ...] }
+
+  SLOTS: [
+    '10:00 AM','10:30 AM','11:00 AM','11:30 AM',
+    '12:00 PM','12:30 PM','01:00 PM','01:30 PM',
+    '02:00 PM','02:30 PM','03:00 PM','03:30 PM',
+    '04:00 PM','04:30 PM','05:00 PM'
+  ],
+
+  MONTHS: ['January','February','March','April','May','June',
+           'July','August','September','October','November','December'],
+  DAYS_SHORT: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+
+  init() {
+    const now = new Date();
+    this.year  = now.getFullYear();
+    this.month = now.getMonth();
+    this.renderMonth();
+    this.setTzBadge();
+
+    // Auto-select today or next available weekday so slots appear immediately
+    setTimeout(() => {
+      let targetBtn = document.querySelector('.day-btn.today:not(.disabled)');
+      if (!targetBtn) {
+        targetBtn = document.querySelector('.day-btn.has-slots:not(.disabled)');
+      }
+      if (targetBtn) {
+        targetBtn.click();
+      }
+    }, 60);
+  },
+
+  setTzBadge() {
+    const tz     = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Kolkata';
+    const off    = -new Date().getTimezoneOffset();
+    const h      = Math.floor(Math.abs(off)/60);
+    const m      = Math.abs(off) % 60;
+    const sign   = off >= 0 ? '+' : '-';
+    const label  = `${tz.split('/').pop().replace(/_/g,' ')} (GMT${sign}${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')})`;
+    const el = document.getElementById('tzBadge');
+    if (el) el.textContent = label;
+  },
+
+  dateKey(y, m, d) {
+    return `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  },
+
+  isPast(y, m, d) {
+    const today = new Date(); today.setHours(0,0,0,0);
+    return new Date(y, m, d) < today;
+  },
+
+  isWeekend(y, m, d) {
+    const dow = new Date(y, m, d).getDay();
+    return dow === 0 || dow === 6;
+  },
+
+  renderMonth() {
+    document.getElementById('monthLabel').textContent = `${this.MONTHS[this.month]} ${this.year}`;
+
+    // Prev button disabled if we're already in current month
+    const now = new Date();
+    document.getElementById('prevMonthBtn').disabled =
+      (this.year === now.getFullYear() && this.month <= now.getMonth());
+
+    const grid = document.getElementById('dayGrid');
+    // Remove old day buttons (keep 7 DOW headers)
+    grid.querySelectorAll('.day-btn').forEach(b => b.remove());
+
+    const firstDow     = new Date(this.year, this.month, 1).getDay();
+    const daysInMonth  = new Date(this.year, this.month + 1, 0).getDate();
+    const todayKey     = this.dateKey(now.getFullYear(), now.getMonth(), now.getDate());
+
+    // Empty cells
+    for (let i = 0; i < firstDow; i++) {
+      const e = document.createElement('button');
+      e.className = 'day-btn empty'; e.disabled = true;
+      grid.appendChild(e);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const btn = document.createElement('button');
+      btn.className = 'day-btn';
+      btn.textContent = d;
+      const key = this.dateKey(this.year, this.month, d);
+
+      if (this.isPast(this.year, this.month, d) || this.isWeekend(this.year, this.month, d)) {
+        btn.classList.add('disabled'); btn.disabled = true;
+      } else {
+        btn.classList.add('has-slots');
+      }
+      if (key === todayKey)          btn.classList.add('today');
+      if (key === this.selectedDate) btn.classList.add('selected');
+
+      btn.onclick = () => this.selectDate(this.year, this.month, d, btn);
+      grid.appendChild(btn);
+    }
+  },
+
+  prevMonth() {
+    this.month--;
+    if (this.month < 0) { this.month = 11; this.year--; }
+    this.renderMonth();
+  },
+
+  nextMonth() {
+    this.month++;
+    if (this.month > 11) { this.month = 0; this.year++; }
+    this.renderMonth();
+  },
+
+  selectDate(y, m, d, btn, isUserClick = true) {
+    document.querySelectorAll('.day-btn.selected').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    this.selectedDate = this.dateKey(y, m, d);
+    this.selectedSlot = null;
+    this.showSlots(y, m, d);
+    document.getElementById('slotsView').style.display    = 'flex';
+    document.getElementById('slotsView').style.flexDirection = 'column';
+    document.getElementById('confirmView').classList.remove('show');
+
+    // On mobile devices, smoothly scroll down to the slots
+    if (isUserClick && window.innerWidth <= 640) {
+      const sv = document.getElementById('slotsView');
+      if (sv) {
+        sv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+  },
+
+  showSlots(y, m, d) {
+    const dateObj = new Date(y, m, d);
+    document.getElementById('slotsDateLabel').textContent =
+      `${this.DAYS_SHORT[dateObj.getDay()]}, ${this.MONTHS[m]} ${d}`;
+
+    const booked = this.bookedSlots[this.selectedDate] || [];
+    const grid   = document.getElementById('slotsGrid');
+    grid.innerHTML = '';
+
+    this.SLOTS.forEach(slot => {
+      const isBooked = booked.includes(slot);
+      const btn = document.createElement('button');
+      btn.className = 'slot-btn' + (isBooked ? ' booked' : '');
+      btn.disabled  = isBooked;
+      btn.innerHTML = `<span>${slot}</span><span class="dur">30 min</span>`;
+      btn.onclick   = () => this.selectSlot(slot, btn);
+      grid.appendChild(btn);
+    });
+  },
+
+  selectSlot(slot, btn) {
+    document.querySelectorAll('.slot-btn.selected').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    this.selectedSlot = slot;
+
+    setTimeout(() => {
+      const [y, m, d] = this.selectedDate.split('-').map(Number);
+      const dateObj = new Date(y, m-1, d);
+      const label = `${this.DAYS_SHORT[dateObj.getDay()]}, ${this.MONTHS[m-1]} ${d} ${y} · ${slot}`;
+      document.getElementById('confirmSlotLabel').textContent = label;
+      document.getElementById('slotsView').style.display = 'none';
+      document.getElementById('confirmView').classList.add('show');
+      // Scroll confirm into view on mobile
+      document.getElementById('confirmView').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 180);
+  },
+
+  backToSlots() {
+    document.getElementById('confirmView').classList.remove('show');
+    document.getElementById('slotsView').style.display = 'flex';
+    document.getElementById('slotsView').style.flexDirection = 'column';
+  },
+
+  async confirmBooking() {
+    const name  = (document.getElementById('apptName')?.value  || '').trim();
+    const phone = (document.getElementById('apptPhone')?.value || '').trim();
+    const email = (document.getElementById('apptEmail')?.value || '').trim();
+    const shop  = (document.getElementById('apptShop')?.value  || '').trim();
+
+    if (!name || !phone || !email || !email.includes('@')) {
+      alert('Please enter your Name, WhatsApp number, and a valid Email address to confirm the slot.');
+      return;
+    }
+
+    const btn = document.getElementById('confirmBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Confirming…';
+
+    try {
+      const res = await fetch('/api/demo-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name, phone, shop, email,
+          city: '', biz_type: 'Appointment', customers: '',
+          goal: `Scheduled: ${this.selectedDate} at ${this.selectedSlot}`,
+          appointment_date: this.selectedDate,
+          appointment_time: this.selectedSlot
+        })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        // Mark slot booked
+        if (!this.bookedSlots[this.selectedDate]) this.bookedSlots[this.selectedDate] = [];
+        this.bookedSlots[this.selectedDate].push(this.selectedSlot);
+        // Build success message
+        const [y, m, d] = this.selectedDate.split('-').map(Number);
+        document.getElementById('bookedMsg').textContent =
+          `Your 30-min demo is confirmed for ${this.MONTHS[m-1]} ${d}, ${y} at ${this.selectedSlot} IST. A calendar confirmation has been sent to ${email}.`;
+
+        // If Google Meet link is generated from Google Calendar API
+        const meetBox = document.getElementById('meetLinkBox');
+        if (data.meet_link) {
+          document.getElementById('meetLinkAnchor').href = data.meet_link;
+          document.getElementById('meetLinkText').textContent = data.meet_link;
+          meetBox.style.display = 'block';
+        } else {
+          meetBox.style.display = 'none';
+        }
+
+        // Add to Google Calendar button
+        const gcalBtn = document.getElementById('gcalAddBtn');
+        if (data.calendar_add_url) {
+          gcalBtn.href = data.calendar_add_url;
+          gcalBtn.style.display = 'inline-flex';
+        } else {
+          gcalBtn.style.display = 'none';
+        }
+
+        const waUrl = `https://wa.me/919994770276?text=Hi!%20I%20booked%20a%20demo%20for%20${encodeURIComponent(this.selectedDate)}%20at%20${encodeURIComponent(this.selectedSlot)}%20(${encodeURIComponent(email)})`;
+        document.getElementById('bookedWaLink').href = waUrl;
+        document.getElementById('calMain').style.display = 'none';
+        document.getElementById('bookedScreen').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        alert(data.error || 'Something went wrong. Please try again.');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Confirm Appointment';
+      }
+    } catch {
+      alert('Network error. Please try again.');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Confirm Appointment';
+    }
+  }
+};
+
+// Boot
+Cal.init();
+</script>
+</body>
+</html>
+

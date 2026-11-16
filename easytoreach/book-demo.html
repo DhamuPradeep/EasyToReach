@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Free 30-Min Demo — EasyToReach WhatsApp CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ── Reset & CSS Variables ──────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green:       #25d366;
+      --green-dark:  #008069;
+      --green-deep:  #005c4b;
+      --green-light: #e8fbf0;
+      --green-glow:  rgba(37, 211, 102, 0.25);
+      --bg-page:     #f8fafc;
+      --surface:     #ffffff;
+      --border:      #e2e8f0;
+      --border-dark: #cbd5e1;
+      --text:        #0f172a;
+      --text-muted:  #64748b;
+      --text-light:  #94a3b8;
+      --radius-lg:   20px;
+      --radius-md:   12px;
+      --radius-sm:   8px;
+      --shadow-sm:   0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md:   0 10px 25px -5px rgba(0,0,0,0.06), 0 8px 10px -6px rgba(0,0,0,0.04);
+      --shadow-lg:   0 20px 40px -15px rgba(0,0,0,0.08);
+    }
+
+    html, body {
+      min-height: 100%;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-page);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+    }
+
+    /* ── Top Navigation Bar ─────────────────────────────────── */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      height: 64px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .top-nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .back-home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: #fff;
+      transition: all 0.18s ease;
+    }
+    .back-home-btn:hover {
+      color: var(--text);
+      border-color: var(--border-dark);
+      background: #f8fafc;
+      transform: translateX(-2px);
+    }
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+    .badge-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(37, 211, 102, 0.12);
+      color: var(--green-dark);
+      border: 1px solid rgba(37, 211, 102, 0.3);
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+    /* ── Main Full-Page Layout ──────────────────────────────── */
+    .booking-viewport {
+      min-height: calc(100vh - 64px);
+      width: 100%;
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 28px 24px 60px;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .booking-full-card {
+      width: 100%;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      overflow: hidden;
+      min-height: 680px;
+    }
+
+    /* ── Left Sidebar (Brand & Meeting Overview) ─────────────── */
+    .sidebar-info {
+      width: 380px;
+      flex-shrink: 0;
+      background: linear-gradient(165deg, #091712 0%, #112820 60%, #071510 100%);
+      color: #fff;
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      position: relative;
+    }
+    .sidebar-brand-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--green);
+    }
+    .sidebar-heading {
+      font-size: 1.65rem;
+      font-weight: 800;
+      line-height: 1.25;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+    .sidebar-heading span {
+      background: linear-gradient(135deg, var(--green), #5eead4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .sidebar-subtitle {
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.5;
+    }
+
+    /* Meeting detail cards */
+    .meeting-meta-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .meta-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      transition: background 0.2s;
+    }
+    .meta-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .meta-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(37, 211, 102, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--green);
+      font-size: 0.95rem;
+    }
+    .meta-icon.google {
+      background: rgba(66, 133, 244, 0.18);
+      color: #60a5fa;
+    }
+    .meta-content .title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .meta-content .desc {
+      font-size: 0.76rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    /* What we cover checklist */
+    .what-cover-box {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+    }
+    .what-cover-title {
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 12px;
+    }
+    .cover-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 8px;
+    }
+    .cover-item i {
+      color: var(--green);
+      font-size: 0.75rem;
+    }
+
+    /* Trust badges in sidebar footer */
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .trust-tag {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.74rem;
+      color: rgba(255, 255, 255, 0.65);
+    }
+    .trust-tag i {
+      color: var(--green);
+      font-size: 0.72rem;
+    }
+
+    /* ── Mobile Info Header (shown on <= 960px) ──────────────── */
+    .mobile-info-banner {
+      display: none;
+      background: linear-gradient(135deg, #091712, #112820);
+      color: #fff;
+      padding: 24px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .mobile-info-banner .mob-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+    .mobile-info-banner h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .mobile-info-banner p {
+      font-size: 0.84rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+    .mob-badges-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .mob-badges-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+
+    /* ── Right Content Area ─────────────────────────────────── */
+    .main-scheduler {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Scheduler Header */
+    .scheduler-head {
+      padding: 32px 40px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .scheduler-title-group h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+    .scheduler-title-group p {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .tz-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* ── Split Calendar + Slots Container ───────────────────── */
+    .cal-slots-body {
+      flex: 1;
+      display: flex;
+      min-height: 520px;
+    }
+
+    /* Calendar Left Side */
+    .cal-pane {
+      width: 380px;
+      flex-shrink: 0;
+      padding: 32px 36px;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .cal-nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .current-month-text {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.2px;
+    }
+    .cal-nav-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .cal-nav-btn:hover:not(:disabled) {
+      background: #f1f5f9;
+      border-color: var(--border-dark);
+      transform: scale(1.05);
+    }
+    .cal-nav-btn:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    /* Days grid */
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      text-align: center;
+    }
+    .cal-grid .dow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      padding: 6px 0;
+      letter-spacing: 0.4px;
+    }
+    .day-cell {
+      aspect-ratio: 1;
+      width: 100%;
+      border: none;
+      background: none;
+      border-radius: 50%;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .day-cell:hover:not(.disabled):not(.empty):not(.selected) {
+      background: rgba(37, 211, 102, 0.15);
+      color: var(--green-dark);
+    }
+    .day-cell.today:not(.selected) {
+      background: rgba(37, 211, 102, 0.1);
+      color: var(--green-dark);
+      font-weight: 800;
+      box-shadow: inset 0 0 0 1.5px var(--green);
+    }
+    .day-cell.has-open-slots:not(.today):not(.selected) {
+      color: var(--green-dark);
+      font-weight: 700;
+    }
+    .day-cell.selected {
+      background: var(--green-dark) !important;
+      color: #ffffff !important;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(0, 128, 105, 0.35);
+    }
+    .day-cell.disabled, .day-cell.empty {
+      color: #cbd5e1;
+      cursor: default;
+      pointer-events: none;
+    }
+    .day-cell.all-booked {
+      color: #94a3b8;
+      text-decoration: line-through;
+    }
+
+    .cal-legend {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+    .cal-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .legend-dot.avail { background: var(--green); }
+    .legend-dot.booked { background: #94a3b8; }
+    .legend-dot.sel { background: var(--green-dark); }
+
+    /* Slots Right Side */
+    .slots-pane {
+      flex: 1;
+      min-width: 0;
+      padding: 32px 40px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .slots-subhead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .selected-date-heading {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .slots-count-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: rgba(37, 211, 102, 0.12);
+      color: var(--green-dark);
+    }
+
+    /* Slots Grid */
+    .slots-grid-wrap {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    @media (min-width: 1200px) {
+      .slots-grid-wrap {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Slot Button */
+    .slot-card-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.18s ease;
+      text-align: left;
+    }
+    .slot-card-btn:hover:not(:disabled) {
+      border-color: var(--green-dark);
+      background: rgba(37, 211, 102, 0.05);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 128, 105, 0.08);
+    }
+    .slot-card-btn.selected {
+      border-color: var(--green-dark);
+      background: var(--green-dark);
+      color: #fff;
+    }
+    .slot-card-btn .slot-time-text {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .slot-card-btn.selected .slot-time-text {
+      color: #fff;
+    }
+    .slot-card-btn .slot-sub-info {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .slot-card-btn.selected .slot-sub-info {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* BLOCKED / ALREADY BOOKED SLOT STYLES */
+    .slot-card-btn.slot-booked {
+      background: #f1f5f9;
+      border-color: #e2e8f0;
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+    .slot-card-btn.slot-booked .slot-time-text {
+      color: #94a3b8;
+      text-decoration: line-through;
+    }
+    .slot-booked-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #e2e8f0;
+      color: #64748b;
+      padding: 3px 8px;
+      border-radius: 100px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .slot-booked-badge i {
+      font-size: 0.65rem;
+    }
+
+    /* Fully Booked Notice */
+    .day-all-booked-box {
+      grid-column: 1 / -1;
+      background: #f8fafc;
+      border: 1.5px dashed var(--border);
+      border-radius: var(--radius-md);
+      padding: 36px 24px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+    .day-all-booked-box i {
+      font-size: 2rem;
+      color: #cbd5e1;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .day-all-booked-box h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .day-all-booked-box p {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Confirmation View (Roomy, Wide, Never Cramped) ─────── */
+    .confirm-screen-wrap {
+      display: none;
+      flex-direction: column;
+      gap: 22px;
+      padding: 32px 40px;
+      max-width: 760px;
+      width: 100%;
+    }
+    .confirm-screen-wrap.active {
+      display: flex;
+    }
+    .confirm-summary-banner {
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.08), rgba(0, 128, 105, 0.06));
+      border: 1.5px solid rgba(0, 128, 105, 0.25);
+      border-radius: var(--radius-md);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .banner-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .banner-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--green-dark);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .banner-text .slot-date-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .banner-text .slot-details-sub {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .change-slot-btn {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 7px 16px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .change-slot-btn:hover {
+      color: var(--text);
+      border-color: var(--border-dark);
+      background: #f8fafc;
+    }
+
+    /* Form Fields Grid - Roomy 2-column or 1-column */
+    .form-row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .input-label {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text);
+      white-space: normal;
+      overflow: visible;
+    }
+    .input-label .req-star {
+      color: #ef4444;
+      margin-left: 2px;
+    }
+    .input-label .hint {
+      font-weight: 400;
+      color: var(--text-muted);
+      font-size: 0.76rem;
+      margin-left: 4px;
+    }
+    .input-field {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem;
+      background: #fff;
+      color: var(--text);
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .input-field:focus {
+      border-color: var(--green-dark);
+      box-shadow: 0 0 0 3px rgba(0, 128, 105, 0.12);
+    }
+    .phone-input-wrap {
+      display: flex;
+      align-items: center;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: #fff;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .phone-input-wrap:focus-within {
+      border-color: var(--green-dark);
+      box-shadow: 0 0 0 3px rgba(0, 128, 105, 0.12);
+    }
+    .country-code-pill {
+      padding: 13px 14px;
+      background: #f8fafc;
+      border-right: 1px solid var(--border);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .phone-input-wrap input {
+      border: none;
+      outline: none;
+      padding: 13px 14px;
+      font-size: 0.92rem;
+      width: 100%;
+      font-family: inherit;
+      color: var(--text);
+    }
+
+    /* Primary CTA */
+    .submit-booking-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: #ffffff;
+      border: none;
+      border-radius: 100px;
+      padding: 16px 36px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+      transition: all 0.2s ease;
+      font-family: inherit;
+      margin-top: 6px;
+    }
+    .submit-booking-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(37, 211, 102, 0.5);
+    }
+    .submit-booking-cta:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ── Booked Success Screen ──────────────────────────────── */
+    .success-celebration-wrap {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 32px;
+      gap: 18px;
+      flex: 1;
+    }
+    .success-celebration-wrap.active {
+      display: flex;
+    }
+    .success-check-icon {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+      animation: popCheck 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes popCheck {
+      0% { transform: scale(0.3); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .success-celebration-wrap h2 {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+    .success-message-text {
+      color: var(--text-muted);
+      font-size: 0.96rem;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    /* Google Meet card on success */
+    .meet-link-card {
+      display: none;
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-radius: var(--radius-md);
+      padding: 18px 24px;
+      max-width: 500px;
+      width: 100%;
+      text-align: left;
+      margin: 8px 0;
+    }
+    .meet-link-card .head {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #166534;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .meet-link-card a.meet-anchor {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #15803d;
+      margin-top: 10px;
+      word-break: break-all;
+      text-decoration: underline;
+    }
+    .meet-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .btn-secondary-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+      text-decoration: none;
+      padding: 12px 22px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      transition: all 0.18s;
+    }
+    .btn-secondary-action:hover {
+      border-color: var(--border-dark);
+      background: #f8fafc;
+    }
+    .btn-wa-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+    }
+
+    /* ── Responsive Media Queries ───────────────────────────── */
+    @media (max-width: 960px) {
+      .booking-viewport {
+        padding: 0;
+      }
+      .booking-full-card {
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+        flex-direction: column;
+      }
+      .sidebar-info {
+        display: none;
+      }
+      .mobile-info-banner {
+        display: block;
+      }
+      .cal-slots-body {
+        flex-direction: column;
+      }
+      .cal-pane {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 24px 20px;
+      }
+      .slots-pane {
+        padding: 24px 20px 48px;
+      }
+      .scheduler-head {
+        padding: 20px;
+      }
+      .confirm-screen-wrap {
+        padding: 24px 20px;
+      }
+      .form-row-2col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .slots-grid-wrap {
+        grid-template-columns: 1fr;
+      }
+      .cal-grid .dow {
+        font-size: 0.65rem;
+      }
+      .day-cell {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Top Nav ───────────────────────────────────────────── -->
+  <nav class="top-nav">
+    <div class="top-nav-left">
+      <a href="/" class="back-home-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Home</span>
+      </a>
+      <a href="/" class="brand-title">
+        <span>EasyToReach</span>
+        <span class="badge-live">
+          <span class="pulse-dot"></span>
+          Instant Booking
+        </span>
+      </a>
+    </div>
+    <div class="top-nav-right"></div>
+  </nav>
+
+  <!-- ── Google Calendar OAuth Status Notification ──────────── -->
+  <div id="googleNotifyBanner" style="display:none;background:#ecfdf5;border-bottom:1px solid #a7f3d0;padding:12px 24px;text-align:center;font-size:0.86rem;font-weight:600;color:#065f46;">
+    <i class="fa-solid fa-circle-check" style="color:#059669;margin-right:6px;"></i>
+    <span id="googleNotifyText">Google Calendar Connected! Meeting invitations with Google Meet video links will now be automatically emailed to customers.</span>
+  </div>
+
+  <!-- ── Google Calendar Connect Prompt (shown only if not connected yet) ── -->
+  <div id="googleConnectBanner" style="display:none;background:#eff6ff;border-bottom:1.5px solid #93c5fd;padding:12px 24px;text-align:center;font-size:0.88rem;font-weight:600;color:#1e40af;">
+    <i class="fa-brands fa-google" style="color:#2563eb;margin-right:8px;font-size:1.1rem;"></i>
+    <span>Host Action: Connect your Google Calendar once so demo appointments automatically create Google Meet calls and email invitations to customers.</span>
+    <a href="/api/google/connect" style="display:inline-flex;align-items:center;gap:6px;background:#2563eb;color:#fff;text-decoration:none;padding:6px 16px;border-radius:100px;font-size:0.82rem;font-weight:800;margin-left:12px;box-shadow:0 2px 8px rgba(37,99,235,0.3);transition:background 0.15s;">
+      <i class="fa-solid fa-link"></i> Connect with Google
+    </a>
+  </div>
+
+  <!-- ── Full-Page Viewport ────────────────────────────────── -->
+  <div class="booking-viewport">
+    <div class="booking-full-card">
+
+      <!-- ── Left Sidebar: Desktop Info & Highlights ───────── -->
+      <aside class="sidebar-info">
+        <div>
+          <div class="sidebar-brand-tag">
+            <i class="fa-solid fa-bolt"></i> EasyToReach 1-on-1 Demo
+          </div>
+          <h1 class="sidebar-heading" style="margin-top:12px;">
+            Book a Free<br>
+            <span>30-Min Demo</span>
+          </h1>
+          <p class="sidebar-subtitle" style="margin-top:10px;">
+            See how EasyToReach turns casual walk-in shoppers into lifetime repeat buyers with automated WhatsApp CRM, billing receipts & loyalty rewards.
+          </p>
+        </div>
+
+        <div class="meeting-meta-list">
+          <div class="meta-card">
+            <div class="meta-icon">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <div class="meta-content">
+              <div class="title">Duration</div>
+              <div class="desc">30 minutes · Live personalized walkthrough</div>
+            </div>
+          </div>
+
+          <div class="meta-card">
+            <div class="meta-icon google">
+              <i class="fa-brands fa-google"></i>
+            </div>
+            <div class="meta-content">
+              <div class="title">Google Meet</div>
+              <div class="desc">HD Video call link generated instantly</div>
+            </div>
+          </div>
+
+          <div class="meta-card">
+            <div class="meta-icon">
+              <i class="fa-solid fa-gift"></i>
+            </div>
+            <div class="meta-content">
+              <div class="title">100% Free</div>
+              <div class="desc">No credit card or commitment required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="what-cover-box">
+          <div class="what-cover-title">What You'll Explore</div>
+          <div class="cover-item">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Automated birthday & anniversary wishes with coupons</span>
+          </div>
+          <div class="cover-item">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Paperless digital billing receipts over WhatsApp</span>
+          </div>
+          <div class="cover-item">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Smart festive broadcast campaigns (Diwali, Pongal, Eid)</span>
+          </div>
+          <div class="cover-item">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Tiered customer loyalty points & reward redemption</span>
+          </div>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="trust-tag">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Official Meta Cloud API Partner standard</span>
+          </div>
+          <div class="trust-tag">
+            <i class="fa-solid fa-lock"></i>
+            <span>Your contact details are strictly private & confidential</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ── Right Main Area ───────────────────────────────── -->
+      <main class="main-scheduler">
+
+        <!-- Mobile Header (Visible on mobile/tablet) -->
+        <div class="mobile-info-banner">
+          <div class="mob-tag"><i class="fa-solid fa-bolt"></i> Free 30-Min Demo</div>
+          <h1>Book a Live 1-on-1 Walkthrough</h1>
+          <p>Discover how EasyToReach automates WhatsApp customer loyalty & revenue growth for your business.</p>
+          <div class="mob-badges-row">
+            <span><i class="fa-solid fa-clock" style="color:var(--green);"></i> 30 mins</span>
+            <span><i class="fa-brands fa-google" style="color:#60a5fa;"></i> Google Meet</span>
+            <span><i class="fa-solid fa-shield-halved" style="color:var(--green);"></i> 100% Free</span>
+          </div>
+        </div>
+
+        <!-- Scheduler Head (Header with Title & Timezone) -->
+        <div class="scheduler-head" id="schedulerHead">
+          <div class="scheduler-title-group">
+            <h2 id="schedulerTitleText">Select Date & Time</h2>
+            <p id="schedulerSubText">Choose a day and an available 30-minute time slot for your demo.</p>
+          </div>
+          <div class="tz-indicator" id="tzDisplay">
+            <i class="fa-regular fa-clock"></i>
+            <span>India Standard Time (IST, GMT+5:30)</span>
+          </div>
+        </div>
+
+        <!-- ═══ STEP 1 & 2: Split Calendar & Slots ═══ -->
+        <div class="cal-slots-body" id="calSlotsSection">
+          
+          <!-- Calendar Pane -->
+          <div class="cal-pane">
+            <div class="cal-nav-bar">
+              <button class="cal-nav-btn" id="prevMonthBtn" onclick="Cal.prevMonth()" title="Previous month">
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+              <div class="current-month-text" id="monthYearLabel"></div>
+              <button class="cal-nav-btn" id="nextMonthBtn" onclick="Cal.nextMonth()" title="Next month">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+
+            <div class="cal-grid" id="dayGrid">
+              <div class="dow">S</div>
+              <div class="dow">M</div>
+              <div class="dow">T</div>
+              <div class="dow">W</div>
+              <div class="dow">T</div>
+              <div class="dow">F</div>
+              <div class="dow">S</div>
+            </div>
+
+            <div class="cal-legend">
+              <div class="cal-legend-item">
+                <div class="legend-dot avail"></div>
+                <span>Available</span>
+              </div>
+              <div class="cal-legend-item">
+                <div class="legend-dot sel"></div>
+                <span>Selected</span>
+              </div>
+              <div class="cal-legend-item">
+                <div class="legend-dot booked"></div>
+                <span>Full</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slots Pane -->
+          <div class="slots-pane" id="slotsPane">
+            <div class="slots-subhead">
+              <div class="selected-date-heading">
+                <i class="fa-regular fa-calendar" style="color:var(--green-dark);"></i>
+                <span id="slotsHeaderDate">Select a date</span>
+              </div>
+              <span class="slots-count-badge" id="slotsBadge">Available Slots</span>
+            </div>
+
+            <div class="slots-grid-wrap" id="slotsGrid">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ STEP 3: Roomy Booking Details Form ═══ -->
+        <div class="confirm-screen-wrap" id="confirmScreen">
+          
+          <div class="confirm-summary-banner">
+            <div class="banner-left">
+              <div class="banner-icon">
+                <i class="fa-solid fa-calendar-check"></i>
+              </div>
+              <div class="banner-text">
+                <div class="slot-date-title" id="confirmBannerDate">Selected Slot</div>
+                <div class="slot-details-sub">
+                  <span><i class="fa-solid fa-clock"></i> 30-Minute Video Demo</span>
+                  <span><i class="fa-brands fa-google" style="color:#2563eb;"></i> via Google Meet</span>
+                </div>
+              </div>
+            </div>
+            <button class="change-slot-btn" onclick="Cal.backToSlots()">
+              <i class="fa-solid fa-arrow-left"></i> Change Slot
+            </button>
+          </div>
+
+          <p style="font-size:0.88rem;color:var(--text-muted);">
+            Please provide your details below. A calendar invite with your Google Meet link will be generated automatically.
+          </p>
+
+          <div class="form-row-2col">
+            <div class="input-group">
+              <label class="input-label" for="apptName">
+                Your Full Name <span class="req-star">*</span>
+              </label>
+              <input type="text" id="apptName" class="input-field" placeholder="e.g. Rajesh Kumar" required autocomplete="name">
+            </div>
+
+            <div class="input-group">
+              <label class="input-label" for="apptPhone">
+                WhatsApp Phone Number <span class="req-star">*</span>
+              </label>
+              <div class="phone-input-wrap">
+                <div class="country-code-pill">🇮🇳 +91</div>
+                <input type="tel" id="apptPhone" placeholder="98765 43210" required autocomplete="tel">
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="apptEmail">
+              Work / Business Email <span class="req-star">*</span>
+              <span class="hint">(Google Meet calendar invite will be sent here)</span>
+            </label>
+            <input type="email" id="apptEmail" class="input-field" placeholder="rajesh@yourcompany.com" required autocomplete="email">
+          </div>
+
+          <div class="form-row-2col">
+            <div class="input-group">
+              <label class="input-label" for="apptShop">
+                Business / Company Name
+              </label>
+              <input type="text" id="apptShop" class="input-field" placeholder="e.g. Apex Retail, Trendz Studio">
+            </div>
+
+            <div class="input-group">
+              <label class="input-label" for="apptBizCategory">
+                Industry / Business Category
+              </label>
+              <select id="apptBizCategory" class="input-field">
+                <option value="Retail & Store">Retail &amp; Supermarket</option>
+                <option value="Apparel & Fashion">Apparel, Fashion &amp; Boutiques</option>
+                <option value="E-Commerce & D2C">E-Commerce &amp; D2C Brand</option>
+                <option value="Restaurant & Food">Restaurant, Cafe &amp; Food Outlet</option>
+                <option value="Salon & Wellness">Salon, Spa &amp; Clinic</option>
+                <option value="B2B & Distribution">B2B, Wholesale &amp; Manufacturing</option>
+                <option value="Other Business">Other Business</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="submit-booking-cta" id="confirmBookingBtn" onclick="Cal.confirmBooking()">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Confirm &amp; Schedule Demo (30 Min)</span>
+          </button>
+
+          <div style="display:flex;align-items:center;justify-content:center;gap:16px;font-size:0.78rem;color:var(--text-muted);margin-top:4px;">
+            <span><i class="fa-solid fa-lock" style="color:var(--green-dark);"></i> Instant Confirmation</span>
+            <span><i class="fa-solid fa-circle-check" style="color:var(--green-dark);"></i> No Credit Card Required</span>
+          </div>
+        </div>
+
+        <!-- ═══ STEP 4: Success / Confirmation Celebration Screen ═══ -->
+        <div class="success-celebration-wrap" id="successScreen">
+          <div class="success-check-icon">
+            <i class="fa-solid fa-check"></i>
+          </div>
+          <h2>Demo Confirmed! 🎉</h2>
+          <p class="success-message-text" id="successMsgText">
+            Your appointment has been successfully scheduled. We have booked the meeting and sent an invitation with the Google Meet link directly to your email address.
+          </p>
+
+          <!-- Booked Appointment Details Summary Card -->
+          <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:var(--radius-md);padding:20px 24px;max-width:520px;width:100%;text-align:left;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--border);">
+              <div style="width:40px;height:40px;border-radius:10px;background:rgba(37,211,102,0.15);color:var(--green-dark);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">
+                <i class="fa-solid fa-calendar-check"></i>
+              </div>
+              <div>
+                <div style="font-size:0.75rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;">Scheduled Time</div>
+                <div id="confirmedDateTimeText" style="font-size:1rem;font-weight:800;color:var(--text);">Friday, Nov 6 · 02:00 PM IST</div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:40px;height:40px;border-radius:10px;background:rgba(59,130,246,0.12);color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div>
+                <div style="font-size:0.75rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;">Invitation Sent To</div>
+                <div id="confirmedEmailText" style="font-size:0.92rem;font-weight:700;color:var(--text);">user@example.com</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Google Meet Video Conference Box (shown when meet link generated) -->
+          <div class="meet-link-card" id="meetLinkCard" style="max-width:520px;">
+            <div class="head">
+              <i class="fa-brands fa-google" style="color:#1a73e8;"></i>
+              Google Meet Video Conference
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:10px;">
+              <a id="meetLinkAnchor" href="#" target="_blank" class="meet-anchor" style="margin-top:0;">
+                <i class="fa-solid fa-video"></i>
+                <span id="meetLinkText">https://meet.google.com/xxx-xxxx-xxx</span>
+              </a>
+              <button onclick="Cal.copyMeetLink()" id="copyMeetBtn" style="background:#fff;border:1px solid #86efac;color:#15803d;padding:6px 14px;border-radius:100px;font-size:0.78rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-family:inherit;">
+                <i class="fa-solid fa-copy"></i> <span>Copy Link</span>
+              </button>
+            </div>
+            <div style="font-size:0.75rem;color:#4b5563;margin-top:8px;">
+              The meeting link has also been added to your calendar invitation.
+            </div>
+          </div>
+
+          <div class="meet-actions-row" id="meetActionsRow" style="margin-top:8px;">
+            <a id="joinMeetBtn" href="#" target="_blank" class="btn-wa-action" style="background:linear-gradient(135deg,#1a73e8,#1557b0);box-shadow:0 4px 14px rgba(26,115,232,0.35);display:none;">
+              <i class="fa-solid fa-video"></i>
+              <span>Join Google Meet</span>
+            </a>
+            <a id="waDirectBtn" href="https://wa.me/918754702610" target="_blank" class="btn-wa-action">
+              <i class="fa-brands fa-whatsapp"></i>
+              <span>Chat on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ── Interactive Calendar & Slot Booking Engine ────────── -->
+  <script>
+    const Cal = {
+      year: 0,
+      month: 0,
+      selectedDate: null,
+      selectedSlot: null,
+      bookedSlots: {}, // Populated from /api/demo-booked-slots: { "YYYY-MM-DD": ["10:00 AM", ...] }
+
+      SLOTS: [
+        '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
+        '12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM',
+        '02:00 PM', '02:30 PM', '03:00 PM', '03:30 PM',
+        '04:00 PM', '04:30 PM', '05:00 PM'
+      ],
+
+      MONTHS: [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ],
+
+      DAYS_LONG: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      DAYS_SHORT: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+
+      async init() {
+        const now = new Date();
+        this.year = now.getFullYear();
+        this.month = now.getMonth();
+
+        // Check if coming back from Google Calendar OAuth connection
+        try {
+          const params = new URLSearchParams(window.location.search);
+          if (params.get('google_connected')) {
+            const banner = document.getElementById('googleNotifyBanner');
+            if (banner) banner.style.display = 'block';
+          } else if (params.get('google_error')) {
+            const banner = document.getElementById('googleNotifyBanner');
+            const txt = document.getElementById('googleNotifyText');
+            if (banner && txt) {
+              banner.style.background = '#fef2f2';
+              banner.style.borderBottomColor = '#fecaca';
+              banner.style.color = '#991b1b';
+              txt.textContent = 'Google connection issue: ' + decodeURIComponent(params.get('google_error'));
+              banner.style.display = 'block';
+            }
+          }
+        } catch (_) {}
+
+        // Check Google Calendar connection status to display connect banner if needed
+        try {
+          const gRes = await fetch('/api/google/status');
+          if (gRes.ok) {
+            const gData = await gRes.json();
+            this.googleConnected = gData.connected;
+            const banner = document.getElementById('googleConnectBanner');
+            if (banner) {
+              banner.style.display = gData.connected ? 'none' : 'block';
+            }
+          }
+        } catch (_) {}
+
+        // 1. Fetch live booked slots from SQLite backend
+        await this.loadBookedSlots();
+
+        // 2. Render current month calendar
+        this.renderMonth();
+
+        // 3. Auto-select today if valid weekday, or first available weekday
+        setTimeout(() => {
+          let targetBtn = document.querySelector('.day-cell.today:not(.disabled)');
+          if (!targetBtn) {
+            targetBtn = document.querySelector('.day-cell.has-open-slots:not(.disabled)');
+          }
+          if (targetBtn) {
+            targetBtn.click();
+          }
+        }, 50);
+
+        this.initTimezone();
+      },
+
+      initTimezone() {
+        try {
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Kolkata';
+          const offsetMinutes = -new Date().getTimezoneOffset();
+          const sign = offsetMinutes >= 0 ? '+' : '-';
+          const hours = String(Math.floor(Math.abs(offsetMinutes) / 60)).padStart(2, '0');
+          const mins = String(Math.abs(offsetMinutes) % 60).padStart(2, '0');
+          const prettyName = tz.split('/').pop().replace(/_/g, ' ');
+          const el = document.getElementById('tzDisplay');
+          if (el) {
+            el.innerHTML = `<i class="fa-regular fa-clock"></i> <span>${prettyName} (GMT${sign}${hours}:${mins})</span>`;
+          }
+        } catch (e) {
+          console.warn('Timezone detect failed', e);
+        }
+      },
+
+      async loadBookedSlots() {
+        try {
+          const res = await fetch('/api/demo-booked-slots');
+          if (res.ok) {
+            const data = await res.json();
+            this.bookedSlots = data.booked_slots || {};
+          }
+        } catch (err) {
+          console.warn('Could not fetch booked slots:', err);
+        }
+      },
+
+      dateKey(y, m, d) {
+        return `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+      },
+
+      isPast(y, m, d) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        return new Date(y, m, d) < today;
+      },
+
+      isWeekend(y, m, d) {
+        const dow = new Date(y, m, d).getDay();
+        return dow === 0 || dow === 6; // Sunday or Saturday
+      },
+
+      isDayFullyBooked(dateKey) {
+        const booked = this.bookedSlots[dateKey] || [];
+        return booked.length >= this.SLOTS.length;
+      },
+
+      renderMonth() {
+        const label = document.getElementById('monthYearLabel');
+        if (label) {
+          label.textContent = `${this.MONTHS[this.month]} ${this.year}`;
+        }
+
+        const now = new Date();
+        const prevBtn = document.getElementById('prevMonthBtn');
+        if (prevBtn) {
+          prevBtn.disabled = (this.year === now.getFullYear() && this.month <= now.getMonth());
+        }
+
+        const grid = document.getElementById('dayGrid');
+        grid.querySelectorAll('.day-cell').forEach(cell => cell.remove());
+
+        const firstDow = new Date(this.year, this.month, 1).getDay();
+        const daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
+        const todayKey = this.dateKey(now.getFullYear(), now.getMonth(), now.getDate());
+
+        // Fill empty padding days
+        for (let i = 0; i < firstDow; i++) {
+          const empty = document.createElement('button');
+          empty.className = 'day-cell empty';
+          empty.disabled = true;
+          grid.appendChild(empty);
+        }
+
+        // Fill month days
+        for (let d = 1; d <= daysInMonth; d++) {
+          const btn = document.createElement('button');
+          btn.className = 'day-cell';
+          btn.textContent = d;
+          const key = this.dateKey(this.year, this.month, d);
+
+          const isPastDate = this.isPast(this.year, this.month, d);
+          const isWeekendDay = this.isWeekend(this.year, this.month, d);
+          const isFull = this.isDayFullyBooked(key);
+
+          if (isPastDate || isWeekendDay) {
+            btn.classList.add('disabled');
+            btn.disabled = true;
+            if (isWeekendDay) {
+              btn.title = 'Closed on weekends';
+            }
+          } else if (isFull) {
+            btn.classList.add('all-booked');
+            btn.title = 'All slots booked for this date';
+          } else {
+            btn.classList.add('has-open-slots');
+          }
+
+          if (key === todayKey) {
+            btn.classList.add('today');
+          }
+          if (key === this.selectedDate) {
+            btn.classList.add('selected');
+          }
+
+          btn.onclick = () => this.selectDate(this.year, this.month, d, btn);
+          grid.appendChild(btn);
+        }
+      },
+
+      prevMonth() {
+        this.month--;
+        if (this.month < 0) {
+          this.month = 11;
+          this.year--;
+        }
+        this.renderMonth();
+      },
+
+      nextMonth() {
+        this.month++;
+        if (this.month > 11) {
+          this.month = 0;
+          this.year++;
+        }
+        this.renderMonth();
+      },
+
+      selectDate(y, m, d, btn) {
+        document.querySelectorAll('.day-cell.selected').forEach(c => c.classList.remove('selected'));
+        btn.classList.add('selected');
+        this.selectedDate = this.dateKey(y, m, d);
+        this.selectedSlot = null;
+
+        this.showSlotsForDate(y, m, d);
+
+        // Scroll to slots smoothly if on small screens
+        if (window.innerWidth <= 960) {
+          const sp = document.getElementById('slotsPane');
+          if (sp) sp.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      },
+
+      showSlotsForDate(y, m, d) {
+        const dateObj = new Date(y, m, d);
+        const dayName = this.DAYS_LONG[dateObj.getDay()];
+        const monthName = this.MONTHS[m];
+
+        document.getElementById('slotsHeaderDate').textContent = `${dayName}, ${monthName} ${d}, ${y}`;
+
+        const booked = this.bookedSlots[this.selectedDate] || [];
+        const availableCount = this.SLOTS.length - booked.length;
+
+        const badge = document.getElementById('slotsBadge');
+        if (badge) {
+          badge.textContent = `${availableCount} Available`;
+          badge.style.display = availableCount > 0 ? 'inline-block' : 'none';
+        }
+
+        const grid = document.getElementById('slotsGrid');
+        grid.innerHTML = '';
+
+        if (availableCount <= 0) {
+          grid.innerHTML = `
+            <div class="day-all-booked-box">
+              <i class="fa-solid fa-calendar-xmark"></i>
+              <h3>All Slots Booked</h3>
+              <p>All demo sessions for this date are fully reserved. Please pick another date on the calendar.</p>
+            </div>
+          `;
+          return;
+        }
+
+        this.SLOTS.forEach(slot => {
+          const isBooked = booked.includes(slot);
+          const btn = document.createElement('button');
+
+          if (isBooked) {
+            btn.className = 'slot-card-btn slot-booked';
+            btn.disabled = true;
+            btn.title = `The ${slot} slot has already been booked.`;
+            btn.innerHTML = `
+              <span class="slot-time-text">${slot}</span>
+              <span class="slot-booked-badge"><i class="fa-solid fa-lock"></i> Booked</span>
+            `;
+          } else {
+            btn.className = 'slot-card-btn';
+            btn.innerHTML = `
+              <span class="slot-time-text">${slot}</span>
+              <span class="slot-sub-info">30m · Meet</span>
+            `;
+            btn.onclick = () => this.selectSlot(slot, btn);
+          }
+
+          grid.appendChild(btn);
+        });
+      },
+
+      selectSlot(slot, btn) {
+        document.querySelectorAll('.slot-card-btn.selected').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        this.selectedSlot = slot;
+
+        // Transition smoothly to Confirmation View
+        setTimeout(() => {
+          const [y, m, d] = this.selectedDate.split('-').map(Number);
+          const dateObj = new Date(y, m - 1, d);
+          const dateString = `${this.DAYS_LONG[dateObj.getDay()]}, ${this.MONTHS[m - 1]} ${d}, ${y} at ${slot} IST`;
+
+          document.getElementById('confirmBannerDate').textContent = dateString;
+          document.getElementById('schedulerTitleText').textContent = 'Confirm Your Details';
+          document.getElementById('schedulerSubText').textContent = 'Enter your contact info to receive your Google Meet video invite.';
+
+          document.getElementById('calSlotsSection').style.display = 'none';
+          document.getElementById('confirmScreen').classList.add('active');
+
+          if (window.innerWidth <= 960) {
+            document.getElementById('confirmScreen').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 150);
+      },
+
+      backToSlots() {
+        document.getElementById('confirmScreen').classList.remove('active');
+        document.getElementById('calSlotsSection').style.display = 'flex';
+        document.getElementById('schedulerTitleText').textContent = 'Select Date & Time';
+        document.getElementById('schedulerSubText').textContent = 'Choose a day and an available 30-minute time slot for your demo.';
+      },
+
+      async confirmBooking() {
+        const name = (document.getElementById('apptName')?.value || '').trim();
+        const phone = (document.getElementById('apptPhone')?.value || '').trim();
+        const email = (document.getElementById('apptEmail')?.value || '').trim();
+        const shop = (document.getElementById('apptShop')?.value || '').trim();
+        const bizCategory = (document.getElementById('apptBizCategory')?.value || '').trim();
+
+        if (!name) {
+          alert('Please enter your Name.');
+          document.getElementById('apptName')?.focus();
+          return;
+        }
+
+        if (!phone || phone.length < 7) {
+          alert('Please enter a valid WhatsApp phone number.');
+          document.getElementById('apptPhone')?.focus();
+          return;
+        }
+
+        if (!email || !email.includes('@') || !email.includes('.')) {
+          alert('Please enter a valid Email address to receive your Google Meet invitation.');
+          document.getElementById('apptEmail')?.focus();
+          return;
+        }
+
+        const btn = document.getElementById('confirmBookingBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Scheduling Your Demo…';
+
+        try {
+          const res = await fetch('/api/demo-request', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name,
+              phone,
+              email,
+              shop,
+              city: '',
+              biz_type: bizCategory,
+              customers: '',
+              goal: `Booked Demo: ${this.selectedDate} at ${this.selectedSlot}`,
+              appointment_date: this.selectedDate,
+              appointment_time: this.selectedSlot
+            })
+          });
+
+          const data = await res.json();
+
+          if (res.ok && data.success) {
+            // Update local booked slots memory immediately
+            if (!this.bookedSlots[this.selectedDate]) {
+              this.bookedSlots[this.selectedDate] = [];
+            }
+            if (!this.bookedSlots[this.selectedDate].includes(this.selectedSlot)) {
+              this.bookedSlots[this.selectedDate].push(this.selectedSlot);
+            }
+
+            // Build dynamic confirmation details
+            const [y, m, d] = this.selectedDate.split('-').map(Number);
+            const dateObj = new Date(y, m - 1, d);
+            const formattedDate = `${this.DAYS_LONG[dateObj.getDay()]}, ${this.MONTHS[m - 1]} ${d}, ${y} at ${this.selectedSlot} IST`;
+
+            document.getElementById('confirmedDateTimeText').textContent = formattedDate;
+            document.getElementById('confirmedEmailText').textContent = email;
+            if (data.meet_link) {
+              document.getElementById('successMsgText').innerHTML =
+                `Your 30-minute demo has been booked for <strong>${formattedDate}</strong>. A Google Calendar invitation with your Google Meet link has been sent directly to <strong>${email}</strong>.`;
+            } else {
+              document.getElementById('successMsgText').innerHTML =
+                `Your demo has been registered for <strong>${formattedDate}</strong>.<br><span style="color:#b45309;font-size:0.86rem;font-weight:600;display:inline-block;margin-top:6px;"><i class="fa-solid fa-circle-exclamation"></i> Host Google Calendar is not connected yet. Once the host connects at <a href="/api/google/connect" target="_blank" style="color:#2563eb;text-decoration:underline;">/api/google/connect</a>, invites are automatically delivered to ${email}.</span>`;
+            }
+
+            // Display Google Meet link if generated
+            const meetCard = document.getElementById('meetLinkCard');
+            const joinBtn = document.getElementById('joinMeetBtn');
+            if (data.meet_link) {
+              document.getElementById('meetLinkAnchor').href = data.meet_link;
+              document.getElementById('meetLinkText').textContent = data.meet_link;
+              meetCard.style.display = 'block';
+              if (joinBtn) {
+                joinBtn.href = data.meet_link;
+                joinBtn.style.display = 'inline-flex';
+              }
+            } else {
+              meetCard.style.display = 'none';
+              if (joinBtn) joinBtn.style.display = 'none';
+            }
+
+            // Google Calendar direct Add-to-Calendar button (manual fallback)
+            const gcalBtn = document.getElementById('gcalAddBtn');
+            if (gcalBtn) {
+              if (data.calendar_add_url) {
+                gcalBtn.href = data.calendar_add_url;
+                gcalBtn.style.display = 'inline-flex';
+              } else {
+                gcalBtn.style.display = 'none';
+              }
+            }
+
+            // WhatsApp direct chat button
+            const waUrl = `https://wa.me/918754702610?text=Hi!%20I%20just%20booked%20a%20demo%20on%20EasyToReach%20for%20${encodeURIComponent(this.selectedDate)}%20at%20${encodeURIComponent(this.selectedSlot)}%20(${encodeURIComponent(name)})`;
+            document.getElementById('waDirectBtn').href = waUrl;
+
+            // Transition to Success Screen
+            document.getElementById('schedulerHead').style.display = 'none';
+            document.getElementById('confirmScreen').classList.remove('active');
+            document.getElementById('calSlotsSection').style.display = 'none';
+            document.getElementById('successScreen').classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+          } else if (res.status === 409) {
+            // Double-booking conflict
+            alert(data.error || 'This slot has already been booked. Please pick another available time slot.');
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Confirm &amp; Schedule Demo (30 Min)';
+            // Refresh booked slots and return to slots picker
+            await this.loadBookedSlots();
+            this.backToSlots();
+            const [y, m, d] = this.selectedDate.split('-').map(Number);
+            this.showSlotsForDate(y, m - 1, d);
+          } else {
+            alert(data.error || 'Something went wrong while booking. Please try again.');
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Confirm &amp; Schedule Demo (30 Min)';
+          }
+        } catch (err) {
+          console.error('Booking error:', err);
+          alert('Network connection error. Please try again.');
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Confirm &amp; Schedule Demo (30 Min)';
+        }
+      },
+
+      copyMeetLink() {
+        const link = document.getElementById('meetLinkAnchor')?.href;
+        if (!link) return;
+        navigator.clipboard.writeText(link).then(() => {
+          const btn = document.getElementById('copyMeetBtn');
+          if (btn) {
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> <span>Copied!</span>';
+            setTimeout(() => {
+              btn.innerHTML = '<i class="fa-solid fa-copy"></i> <span>Copy Link</span>';
+            }, 2000);
+          }
+        }).catch(() => {
+          prompt('Copy this Google Meet link:', link);
+        });
+      },
+
+      async bookAnother() {
+        this.selectedDate = null;
+        this.selectedSlot = null;
+
+        await this.loadBookedSlots();
+
+        document.getElementById('successScreen').classList.remove('active');
+        document.getElementById('confirmScreen').classList.remove('active');
+        document.getElementById('schedulerHead').style.display = 'flex';
+        document.getElementById('calSlotsSection').style.display = 'flex';
+        document.getElementById('schedulerTitleText').textContent = 'Select Date & Time';
+        document.getElementById('schedulerSubText').textContent = 'Choose a day and an available 30-minute time slot for your demo.';
+
+        this.renderMonth();
+
+        let targetBtn = document.querySelector('.day-cell.today:not(.disabled)');
+        if (!targetBtn) {
+          targetBtn = document.querySelector('.day-cell.has-open-slots:not(.disabled)');
+        }
+        if (targetBtn) {
+          targetBtn.click();
+        }
+      }
+    };
+
+    // Initialize calendar on page load
+    document.addEventListener('DOMContentLoaded', () => Cal.init());
+  </script>
+</body>
+</html>
